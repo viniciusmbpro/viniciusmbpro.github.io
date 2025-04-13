@@ -63,6 +63,39 @@
     .tech-icon:hover {
       transform: translateY(-5px);
     }
+
+    /* Botão flutuante de e-mail para mobile */
+    .floating-mail-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #55BB00, #63D3BE);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      transform: scale(0);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-mail-btn.show {
+      transform: scale(1);
+    }
+
+    .floating-mail-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Mostrar apenas em dispositivos móveis */
+    @media (min-width: 768px) {
+      .floating-mail-btn {
+        display: none;
+      }
+    }
   </style>
   <!-- Idioma -->
   <script>
@@ -540,8 +573,41 @@
     </div>
   </footer>
 
+  <!-- Botão flutuante de e-mail para mobile -->
+  <a href="mailto:viniciusmbpro@gmail.com" class="floating-mail-btn" id="floatingMailBtn" aria-label="Enviar e-mail">
+    <ion-icon name="mail-outline" class="text-background text-2xl"></ion-icon>
+  </a>
+
   <!-- Ion Icons -->
   <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+  <!-- Script do botão flutuante -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Mostrar o botão flutuante após um pequeno delay
+      setTimeout(function () {
+        document.getElementById('floatingMailBtn').classList.add('show');
+      }, 1000);
+
+      // Esconder o botão quando o usuário rolar para cima e mostrar quando rolar para baixo
+      let lastScrollTop = 0;
+      const floatingBtn = document.getElementById('floatingMailBtn');
+
+      window.addEventListener('scroll', function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > lastScrollTop && scrollTop > 300) {
+          // Rolando para baixo e já passou do topo
+          floatingBtn.classList.add('show');
+        } else if (scrollTop < 100) {
+          // Próximo ao topo, esconder o botão
+          floatingBtn.classList.remove('show');
+        }
+
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      }, false);
+    });
+  </script>
 </body>
 
 </html>
