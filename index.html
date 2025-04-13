@@ -1,77 +1,439 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfólio Vinícius Marques</title>
+  <title>Vinícius Marques | Desenvolvedor</title>
+  <!-- Favicon -->
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/favicon-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+  <meta name="theme-color" content="#0E2A52">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,700;0,900;1,300;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <!-- Dev Icon Fonts -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@master/devicon.min.css">
-  <!-- CSS do Projeto -->
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#55BB00',
+            secondary: '#63D3BE',
+            accent: '#3CB4D6',
+            background: '#0E2A52',
+            darkblue: '#081C38',
+            lightblue: '#1A3A6A',
+          },
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0E2A52;
+      background-image: radial-gradient(#1A3A6A 0.5px, #0E2A52 0.5px);
+      background-size: 20px 20px;
+    }
+
+    .glow {
+      text-shadow: 0 0 10px rgba(85, 187, 0, 0.5);
+    }
+
+    .glass {
+      background: rgba(10, 34, 66, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tech-icon {
+      transition: all 0.3s ease;
+    }
+
+    .tech-icon:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+  <!-- Idioma -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const userLang = navigator.language || navigator.userLanguage;
+      setLanguage(userLang.includes('pt') ? 'pt' : 'en');
+
+      document.getElementById('lang-pt').addEventListener('click', () => setLanguage('pt'));
+      document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+    });
+
+    function setLanguage(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.add('hidden');
+      });
+
+      document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
+        el.classList.remove('hidden');
+      });
+
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en-US';
+
+      // Ativar botão de idioma selecionado
+      document.getElementById('lang-pt').classList.toggle('bg-primary', lang === 'pt');
+      document.getElementById('lang-pt').classList.toggle('text-background', lang === 'pt');
+      document.getElementById('lang-en').classList.toggle('bg-primary', lang === 'en');
+      document.getElementById('lang-en').classList.toggle('text-background', lang === 'en');
+    }
+  </script>
 </head>
-<body>
-  <main id="container">
-    <aside id="bio-container">
-      <h2>Vinícius Marques</h2>
-      <img id="bio-image" src="img/profile.png" alt="Vinícius Marques">
-      <p>Olá, meu nome é Vinícius Marques e sou <span class="highlight">Desenvolvedor Back-end</span>.</p>
-      <p id="welcome-text">Seja bem-vindo!</p>
-      <ul id="social-container">
-        <!-- <li><a href="#" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li> -->
-        <li><a href="https://www.linkedin.com/in/viniciusmbpro" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-        <li><a href="https://instagram.com/viniciusmarquesbezerra" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
-      </ul>
-      <div id="email-container">
-        <ion-icon name="mail-outline"></ion-icon><a href="mailto:viniciusmbpro@gmail.com">viniciusmbpro@gmail.com</a>
+
+<body class="text-white min-h-screen">
+  <!-- Header/Navbar -->
+  <header class="glass sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="text-primary font-bold text-xl">VM<span class="text-white">Dev</span></a>
+
+      <!-- Seletor de idioma -->
+      <div class="flex items-center gap-3">
+        <div class="flex rounded-full border border-accent overflow-hidden">
+          <button id="lang-pt" class="px-3 py-1 text-sm font-medium transition duration-300">PT</button>
+          <button id="lang-en" class="px-3 py-1 text-sm font-medium transition duration-300">EN</button>
+        </div>
+
+        <ul class="flex gap-4 items-center">
+          <li><a href="https://www.linkedin.com/in/viniciusmbpro" target="_blank"
+              class="text-accent hover:text-primary transition-colors duration-300 text-xl"><ion-icon
+                name="logo-linkedin"></ion-icon></a></li>
+          <li><a href="https://github.com/viniciusmbpro" target="_blank"
+              class="text-accent hover:text-primary transition-colors duration-300 text-xl"><ion-icon
+                name="logo-github"></ion-icon></a></li>
+          <li><a href="mailto:viniciusmbpro@gmail.com"
+              class="text-accent hover:text-primary transition-colors duration-300 text-xl"><ion-icon
+                name="mail-outline"></ion-icon></a></li>
+        </ul>
       </div>
-    </aside>
-    <section id="about-container">
-      <h1 id="name">Vinícius Marques</h1>
-      <p id="title"><span class="highlight">Desenvolvedor Back-end</span></p>
-      <p class="description">Sou um desenvolvedor especializado em web, gosto de participar do projeto desde a <span class="highlight">definição das regras de negócio e levantamento de requisito</span> até o <span class="highlight">deploy da aplicação</span>.</p>
-      <p class="description">Atuo tanto no <span class="highlight">front</span> como no <span class="highlight">back-end</span>, e amo tecnologia, estudo todos os dias para me tornar cada vez melhor e escrever código de qualidade.</p>
-      <a href="https://github.com/viniciusmbpro#my-projects" id="btn-projects"><ion-icon name="share-social-outline"></ion-icon> <span>Ver Projetos</span></a>
-      <h2 id="skills-section-title">Minhas Skills</h2>
-      <p class="description">Conheça as tecnologias que domino:</p>
-      <div id="skills-container">
-        <div class="skills-box">
-          <p class="skills-title">Front-end</p>
-          <i class="devicon-html5-plain colored"></i>
-          <i class="devicon-css3-plain colored"></i>
-          <i class="devicon-javascript-plain colored"></i>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="py-16 container mx-auto px-6 md:px-12">
+    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+      <div class="md:w-1/2">
+        <div class="relative mb-4">
+          <span class="absolute -left-2 -top-2 w-8 h-8 border-t-4 border-l-4 border-primary"></span>
+          <span class="absolute -right-2 -top-2 w-8 h-8 border-t-4 border-r-4 border-secondary"></span>
+          <span class="absolute -left-2 -bottom-2 w-8 h-8 border-b-4 border-l-4 border-accent"></span>
+          <span class="absolute -right-2 -bottom-2 w-8 h-8 border-b-4 border-r-4 border-primary"></span>
+          <img src="img/profile.jpeg" alt="Vinícius Marques"
+            class="w-64 h-64 mx-auto object-cover rounded-2xl border-2 border-accent/30">
         </div>
-        <div class="skills-box">
-          <p class="skills-title">Back-end</p>
-          <i class="devicon-php-plain colored"></i>
-          <!-- <i class="devicon-nodejs-plain colored"></i> -->
-          <i class="devicon-python-plain colored"></i>
+        <ul class="flex justify-center gap-4 mt-6">
+          <li><a href="https://www.linkedin.com/in/viniciusmbpro" target="_blank"
+              class="text-accent hover:text-primary transition-colors duration-300 text-3xl"><ion-icon
+                name="logo-linkedin"></ion-icon></a></li>
+          <li><a href="https://github.com/viniciusmbpro" target="_blank"
+              class="text-accent hover:text-primary transition-colors duration-300 text-3xl"><ion-icon
+                name="logo-github"></ion-icon></a></li>
+          <li><a href="https://instagram.com/viniciusmarquesbezerra" target="_blank"
+              class="text-accent hover:text-primary transition-colors duration-300 text-3xl"><ion-icon
+                name="logo-instagram"></ion-icon></a></li>
+        </ul>
+      </div>
+
+      <div class="md:w-1/2">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          <span data-lang="pt">Olá, sou</span>
+          <span data-lang="en" class="hidden">Hi, I'm</span>
+          <div class="mt-2">Vinícius <span class="text-primary glow">Marques</span></div>
+        </h1>
+
+        <div data-lang="pt">
+          <p class="text-2xl font-bold mb-4 text-secondary">Desenvolvedor Full Stack & Gerente de TI</p>
+          <p class="text-lg text-gray-300 mb-8">Especialista em AppSheet com foco em integração de sistemas e
+            desenvolvimento de soluções personalizadas para empresas.</p>
         </div>
-        <div class="skills-box">
-          <p class="skills-title">Databases</p>
-          <i class="devicon-mysql-plain colored"></i>
-          <!-- <i class="devicon-mongodb-plain colored"></i> -->
+
+        <div data-lang="en" class="hidden">
+          <p class="text-2xl font-bold mb-4 text-secondary">Full Stack Developer & IT Manager</p>
+          <p class="text-lg text-gray-300 mb-8">AppSheet specialist focused on systems integration and development of
+            custom solutions for companies.</p>
         </div>
-        <!-- <div class="skills-box">
-          <p class="skills-title">Front-end Frameworks</p>
-          <i class="devicon-react-plain colored"></i>
-          <i class="devicon-vuejs-plain colored"></i>
-        </div> -->
-        <div class="skills-box">
-          <p class="skills-title">Back-end Frameworks</p>
-          <!-- <i class="devicon-laravel-plain colored"></i> -->
-          <i class="devicon-django-plain colored"></i>
-        </div>
-        <div class="skills-box">
-          <p class="skills-title">Tools</p>
-          <i class="devicon-linux-plain colored"></i>
-          <!-- <i class="devicon-docker-plain colored"></i> -->
+
+        <a href="https://github.com/viniciusmbpro#projects" target="_blank"
+          class="inline-flex items-center bg-primary text-background px-6 py-3 rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20">
+          <ion-icon name="code-slash-outline" class="mr-2 text-xl"></ion-icon>
+          <span data-lang="pt">Ver Projetos</span>
+          <span data-lang="en" class="hidden">View Projects</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Section -->
+  <section class="py-16 container mx-auto px-6 md:px-12">
+    <div class="glass rounded-3xl p-8 md:p-12">
+      <div class="flex flex-col md:flex-row gap-12">
+        <div class="w-full">
+          <div class="inline-block mb-8">
+            <h2 class="text-3xl font-bold mb-2 relative">
+              <div class="absolute -left-6 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-primary rounded-full"></div>
+              <span data-lang="pt">Sobre Mim</span>
+              <span data-lang="en" class="hidden">About Me</span>
+            </h2>
+            <div class="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded"></div>
+          </div>
+
+          <!-- Conteúdo em Português -->
+          <div data-lang="pt" class="space-y-4 text-gray-300">
+            <p>Sou desenvolvedor com mais de dois anos de experiência profissional, com especialidade em AppSheet,
+              atuando como gerente de tecnologia da informação em uma equipe composta por quatro desenvolvedores. Nossa
+              equipe é responsável pelo desenvolvimento de sistemas internos para uma empresa de fretamento de
+              transporte, atendendo tanto ao fretamento contínuo quanto eventual.</p>
+
+            <p>Nesse contexto, já desenvolvemos diversos sistemas com finalidades específicas, incluindo:</p>
+
+            <ul class="list-disc pl-6 mb-4 space-y-1">
+              <li>Gestão de contratos</li>
+              <li>Gestão de tarefas e reuniões internas</li>
+              <li>Sistemas de CRM</li>
+              <li>Emissão de documentos e propostas comerciais</li>
+            </ul>
+
+            <p>Além do AppSheet, tenho experiência em desenvolvimento com outras tecnologias como Python (Django), React
+              e Next.js, trabalhando tanto como freelancer quanto em projetos internos da empresa. Uma das minhas
+              especialidades é a integração entre sistemas, ampliando as capacidades do AppSheet por meio de:</p>
+
+            <ul class="list-disc pl-6 mb-4 space-y-1">
+              <li>Integração com Google Apps Script</li>
+              <li>Consumo e exposição de APIs RESTful (como a API do AppSheet e APIs desenvolvidas com Django ou
+                Next.js)</li>
+              <li>Automatizações e fluxos entre sistemas para garantir maior robustez, eficiência e escalabilidade das
+                soluções desenvolvidas</li>
+            </ul>
+
+            <p>Sou graduado em Análise e Desenvolvimento de Sistemas, já atuei como professor de TI, e também tive a
+              oportunidade de palestrar em eventos de tecnologia, como a Campus Party.</p>
+          </div>
+
+          <!-- Conteúdo em Inglês -->
+          <div data-lang="en" class="hidden space-y-4 text-gray-300">
+            <p>I'm a developer with over two years of professional experience, specializing in AppSheet, working as an
+              IT manager leading a team of four developers. Our team is responsible for developing internal systems for
+              a transportation charter company, serving both continuous and occasional charters.</p>
+
+            <p>In this context, we've developed several systems with specific purposes, including:</p>
+
+            <ul class="list-disc pl-6 mb-4 space-y-1">
+              <li>Contract management</li>
+              <li>Task management and internal meetings</li>
+              <li>CRM systems</li>
+              <li>Document issuance and commercial proposals</li>
+            </ul>
+
+            <p>Beyond AppSheet, I have experience developing with other technologies such as Python (Django), React, and
+              Next.js, working both as a freelancer and on internal company projects. One of my specialties is systems
+              integration, expanding AppSheet capabilities through:</p>
+
+            <ul class="list-disc pl-6 mb-4 space-y-1">
+              <li>Integration with Google Apps Script</li>
+              <li>Consuming and exposing RESTful APIs (such as AppSheet API and APIs developed with Django or Next.js)
+              </li>
+              <li>Automations and workflows between systems to ensure greater robustness, efficiency, and scalability of
+                developed solutions</li>
+            </ul>
+
+            <p>I have a degree in Systems Analysis and Development, have worked as an IT teacher, and have had the
+              opportunity to speak at technology events such as Campus Party.</p>
+          </div>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Habilidades Section -->
+  <section class="py-16 container mx-auto px-6 md:px-12">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-3">
+        <span data-lang="pt">Minhas Habilidades</span>
+        <span data-lang="en" class="hidden">My Skills</span>
+      </h2>
+      <div class="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded mx-auto"></div>
+      <p class="mt-4 text-gray-300" data-lang="pt">Tecnologias que utilizo no dia a dia</p>
+      <p class="mt-4 text-gray-300 hidden" data-lang="en">Technologies I use every day</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Front-end Card -->
+      <div
+        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 border border-lightblue">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-gradient-to-br from-primary to-secondary rounded-lg">
+            <ion-icon name="layers-outline" class="text-xl text-background"></ion-icon>
+          </div>
+          <h3 class="text-xl font-bold">Front-end</h3>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="tech-icon">
+            <i class="devicon-html5-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-css3-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-javascript-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-react-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-nextjs-original text-4xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back-end Card -->
+      <div
+        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 border border-lightblue">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-gradient-to-br from-secondary to-accent rounded-lg">
+            <ion-icon name="server-outline" class="text-xl text-background"></ion-icon>
+          </div>
+          <h3 class="text-xl font-bold">Back-end</h3>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="tech-icon">
+            <i class="devicon-python-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-django-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-nodejs-plain colored text-4xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Database Card -->
+      <div
+        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 border border-lightblue">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-gradient-to-br from-accent to-primary rounded-lg">
+            <ion-icon name="cube-outline" class="text-xl text-background"></ion-icon>
+          </div>
+          <h3 class="text-xl font-bold">Database</h3>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="tech-icon">
+            <i class="devicon-mysql-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-postgresql-plain colored text-4xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Low-Code Card -->
+      <div
+        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 border border-lightblue">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-gradient-to-br from-primary to-secondary rounded-lg">
+            <ion-icon name="flash-outline" class="text-xl text-background"></ion-icon>
+          </div>
+          <h3 class="text-xl font-bold">Low-Code</h3>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="tech-icon p-2">
+            <span class="text-2xl text-primary font-medium">AppSheet</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools Card -->
+      <div
+        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 border border-lightblue">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-gradient-to-br from-secondary to-accent rounded-lg">
+            <ion-icon name="construct-outline" class="text-xl text-background"></ion-icon>
+          </div>
+          <h3 class="text-xl font-bold">Tools</h3>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="tech-icon">
+            <i class="devicon-git-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-github-original text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-vscode-plain colored text-4xl"></i>
+          </div>
+          <div class="tech-icon">
+            <i class="devicon-googlecloud-plain colored text-4xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Integration Card -->
+      <div
+        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 border border-lightblue">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="p-2 bg-gradient-to-br from-accent to-primary rounded-lg">
+            <ion-icon name="git-network-outline" class="text-xl text-background"></ion-icon>
+          </div>
+          <h3 class="text-xl font-bold" data-lang="pt">Integração</h3>
+          <h3 class="text-xl font-bold hidden" data-lang="en">Integration</h3>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="tech-icon p-2">
+            <span class="text-2xl text-accent font-medium">REST API</span>
+          </div>
+          <div class="tech-icon p-2">
+            <span class="text-2xl text-secondary font-medium">Apps Script</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA/Contato Section -->
+  <section class="py-16 container mx-auto px-6 md:px-12">
+    <div class="glass rounded-3xl p-8 md:p-12 text-center">
+      <h2 class="text-3xl font-bold mb-4">
+        <span data-lang="pt">Vamos Trabalhar Juntos?</span>
+        <span data-lang="en" class="hidden">Let's Work Together?</span>
+      </h2>
+      <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+        <span data-lang="pt">Estou disponível para novos projetos e oportunidades. Entre em contato para discutirmos
+          como posso ajudar a transformar suas ideias em realidade.</span>
+        <span data-lang="en" class="hidden">I'm available for new projects and opportunities. Get in touch to discuss
+          how I can help transform your ideas into reality.</span>
+      </p>
+      <a href="mailto:viniciusmbpro@gmail.com"
+        class="inline-flex items-center bg-gradient-to-r from-primary to-secondary text-background px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-all duration-300 shadow-lg">
+        <ion-icon name="mail-outline" class="mr-2 text-xl"></ion-icon>
+        <span data-lang="pt">Enviar Mensagem</span>
+        <span data-lang="en" class="hidden">Send Message</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-lightblue">
+    <div class="container mx-auto px-6 md:px-12 text-center">
+      <p class="text-sm text-gray-400">© 2024 Vinícius Marques. <span data-lang="pt">Todos os direitos
+          reservados</span><span data-lang="en" class="hidden">All rights reserved</span>.</p>
+    </div>
+  </footer>
+
   <!-- Ion Icons -->
   <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
 </body>
+
 </html>

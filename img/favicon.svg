@@ -1,0 +1,36 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      #background {
+        fill: #0E2A52;
+      }
+
+      #letter-v {
+        stroke: #55BB00;
+      }
+
+      #letter-m {
+        stroke: #63D3BE;
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      #background {
+        fill: #0E2A52;
+      }
+
+      #letter-v {
+        stroke: #55BB00;
+      }
+
+      #letter-m {
+        stroke: #63D3BE;
+      }
+    }
+  </style>
+  <rect id="background" width="64" height="64" rx="12" fill="#0E2A52" />
+  <path id="letter-v" d="M14 18L22 42L30 18" stroke="#55BB00" stroke-width="6" stroke-linecap="round"
+    stroke-linejoin="round" />
+  <path id="letter-m" d="M34 18L42 30L50 18M34 42L42 30L50 42" stroke="#63D3BE" stroke-width="6" stroke-linecap="round"
+    stroke-linejoin="round" />
+</svg>
