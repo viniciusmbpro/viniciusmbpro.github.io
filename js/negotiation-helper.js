@@ -355,6 +355,41 @@ document.addEventListener('DOMContentLoaded', function() {
       en: 'My payment terms are fifty percent upfront and fifty percent upon completion.',
       pt: 'Meus termos de pagamento são cinquenta por cento adiantado e cinquenta por cento após a conclusão.'
     },
+    {
+      category: 'rates',
+      en: 'I understand your budget constraints, but my rate reflects the expertise and quality I bring to this project.',
+      pt: 'Entendo suas restrições orçamentárias, mas minha taxa reflete a experiência e qualidade que trago para este projeto.'
+    },
+    {
+      category: 'rates',
+      en: 'While I can\'t lower my hourly rate, I could reduce the project scope to fit your budget.',
+      pt: 'Embora eu não possa reduzir minha taxa horária, posso reduzir o escopo do projeto para se adequar ao seu orçamento.'
+    },
+    {
+      category: 'rates',
+      en: 'What specific budget are you working with? I might be able to adjust the deliverables accordingly.',
+      pt: 'Com qual orçamento específico você está trabalhando? Eu poderia ajustar os entregáveis de acordo.'
+    },
+    {
+      category: 'rates',
+      en: 'I value long-term relationships, so I could offer a fifteen percent discount if we agree to a six-month contract.',
+      pt: 'Valorizo relacionamentos de longo prazo, então poderia oferecer um desconto de quinze por cento se concordarmos com um contrato de seis meses.'
+    },
+    {
+      category: 'rates',
+      en: 'Instead of reducing the price, I could include additional features that would normally cost extra.',
+      pt: 'Em vez de reduzir o preço, eu poderia incluir recursos adicionais que normalmente custariam extra.'
+    },
+    {
+      category: 'rates',
+      en: 'My rate is based on the value this solution will provide to your business, not just the hours worked.',
+      pt: 'Minha taxa é baseada no valor que esta solução proporcionará ao seu negócio, não apenas nas horas trabalhadas.'
+    },
+    {
+      category: 'rates',
+      en: 'I could offer a payment plan of three installments to make it more manageable for your budget.',
+      pt: 'Eu poderia oferecer um plano de pagamento de três parcelas para torná-lo mais administrável para o seu orçamento.'
+    },
     
     // 11. Closing / Encerramento da Reunião
     {
