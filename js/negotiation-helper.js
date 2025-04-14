@@ -1,35 +1,70 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Dados e variáveis
   const phrasesData = [
-    // Project Overview
+    // 1. Introdução e Apresentação - Início da conversa
+    {
+      category: 'introduction',
+      en: 'Hi, I\'m Vinícius. Thanks for meeting with me today.',
+      pt: 'Olá, sou Vinícius. Obrigado por se reunir comigo hoje.'
+    },
+    {
+      category: 'introduction',
+      en: 'It\'s great to connect with you and discuss your project needs.',
+      pt: 'É ótimo conversar com você e discutir as necessidades do seu projeto.'
+    },
+    {
+      category: 'introduction',
+      en: 'Before we start, do you mind if I take some notes?',
+      pt: 'Antes de começarmos, você se incomoda se eu fizer algumas anotações?'
+    },
+    {
+      category: 'introduction',
+      en: 'Could you tell me a bit about your role in the company?',
+      pt: 'Você poderia me falar um pouco sobre sua função na empresa?'
+    },
+    {
+      category: 'introduction',
+      en: 'What are the main challenges your team is facing right now?',
+      pt: 'Quais são os principais desafios que sua equipe está enfrentando agora?'
+    },
+
+    // 2. Project Overview / Entendimento do Projeto
     {
       category: 'overview',
-      en: 'At the moment I am developing a CRM application that automates everything from generating proposals to prospecting clients.',
-      pt: 'No momento estou desenvolvendo uma aplicação CRM que automatiza tudo, desde a geração de propostas até a prospecção de clientes.'
+      en: 'Could you walk me through your current process?',
+      pt: 'Você poderia me explicar seu processo atual?'
     },
     {
       category: 'overview',
-      en: 'I\'d like to hear more about the tasks you have in mind, so I can fully understand the context and help you reach your goal.',
-      pt: 'Gostaria de saber mais sobre as tarefas que você tem em mente, para que eu possa entender completamente o contexto e ajudá-lo a alcançar seu objetivo.'
-    },
-    
-    // Areas for Improvement
-    {
-      category: 'improvement',
-      en: 'Understood. I can review the automations and optimize performance.',
-      pt: 'Entendido. Posso revisar as automações e otimizar o desempenho.'
+      en: 'What specific problems are you trying to solve?',
+      pt: 'Quais problemas específicos você está tentando resolver?'
     },
     {
-      category: 'improvement',
-      en: 'Improving the user interface is also something I can help with—do you have any specific examples of what\'s not working well for your team?',
-      pt: 'Melhorar a interface do usuário também é algo com o qual posso ajudar — você tem exemplos específicos do que não está funcionando bem para sua equipe?'
+      category: 'overview',
+      en: 'Who are the main users of this system?',
+      pt: 'Quem são os principais usuários deste sistema?'
+    },
+    {
+      category: 'overview',
+      en: 'What would success look like for this project?',
+      pt: 'Como seria o sucesso para este projeto?'
+    },
+    {
+      category: 'overview',
+      en: 'Are there any deadlines we should be aware of?',
+      pt: 'Existem prazos que devemos considerar?'
+    },
+    {
+      category: 'overview',
+      en: 'Let me make sure I understand - you need a solution that...',
+      pt: 'Deixe-me confirmar - você precisa de uma solução que...'
     },
     
-    // Clarification Requests
+    // 3. Clarification Requests / Pedidos de Esclarecimento
     {
       category: 'clarification',
-      en: 'Sorry, could you repeat that, please?',
-      pt: 'Desculpe, você poderia repetir isso, por favor?'
+      en: 'Sorry, could you repeat that?',
+      pt: 'Desculpe, você poderia repetir?'
     },
     {
       category: 'clarification',
@@ -38,22 +73,183 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'clarification',
-      en: 'Just to make sure I understood… are you saying that…',
-      pt: 'Só para ter certeza de que entendi... você está dizendo que...'
+      en: 'Just to confirm I understand...',
+      pt: 'Só para confirmar que entendi...'
+    },
+    {
+      category: 'clarification',
+      en: 'Could you give me a specific example of that?',
+      pt: 'Você poderia me dar um exemplo específico disso?'
+    },
+    {
+      category: 'clarification',
+      en: 'What do you mean by [term]?',
+      pt: 'O que você quer dizer com [termo]?'
+    },
+    {
+      category: 'clarification',
+      en: 'Could you explain the context a bit more?',
+      pt: 'Você poderia explicar um pouco mais o contexto?'
+    },
+    {
+      category: 'clarification',
+      en: 'I want to make sure I\'m addressing your main concern. Is it [...]?',
+      pt: 'Quero garantir que estou abordando sua principal preocupação. É [...]?'
     },
     
-    // Terminology Clarification
+    // 4. Terminology / Terminologia
     {
       category: 'terminology',
-      en: 'I\'m not familiar with that term—can you explain it briefly?',
-      pt: 'Não estou familiarizado com esse termo — você pode explicá-lo brevemente?'
+      en: 'I\'m not familiar with that term - what does it mean in your business?',
+      pt: 'Não estou familiarizado com esse termo - o que ele significa no seu negócio?'
+    },
+    {
+      category: 'terminology',
+      en: 'In AppSheet, we call this [term]. It lets you [functionality].',
+      pt: 'No AppSheet, chamamos isso de [termo]. Ele permite que você [funcionalidade].'
+    },
+    {
+      category: 'terminology',
+      en: 'Are you using "workflow" to refer to approval processes?',
+      pt: 'Você está usando "fluxo de trabalho" para se referir a processos de aprovação?'
+    },
+    {
+      category: 'terminology',
+      en: 'When you say "automation", what specific tasks are you looking to automate?',
+      pt: 'Quando você diz "automação", quais tarefas específicas você deseja automatizar?'
+    },
+    {
+      category: 'terminology',
+      en: 'API stands for Application Programming Interface. It\'s how different systems talk to each other.',
+      pt: 'API significa Interface de Programação de Aplicativos. É como diferentes sistemas se comunicam entre si.'
+    },
+    {
+      category: 'terminology',
+      en: 'A webhook is a way for apps to provide real-time information to other apps.',
+      pt: 'Um webhook é uma forma para aplicativos fornecerem informações em tempo real para outros aplicativos.'
     },
     
-    // Affirmations and Agreements
+    // 5. Initial Assessment / Avaliação Inicial
+    {
+      category: 'assessment',
+      en: 'Based on what you\'ve described, AppSheet would be a good fit because...',
+      pt: 'Com base no que você descreveu, o AppSheet seria adequado porque...'
+    },
+    {
+      category: 'assessment',
+      en: 'I\'ve worked on similar projects and can definitely help with this.',
+      pt: 'Já trabalhei em projetos semelhantes e posso certamente ajudar com isso.'
+    },
+    {
+      category: 'assessment',
+      en: 'There are a few different approaches we could take:',
+      pt: 'Existem algumas abordagens diferentes que poderíamos adotar:'
+    },
+    {
+      category: 'assessment',
+      en: 'The main challenge I see is [challenge], but we can solve it by [solution].',
+      pt: 'O principal desafio que vejo é [desafio], mas podemos resolvê-lo com [solução].'
+    },
+    {
+      category: 'assessment',
+      en: 'I think we can build this solution in about [timeframe].',
+      pt: 'Acredito que podemos construir esta solução em cerca de [prazo].'
+    },
+    {
+      category: 'assessment',
+      en: 'The approach I recommend would be to start with [first step], then [next steps].',
+      pt: 'A abordagem que recomendo seria começar com [primeiro passo], depois [próximos passos].'
+    },
+    {
+      category: 'assessment',
+      en: 'To be honest, there are some limitations in AppSheet for what you\'re asking. Let me explain them.',
+      pt: 'Para ser honesto, existem algumas limitações no AppSheet para o que você está pedindo. Deixe-me explicá-las.'
+    },
+    
+    // 6. Areas for Improvement / Áreas para Melhoria
+    {
+      category: 'improvement',
+      en: 'I notice your current process has a bottleneck at [step]. We can improve that.',
+      pt: 'Percebo que seu processo atual tem um gargalo em [etapa]. Podemos melhorar isso.'
+    },
+    {
+      category: 'improvement',
+      en: 'Is your team finding the current interface easy to use?',
+      pt: 'Sua equipe está achando a interface atual fácil de usar?'
+    },
+    {
+      category: 'improvement',
+      en: 'We could automate [process] to save you about [time] every week.',
+      pt: 'Poderíamos automatizar [processo] para economizar cerca de [tempo] toda semana.'
+    },
+    {
+      category: 'improvement',
+      en: 'Adding data validation here would prevent most of the errors you\'re seeing.',
+      pt: 'Adicionar validação de dados aqui evitaria a maioria dos erros que você está vendo.'
+    },
+    {
+      category: 'improvement',
+      en: 'Have you considered reorganizing this workflow to reduce the approval steps?',
+      pt: 'Você já considerou reorganizar este fluxo de trabalho para reduzir as etapas de aprovação?'
+    },
+    {
+      category: 'improvement',
+      en: 'I can see several manual steps here that could be easily automated.',
+      pt: 'Vejo várias etapas manuais aqui que poderiam ser facilmente automatizadas.'
+    },
+    {
+      category: 'improvement',
+      en: 'What\'s your biggest pain point with the current system?',
+      pt: 'Qual é o maior ponto de dor com o sistema atual?'
+    },
+    
+    // 7. Technical Solutions / Soluções Técnicas
+    {
+      category: 'solutions',
+      en: 'We can create a workflow that automatically triggers when [event happens].',
+      pt: 'Podemos criar um fluxo que dispara automaticamente quando [evento acontece].'
+    },
+    {
+      category: 'solutions',
+      en: 'Google Sheets works well as a database here because it integrates with your tools.',
+      pt: 'O Google Sheets funciona bem como banco de dados aqui porque se integra com suas ferramentas.'
+    },
+    {
+      category: 'solutions',
+      en: 'For this requirement, we\'d use computed columns to calculate [values] in real-time.',
+      pt: 'Para este requisito, usaríamos colunas calculadas para calcular [valores] em tempo real.'
+    },
+    {
+      category: 'solutions',
+      en: 'We can connect this to your other systems using API calls.',
+      pt: 'Podemos conectar isso aos seus outros sistemas usando chamadas de API.'
+    },
+    {
+      category: 'solutions',
+      en: 'The solution will have: 1) data storage, 2) business logic, and 3) user interface.',
+      pt: 'A solução terá: 1) armazenamento de dados, 2) lógica de negócios e 3) interface do usuário.'
+    },
+    {
+      category: 'solutions',
+      en: 'Using AppSheet\'s slice feature, we can show different views to different user roles.',
+      pt: 'Usando o recurso de slice do AppSheet, podemos mostrar diferentes visualizações para diferentes funções de usuário.'
+    },
+    {
+      category: 'solutions',
+      en: 'Push notifications will alert users when they need to take action.',
+      pt: 'Notificações push alertarão os usuários quando precisarem tomar ações.'
+    },
+    {
+      category: 'solutions',
+      en: 'We can build custom dashboards to give you real-time visibility of key metrics.',
+      pt: 'Podemos criar painéis personalizados para dar visibilidade em tempo real de métricas-chave.'
+    },
+    
+    // 8. Agreements and Affirmations / Concordâncias e Afirmações
     {
       category: 'agreement',
-      en: 'Absolutely, I can do that.',
-      pt: 'Absolutamente, posso fazer isso.'
+      en: 'Yes, I can do that.',
+      pt: 'Sim, posso fazer isso.'
     },
     {
       category: 'agreement',
@@ -62,80 +258,103 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'agreement',
-      en: 'I totally agree.',
-      pt: 'Concordo totalmente.'
+      en: 'I agree with your approach.',
+      pt: 'Concordo com sua abordagem.'
     },
     {
       category: 'agreement',
-      en: 'Yes, that sounds like a good idea.',
-      pt: 'Sim, isso parece uma boa ideia.'
+      en: 'You\'re right about that.',
+      pt: 'Você está certo sobre isso.'
     },
     {
       category: 'agreement',
-      en: 'That\'s definitely something I can help with.',
-      pt: 'Isso é definitivamente algo com o qual posso ajudar.'
+      en: 'That\'s a good point.',
+      pt: 'Isso é um bom ponto.'
     },
     {
       category: 'agreement',
-      en: 'Let me think for a second...',
-      pt: 'Deixe-me pensar por um segundo...'
+      en: 'I understand your concern.',
+      pt: 'Entendo sua preocupação.'
+    },
+    {
+      category: 'agreement',
+      en: 'Let\'s proceed with that plan.',
+      pt: 'Vamos prosseguir com esse plano.'
     },
     
-    // Initial Assessment and Proposed Solution
-    {
-      category: 'assessment',
-      en: 'That\'s a good question.',
-      pt: 'Essa é uma boa pergunta.'
-    },
-    {
-      category: 'assessment',
-      en: 'Let me just make sure I give you the right answer.',
-      pt: 'Deixe-me garantir que estou dando a resposta correta.'
-    },
-    {
-      category: 'assessment',
-      en: 'I\'d like to take a quick look at the app before giving a final answer.',
-      pt: 'Eu gostaria de dar uma olhada rápida no aplicativo antes de dar uma resposta final.'
-    },
-    {
-      category: 'assessment',
-      en: 'We can create a simple workflow using AppSheet actions and Zapier.',
-      pt: 'Podemos criar um fluxo de trabalho simples usando ações do AppSheet e Zapier.'
-    },
-    
-    // Next Steps
+    // 9. Next Steps / Próximos Passos
     {
       category: 'nextsteps',
-      en: 'Once I review the current setup, I can send you a short summary with suggestions.',
-      pt: 'Depois de revisar a configuração atual, posso enviar um breve resumo com sugestões.'
+      en: 'Let me review your current setup and send you my recommendations.',
+      pt: 'Deixe-me revisar sua configuração atual e enviar minhas recomendações.'
+    },
+    {
+      category: 'nextsteps',
+      en: 'I\'ll prepare a proposal outlining the scope, timeline, and cost.',
+      pt: 'Prepararei uma proposta descrevendo o escopo, cronograma e custo.'
+    },
+    {
+      category: 'nextsteps',
+      en: 'Can we schedule a follow-up call next week to discuss the details?',
+      pt: 'Podemos agendar uma chamada de acompanhamento na próxima semana para discutir os detalhes?'
+    },
+    {
+      category: 'nextsteps',
+      en: 'What\'s your timeline for making a decision about this project?',
+      pt: 'Qual é seu prazo para tomar uma decisão sobre este projeto?'
+    },
+    {
+      category: 'nextsteps',
+      en: 'Would you like me to send a summary of what we discussed today?',
+      pt: 'Você gostaria que eu enviasse um resumo do que discutimos hoje?'
+    },
+    {
+      category: 'nextsteps',
+      en: 'I\'ll send you some examples of similar projects I\'ve completed.',
+      pt: 'Vou enviar alguns exemplos de projetos semelhantes que concluí.'
+    },
+    {
+      category: 'nextsteps',
+      en: 'Let\'s set up a short demo so I can show you how this would work.',
+      pt: 'Vamos configurar uma breve demonstração para que eu possa mostrar como isso funcionaria.'
     },
     
-    // Hourly Rate and Timeline
+    // 10. Rates & Timeline / Taxas e Cronograma
     {
       category: 'rates',
-      en: 'Sure, before we move forward, I\'d like to mention my hourly rate. It\'s one hundred dollars per hour.',
-      pt: 'Claro, antes de prosseguirmos, gostaria de mencionar minha taxa horária. É de cem dólares por hora.'
+      en: 'My hourly rate is $100, based on the complexity of this type of project.',
+      pt: 'Minha taxa horária é $100, com base na complexidade deste tipo de projeto.'
     },
     {
       category: 'rates',
-      en: 'I see. Based on my experience and the type of work involved, I believe one hundred dollars per hour is a fair rate. But I\'m happy to make sure we deliver good value for that.',
-      pt: 'Eu entendo. Com base na minha experiência e no tipo de trabalho envolvido, acredito que cem dólares por hora é uma taxa justa. Mas estou feliz em garantir que entregamos um bom valor por isso.'
+      en: 'I estimate this project will take about [X] hours to complete.',
+      pt: 'Estimo que este projeto levará cerca de [X] horas para ser concluído.'
     },
     {
       category: 'rates',
-      en: 'It should take me no more than 7 to 10 days to complete everything.',
-      pt: 'Deve levar não mais que 7 a 10 dias para completar tudo.'
+      en: 'I can work around 1-2 hours per day on this project.',
+      pt: 'Posso trabalhar cerca de 1-2 horas por dia neste projeto.'
     },
     {
       category: 'rates',
-      en: 'I\'m currently working full-time at a company, so I\'ll only be available for about one or two hours per day.',
-      pt: 'Atualmente estou trabalhando em tempo integral em uma empresa, então só estarei disponível por cerca de uma ou duas horas por dia.'
+      en: 'The timeline for completion would be approximately [X] weeks.',
+      pt: 'O prazo para conclusão seria aproximadamente [X] semanas.'
     },
     {
       category: 'rates',
-      en: 'But I can take a look at the app and send you a proposal with an estimate of how much time the work will take.',
-      pt: 'Mas posso dar uma olhada no aplicativo e enviar uma proposta com uma estimativa de quanto tempo o trabalho levará.'
-    }
+      en: 'Would you prefer a fixed project fee or hourly billing?',
+      pt: 'Você prefere uma taxa fixa de projeto ou cobrança por hora?'
+    },
+    {
+      category: 'rates',
+      en: 'I can offer a 10% discount if we agree to a longer-term engagement.',
+      pt: 'Posso oferecer um desconto de 10% se concordarmos com um compromisso de longo prazo.'
+    },
+    {
+      category: 'rates',
+      en: 'My payment terms are [details about payment schedule].',
+      pt: 'Meus termos de pagamento são [detalhes sobre cronograma de pagamento].'
+    },
   ];
 
   // Partes da apresentação profissional
@@ -278,6 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let savedNotes = localStorage.getItem('meetingNotes') || '';
   let nameClickCount = 0;
   let lastClickTime = 0;
+  let phrasesOrder = JSON.parse(localStorage.getItem('phrasesOrder')) || {};
 
   // Inicializar a aplicação
   function init() {
@@ -287,6 +507,71 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSavedNotes();
     createSecretPage();
     setupProfileImageEasterEgg();
+    updateCategoryList();
+  }
+
+  // Atualizar a lista de categorias no sidebar
+  function updateCategoryList() {
+    // Obter todas as categorias únicas
+    const categories = [...new Set(phrasesData.map(phrase => phrase.category))];
+    
+    // Criar mapeamento de nomes de categorias para títulos amigáveis
+    const categoryTitles = {
+      'introduction': 'Introduction',
+      'overview': 'Project Overview',
+      'clarification': 'Clarification',
+      'terminology': 'Terminology',
+      'assessment': 'Assessment',
+      'improvement': 'Improvement',
+      'solutions': 'Technical Solutions',
+      'agreement': 'Agreement',
+      'nextsteps': 'Next Steps',
+      'rates': 'Rates & Timeline'
+    };
+    
+    // Adicionar contagem de frases em cada categoria
+    const categoryList = document.getElementById('categoryList');
+    if (categoryList) {
+      // Manter o item "All" existente
+      const allItem = categoryList.querySelector('[data-category="all"]');
+      
+      // Limpar lista existente, mas manter o item "All"
+      categoryList.innerHTML = '';
+      categoryList.appendChild(allItem);
+      
+      // Adicionar contagem ao item "All"
+      allItem.textContent = `All Phrases (${phrasesData.length})`;
+      
+      // Recriar itens de categoria na ordem lógica desejada
+      const orderedCategories = [
+        'introduction', 'overview', 'clarification', 'terminology', 
+        'assessment', 'improvement', 'solutions', 'agreement', 
+        'nextsteps', 'rates'
+      ];
+      
+      orderedCategories.forEach(category => {
+        if (categories.includes(category)) {
+          const count = phrasesData.filter(phrase => phrase.category === category).length;
+          const li = document.createElement('li');
+          li.setAttribute('data-category', category);
+          li.textContent = `${categoryTitles[category]} (${count})`;
+          categoryList.appendChild(li);
+          
+          // Adicionar evento de clique
+          li.addEventListener('click', function() {
+            document.querySelectorAll('#categoryList li').forEach(item => {
+              item.classList.remove('active');
+            });
+            this.classList.add('active');
+            currentCategory = this.getAttribute('data-category');
+            loadPhrases(searchInput.value, currentCategory);
+          });
+        }
+      });
+      
+      // Ativar o item "All" por padrão
+      allItem.classList.add('active');
+    }
   }
 
   // Criar página secreta (Easter Egg)
@@ -393,40 +678,177 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Carregar frases no container
   function loadPhrases(filterTerm = '', category = 'all') {
+    // Limpar o container atual
     phrasesContainer.innerHTML = '';
     
-    const filteredPhrases = phrasesData.filter(phrase => {
-      // Filtrar por categoria, se não for 'all'
-      const categoryMatch = category === 'all' || phrase.category === category;
-      // Filtrar por termo de busca
-      const searchMatch = filterTerm === '' || 
-        phrase.en.toLowerCase().includes(filterTerm.toLowerCase()) || 
-        phrase.pt.toLowerCase().includes(filterTerm.toLowerCase());
-      
-      return categoryMatch && searchMatch;
-    });
+    // Filtrar as frases com base na categoria e termo de busca
+    let filteredPhrases = phrasesData;
     
-    filteredPhrases.forEach(phrase => {
-      const phraseCard = document.createElement('div');
-      phraseCard.className = 'phrase-card';
-      phraseCard.setAttribute('data-en', phrase.en);
-      phraseCard.setAttribute('data-pt', phrase.pt);
+    if (category !== 'all') {
+      filteredPhrases = filteredPhrases.filter(phrase => phrase.category === category);
+    }
+    
+    if (filterTerm) {
+      const term = filterTerm.toLowerCase();
+      filteredPhrases = filteredPhrases.filter(phrase => 
+        phrase.en.toLowerCase().includes(term) || 
+        phrase.pt.toLowerCase().includes(term)
+      );
+    }
+    
+    // Aplicar ordenação personalizada se existir
+    if (phrasesOrder[category]) {
+      // Criar uma cópia das frases para não alterar a ordem original
+      const orderedPhrases = [...filteredPhrases];
+      // Ordenar com base nas posições salvas
+      orderedPhrases.sort((a, b) => {
+        const indexA = phrasesOrder[category].indexOf(filteredPhrases.indexOf(a));
+        const indexB = phrasesOrder[category].indexOf(filteredPhrases.indexOf(b));
+        if (indexA === -1) return 1;
+        if (indexB === -1) return -1;
+        return indexA - indexB;
+      });
+      filteredPhrases = orderedPhrases;
+    }
+    
+    // Adicionar cada frase ao container
+    filteredPhrases.forEach((phrase, index) => {
+      const phraseElement = document.createElement('div');
+      phraseElement.className = `phrase-item ${isGridView ? 'grid-view' : 'list-view'}`;
+      phraseElement.setAttribute('data-index', index);
+      phraseElement.setAttribute('data-category', phrase.category);
+      phraseElement.setAttribute('draggable', true);
       
-      phraseCard.innerHTML = `
-        <div class="phrase-category">${getCategoryTitle(phrase.category)}</div>
-        <div class="phrase-text">${phrase.en}</div>
+      // Adicionar eventos de drag and drop
+      phraseElement.addEventListener('dragstart', handleDragStart);
+      phraseElement.addEventListener('dragover', handleDragOver);
+      phraseElement.addEventListener('dragenter', handleDragEnter);
+      phraseElement.addEventListener('dragleave', handleDragLeave);
+      phraseElement.addEventListener('drop', handleDrop);
+      phraseElement.addEventListener('dragend', handleDragEnd);
+      
+      phraseElement.innerHTML = `
+        <div class="phrase-content">
+          <div class="phrase-text">${phrase.en}</div>
+          <div class="phrase-actions">
+            <button class="translate-btn" title="Show translation">
+              <ion-icon name="language-outline"></ion-icon>
+            </button>
+            <button class="copy-btn" title="Copy to clipboard">
+              <ion-icon name="copy-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+        <div class="category-tag">${getCategoryTitle(phrase.category)}</div>
       `;
       
-      phraseCard.addEventListener('click', function() {
+      // Adicionar evento para mostrar a tradução
+      phraseElement.querySelector('.translate-btn').addEventListener('click', function() {
         showTranslation(phrase.en, phrase.pt);
       });
       
-      phrasesContainer.appendChild(phraseCard);
+      // Adicionar evento para copiar para a área de transferência
+      phraseElement.querySelector('.copy-btn').addEventListener('click', function() {
+        copyToClipboard(phrase.en);
+        showToast('Phrase copied to clipboard!');
+      });
+      
+      phrasesContainer.appendChild(phraseElement);
     });
     
+    // Exibir mensagem se não houver frases encontradas
     if (filteredPhrases.length === 0) {
-      phrasesContainer.innerHTML = '<div class="no-results">No phrases found. Try a different search term or category.</div>';
+      phrasesContainer.innerHTML = `
+        <div class="no-results">
+          <ion-icon name="search-outline" class="text-4xl text-gray-400"></ion-icon>
+          <p>No phrases found. Try a different search term or category.</p>
+        </div>
+      `;
     }
+  }
+  
+  // Gerenciar eventos de drag and drop
+  let draggedItem = null;
+  
+  function handleDragStart(e) {
+    draggedItem = this;
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+  }
+  
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+  }
+  
+  function handleDragEnter(e) {
+    this.classList.add('drag-over');
+  }
+  
+  function handleDragLeave(e) {
+    this.classList.remove('drag-over');
+  }
+  
+  function handleDrop(e) {
+    e.stopPropagation();
+    
+    // Verifica se o item arrastado é nulo ou se é o mesmo elemento
+    if (draggedItem === null || draggedItem === this) {
+      return false;
+    }
+    
+    // Guarda a categoria atual para salvar a ordem personalizada
+    const currentCat = currentCategory;
+    
+    // Obter índices dos elementos na visualização atual
+    const items = Array.from(phrasesContainer.querySelectorAll('.phrase-item'));
+    const draggedIndex = items.indexOf(draggedItem);
+    const dropIndex = items.indexOf(this);
+    
+    // Mover o elemento arrastado para antes ou depois do elemento alvo
+    if (dropIndex > draggedIndex) {
+      this.parentNode.insertBefore(draggedItem, this.nextSibling);
+    } else {
+      this.parentNode.insertBefore(draggedItem, this);
+    }
+    
+    // Salvar a nova ordem
+    saveNewOrder(currentCat);
+    
+    this.classList.remove('drag-over');
+    return false;
+  }
+  
+  function handleDragEnd(e) {
+    this.classList.remove('dragging');
+    
+    // Remover a classe drag-over de todos os itens
+    document.querySelectorAll('.phrase-item').forEach(item => {
+      item.classList.remove('drag-over');
+    });
+    
+    draggedItem = null;
+  }
+  
+  // Salvar a nova ordem das frases
+  function saveNewOrder(category) {
+    if (category === 'all') return; // Não salvar ordem para "all"
+    
+    const items = Array.from(phrasesContainer.querySelectorAll('.phrase-item'));
+    const newOrder = items.map(item => {
+      // Obter o índice original da frase nos dados
+      return parseInt(item.getAttribute('data-index'));
+    });
+    
+    // Salvar a nova ordem no objeto de estado
+    phrasesOrder[category] = newOrder;
+    
+    // Salvar no localStorage
+    localStorage.setItem('phrasesOrder', JSON.stringify(phrasesOrder));
   }
 
   // Carregar a apresentação
@@ -465,12 +887,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Configurar ouvintes de eventos
   function setupEventListeners() {
-    // Pesquisa
-    searchInput.addEventListener('input', function() {
+    // Ouvinte para a busca
+    searchInput.addEventListener('input', debounce(function() {
       loadPhrases(this.value, currentCategory);
-    });
+    }, 300));
     
-    // Categorias
+    // Ouvintes para as categorias
     categoryItems.forEach(item => {
       item.addEventListener('click', function() {
         categoryItems.forEach(i => i.classList.remove('active'));
@@ -480,29 +902,41 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Abas
+    // Ouvintes para as abas
     tabButtons.forEach(button => {
       button.addEventListener('click', function() {
-        const tabId = this.getAttribute('data-tab');
+        const tabName = this.getAttribute('data-tab');
         
+        // Desativar todas as abas e conteúdos
         tabButtons.forEach(btn => btn.classList.remove('active'));
         tabContents.forEach(content => content.classList.remove('active'));
         
+        // Ativar a aba e conteúdo selecionados
         this.classList.add('active');
-        document.getElementById(`${tabId}-content`).classList.add('active');
+        document.getElementById(`${tabName}-content`).classList.add('active');
       });
     });
     
-    // Alternar layout
+    // Ouvinte para o botão de alternar layout
     toggleLayoutBtn.addEventListener('click', function() {
       isGridView = !isGridView;
-      phrasesContainer.classList.toggle('list-view', !isGridView);
+      
+      // Atualizar o ícone
       this.innerHTML = isGridView 
         ? '<ion-icon name="grid-outline"></ion-icon>' 
         : '<ion-icon name="list-outline"></ion-icon>';
+      
+      // Atualizar as classes dos itens
+      document.querySelectorAll('.phrase-item').forEach(item => {
+        item.classList.toggle('grid-view', isGridView);
+        item.classList.toggle('list-view', !isGridView);
+      });
+      
+      // Salvar a preferência
+      localStorage.setItem('isGridView', isGridView);
     });
     
-    // Fechar modal
+    // Ouvinte para fechar o modal
     closeModal.addEventListener('click', function() {
       modal.classList.remove('active');
     });
@@ -514,16 +948,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Copiar frase ao clicar no modal
-    translationContent.addEventListener('click', function() {
-      const text = this.querySelector('.translation-en').textContent;
-      copyToClipboard(text);
-      showToast('Copied to clipboard!');
-    });
-    
     // Salvar notas
     saveNotesBtn.addEventListener('click', function() {
-      localStorage.setItem('meetingNotes', meetingNotes.value);
+      const notes = meetingNotes.value;
+      localStorage.setItem('meetingNotes', notes);
       showToast('Notes saved successfully!');
     });
     
@@ -533,6 +961,28 @@ document.addEventListener('DOMContentLoaded', function() {
         meetingNotes.value = '';
         localStorage.removeItem('meetingNotes');
         showToast('Notes cleared!');
+      }
+    });
+    
+    // Botão para resetar a ordem das frases
+    const resetOrderButton = document.createElement('button');
+    resetOrderButton.className = 'reset-order-btn';
+    resetOrderButton.innerHTML = '<ion-icon name="refresh-outline"></ion-icon> Reset Order';
+    resetOrderButton.title = 'Reset phrases to original order';
+    
+    // Adicionar o botão ao DOM após o botão de alternar layout
+    toggleLayoutBtn.parentNode.appendChild(resetOrderButton);
+    
+    // Adicionar evento para resetar a ordem
+    resetOrderButton.addEventListener('click', function() {
+      if (confirm('Reset the current category to its original order?')) {
+        // Limpar a ordem salva para a categoria atual
+        if (phrasesOrder[currentCategory]) {
+          delete phrasesOrder[currentCategory];
+          localStorage.setItem('phrasesOrder', JSON.stringify(phrasesOrder));
+          loadPhrases(searchInput.value, currentCategory);
+          showToast('Phrase order has been reset!');
+        }
       }
     });
   }
@@ -602,16 +1052,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // Utilitários
   function getCategoryTitle(category) {
     const titles = {
+      'introduction': 'Introduction',
       'overview': 'Project Overview',
-      'improvement': 'Areas for Improvement',
-      'clarification': 'Clarification Requests',
+      'clarification': 'Clarification',
       'terminology': 'Terminology',
-      'agreement': 'Agreements',
-      'assessment': 'Assessment & Solutions',
+      'assessment': 'Assessment',
+      'improvement': 'Improvement',
+      'solutions': 'Technical Solutions',
+      'agreement': 'Agreement',
       'nextsteps': 'Next Steps',
       'rates': 'Rates & Timeline'
     };
-    return titles[category] || 'Miscellaneous';
+    
+    return titles[category] || category.charAt(0).toUpperCase() + category.slice(1);
   }
 
   function getPortugueseTitle(englishTitle) {
