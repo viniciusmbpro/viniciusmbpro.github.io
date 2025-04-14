@@ -587,16 +587,16 @@
       // Mostrar o botão flutuante após um pequeno delay
       setTimeout(function () {
         document.getElementById('floatingMailBtn').classList.add('show');
-      }, 1000);
+      }, 2000);
 
-      // Esconder o botão quando o usuário rolar para cima e mostrar quando rolar para baixo
-      let lastScrollTop = 0;
+      // Esconder/mostrar o botão baseado na rolagem
       const floatingBtn = document.getElementById('floatingMailBtn');
+      let lastScrollTop = 0;
 
       window.addEventListener('scroll', function () {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (scrollTop > lastScrollTop && scrollTop > 300) {
+        if (scrollTop > 100 && scrollTop > lastScrollTop) {
           // Rolando para baixo e já passou do topo
           floatingBtn.classList.add('show');
         } else if (scrollTop < 100) {
@@ -606,6 +606,164 @@
 
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
       }, false);
+
+      // Easter Egg na foto de perfil
+      const profileImage = document.querySelector('img[src="img/profile.jpeg"]');
+      if (profileImage) {
+        let imageClickCount = 0;
+        let lastImageClickTime = 0;
+
+        // Criar página secreta para o Easter Egg
+        const secretPage = document.createElement('div');
+        secretPage.id = 'secretPage';
+        secretPage.className = 'modal';
+        secretPage.innerHTML = `
+          <div class="modal-content secret-content">
+            <span class="close-modal">&times;</span>
+            <h3>🎉 Easter Egg Encontrado! 🎉</h3>
+            <div class="secret-message">
+              <p>Parabéns por descobrir este easter egg!</p>
+              <p>Este é um espaço secreto e pessoal onde compartilho alguns pensamentos:</p>
+              <blockquote>"A tecnologia é melhor quando ela aproxima pessoas."</blockquote>
+              <p>Obrigado por explorar minha aplicação com tanta curiosidade!</p>
+              <div class="secret-image">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjFvdWZ6eWE1ZXgxdnAyOTh0NXY2MzU5cGdubm14ZDdlODZ3djlmNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ornk57KwDXf81rjWM/giphy.gif" alt="Easter Egg" style="max-width: 100%;">
+              </div>
+              <div class="secret-button-container">
+                <a href="/negotiation-helper.html" class="secret-button">
+                  <ion-icon name="key-outline" class="mr-2"></ion-icon>
+                  Acessar Ferramenta de Negociação
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.body.appendChild(secretPage);
+
+        // Estilo para o Easter Egg
+        const style = document.createElement('style');
+        style.textContent = `
+          #secretPage {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+          
+          #secretPage.active {
+            display: flex;
+            opacity: 1;
+          }
+          
+          .secret-content {
+            background: #081C38;
+            background-image: linear-gradient(135deg, rgba(85, 187, 0, 0.1) 0%, rgba(60, 180, 214, 0.1) 100%);
+            max-width: 500px;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            color: white;
+            position: relative;
+          }
+          
+          .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #3CB4D6;
+          }
+          
+          .secret-message {
+            line-height: 1.6;
+          }
+          
+          .secret-message p {
+            margin-bottom: 15px;
+          }
+          
+          .secret-message blockquote {
+            border-left: 3px solid #55BB00;
+            padding-left: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #3CB4D6;
+          }
+          
+          .secret-image {
+            margin-top: 20px;
+            text-align: center;
+          }
+          
+          .secret-button-container {
+            margin-top: 25px;
+            text-align: center;
+          }
+          
+          .secret-button {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #55BB00, #3CB4D6);
+            color: #081C38;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(85, 187, 0, 0.3);
+          }
+          
+          .secret-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(85, 187, 0, 0.4);
+          }
+          
+          .secret-button:active {
+            transform: translateY(1px);
+          }
+        `;
+        document.head.appendChild(style);
+
+        // Eventos para o Easter Egg
+        profileImage.addEventListener('click', function () {
+          const currentTime = new Date().getTime();
+
+          // Resetar contador se passou muito tempo desde o último clique (2 segundos)
+          if (currentTime - lastImageClickTime > 2000) {
+            imageClickCount = 0;
+          }
+
+          imageClickCount++;
+          lastImageClickTime = currentTime;
+
+          // Verificar se atingiu 5 cliques
+          if (imageClickCount === 5) {
+            secretPage.classList.add('active');
+            imageClickCount = 0; // Resetar contador
+          }
+        });
+
+        // Adicionar evento para fechar
+        secretPage.querySelector('.close-modal').addEventListener('click', function () {
+          secretPage.classList.remove('active');
+        });
+
+        // Clicar fora do modal para fechar
+        secretPage.addEventListener('click', function (e) {
+          if (e.target === secretPage) {
+            secretPage.classList.remove('active');
+          }
+        });
+      }
     });
   </script>
 </body>

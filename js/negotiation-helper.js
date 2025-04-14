@@ -276,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentCategory = 'all';
   let isGridView = true;
   let savedNotes = localStorage.getItem('meetingNotes') || '';
+  let nameClickCount = 0;
+  let lastClickTime = 0;
 
   // Inicializar a aplicação
   function init() {
@@ -283,6 +285,110 @@ document.addEventListener('DOMContentLoaded', function() {
     loadPresentation();
     setupEventListeners();
     loadSavedNotes();
+    createSecretPage();
+    setupProfileImageEasterEgg();
+  }
+
+  // Criar página secreta (Easter Egg)
+  function createSecretPage() {
+    const secretPage = document.createElement('div');
+    secretPage.id = 'secretPage';
+    secretPage.className = 'modal';
+    secretPage.innerHTML = `
+      <div class="modal-content secret-content">
+        <span class="close-modal">&times;</span>
+        <h3>🎉 Easter Egg Encontrado! 🎉</h3>
+        <div class="secret-message">
+          <p>Parabéns por descobrir este easter egg!</p>
+          <p>Este é um espaço secreto e pessoal onde compartilho alguns pensamentos:</p>
+          <blockquote>"A tecnologia é melhor quando ela aproxima pessoas."</blockquote>
+          <p>Obrigado por explorar minha aplicação com tanta curiosidade!</p>
+          <div class="secret-image">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjFvdWZ6eWE1ZXgxdnAyOTh0NXY2MzU5cGdubm14ZDdlODZ3djlmNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ornk57KwDXf81rjWM/giphy.gif" alt="Easter Egg" style="max-width: 100%;">
+          </div>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(secretPage);
+    
+    // Estilizar a página secreta
+    const style = document.createElement('style');
+    style.textContent = `
+      .secret-content {
+        background: var(--dark-blue);
+        background-image: linear-gradient(135deg, rgba(85, 187, 0, 0.1) 0%, rgba(60, 180, 214, 0.1) 100%);
+        max-width: 500px;
+      }
+      .secret-message {
+        line-height: 1.6;
+      }
+      .secret-message p {
+        margin-bottom: 15px;
+      }
+      .secret-message blockquote {
+        border-left: 3px solid var(--primary-color);
+        padding-left: 15px;
+        margin: 20px 0;
+        font-style: italic;
+        color: var(--accent-color);
+      }
+      .secret-image {
+        margin-top: 20px;
+        text-align: center;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Adicionar evento para fechar
+    secretPage.querySelector('.close-modal').addEventListener('click', function() {
+      secretPage.classList.remove('active');
+    });
+    
+    // Clicar fora do modal para fechar
+    secretPage.addEventListener('click', function(e) {
+      if (e.target === secretPage) {
+        secretPage.classList.remove('active');
+      }
+    });
+  }
+
+  // Configurar easter egg para a foto de perfil
+  function setupProfileImageEasterEgg() {
+    // Como o easter egg agora será na página principal, precisamos verificar se estamos na página certa
+    const profileImage = document.querySelector('img[src="img/profile.jpeg"]');
+    
+    if (profileImage) {
+      let imageClickCount = 0;
+      let lastImageClickTime = 0;
+      
+      profileImage.addEventListener('click', function() {
+        const currentTime = new Date().getTime();
+        
+        // Resetar contador se passou muito tempo desde o último clique (2 segundos)
+        if (currentTime - lastImageClickTime > 2000) {
+          imageClickCount = 0;
+        }
+        
+        imageClickCount++;
+        lastImageClickTime = currentTime;
+        
+        // Verificar se atingiu 5 cliques
+        if (imageClickCount === 5) {
+          const secretPage = document.getElementById('secretPage');
+          if (secretPage) {
+            secretPage.classList.add('active');
+          }
+          imageClickCount = 0; // Resetar contador
+        }
+      });
+    }
+  }
+
+  // Função para verificar cliques no nome (agora obsoleta)
+  function checkNameClick(element) {
+    // Mantemos a função para compatibilidade, mas ela agora retorna sempre false
+    return false; // Continuar com o comportamento normal
   }
 
   // Carregar frases no container
@@ -343,10 +449,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Adicionar ouvintes de evento para elementos traduzíveis
     document.querySelectorAll('.translatable').forEach(el => {
-      el.addEventListener('click', function() {
-        const enHTML = unescapeHTML(this.getAttribute('data-en'));
-        const ptHTML = unescapeHTML(this.getAttribute('data-pt'));
-        showTranslation(enHTML, ptHTML);
+      el.addEventListener('click', function(e) {
+        // Verificar se o clique foi em algum elemento filho
+        const clickedElement = e.target.closest('strong') || e.target;
+        
+        // Verificar cliques no nome antes de mostrar a tradução
+        if (!checkNameClick(clickedElement)) {
+          const enHTML = unescapeHTML(this.getAttribute('data-en'));
+          const ptHTML = unescapeHTML(this.getAttribute('data-pt'));
+          showTranslation(enHTML, ptHTML);
+        }
       });
     });
   }
