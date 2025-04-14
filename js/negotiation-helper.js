@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'overview',
-      en: 'Let me make sure I understand - you need a solution that...',
-      pt: 'Deixe-me confirmar - você precisa de uma solução que...'
+      en: 'Let me make sure I understand - you need a solution that helps your team collaborate better.',
+      pt: 'Deixe-me confirmar - você precisa de uma solução que ajude sua equipe a colaborar melhor.'
     },
     
     // 3. Clarification Requests / Pedidos de Esclarecimento
@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'clarification',
-      en: 'Just to confirm I understand...',
-      pt: 'Só para confirmar que entendi...'
+      en: 'Just to confirm I understand what you\'re saying...',
+      pt: 'Só para confirmar que entendi o que você está dizendo...'
     },
     {
       category: 'clarification',
@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'clarification',
-      en: 'What do you mean by [term]?',
-      pt: 'O que você quer dizer com [termo]?'
+      en: 'What do you mean by integration in this context?',
+      pt: 'O que você quer dizer com integração neste contexto?'
     },
     {
       category: 'clarification',
@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'clarification',
-      en: 'I want to make sure I\'m addressing your main concern. Is it [...]?',
-      pt: 'Quero garantir que estou abordando sua principal preocupação. É [...]?'
+      en: 'I want to make sure I\'m addressing your main concern about user access.',
+      pt: 'Quero garantir que estou abordando sua principal preocupação sobre acesso de usuários.'
     },
     
     // 4. Terminology / Terminologia
@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     {
       category: 'terminology',
-      en: 'In AppSheet, we call this [term]. It lets you [functionality].',
-      pt: 'No AppSheet, chamamos isso de [termo]. Ele permite que você [funcionalidade].'
+      en: 'In AppSheet, we call this feature a slice. It lets you filter data for different user groups.',
+      pt: 'No AppSheet, chamamos esse recurso de slice. Ele permite que você filtre dados para diferentes grupos de usuários.'
     },
     {
       category: 'terminology',
@@ -132,229 +132,276 @@ document.addEventListener('DOMContentLoaded', function() {
     // 5. Initial Assessment / Avaliação Inicial
     {
       category: 'assessment',
-      en: 'Based on what you\'ve described, AppSheet would be a good fit because...',
-      pt: 'Com base no que você descreveu, o AppSheet seria adequado porque...'
+      en: 'Based on what you\'ve described, AppSheet would be a good fit because it integrates well with your existing Google tools.',
+      pt: 'Com base no que você descreveu, o AppSheet seria adequado porque se integra bem com suas ferramentas Google existentes.'
     },
     {
       category: 'assessment',
-      en: 'I\'ve worked on similar projects and can definitely help with this.',
-      pt: 'Já trabalhei em projetos semelhantes e posso certamente ajudar com isso.'
+      en: 'I\'ve worked on similar projects and can definitely help with this type of inventory management system.',
+      pt: 'Já trabalhei em projetos semelhantes e posso certamente ajudar com este tipo de sistema de gestão de inventário.'
     },
     {
       category: 'assessment',
-      en: 'There are a few different approaches we could take:',
-      pt: 'Existem algumas abordagens diferentes que poderíamos adotar:'
+      en: 'There are a few different approaches we could take. We could build a simple version first or start with all features from day one.',
+      pt: 'Existem algumas abordagens diferentes que poderíamos adotar. Poderíamos construir uma versão simples primeiro ou começar com todos os recursos desde o primeiro dia.'
     },
     {
       category: 'assessment',
-      en: 'The main challenge I see is [challenge], but we can solve it by [solution].',
-      pt: 'O principal desafio que vejo é [desafio], mas podemos resolvê-lo com [solução].'
+      en: 'The main challenge I see is connecting to your legacy system, but we can solve it by creating an API bridge.',
+      pt: 'O principal desafio que vejo é conectar ao seu sistema legado, mas podemos resolvê-lo criando uma ponte de API.'
     },
     {
       category: 'assessment',
-      en: 'I think we can build this solution in about [timeframe].',
-      pt: 'Acredito que podemos construir esta solução em cerca de [prazo].'
+      en: 'I think we can build this solution in about three to four weeks with all the features you need.',
+      pt: 'Acredito que podemos construir esta solução em cerca de três a quatro semanas com todos os recursos que você precisa.'
     },
     {
       category: 'assessment',
-      en: 'The approach I recommend would be to start with [first step], then [next steps].',
-      pt: 'A abordagem que recomendo seria começar com [primeiro passo], depois [próximos passos].'
+      en: 'The approach I recommend would be to start with designing the database structure, then create the basic forms and reports.',
+      pt: 'A abordagem que recomendo seria começar com o design da estrutura do banco de dados, depois criar os formulários e relatórios básicos.'
     },
     {
       category: 'assessment',
-      en: 'To be honest, there are some limitations in AppSheet for what you\'re asking. Let me explain them.',
-      pt: 'Para ser honesto, existem algumas limitações no AppSheet para o que você está pedindo. Deixe-me explicá-las.'
+      en: 'To be honest, there are some limitations in AppSheet for real-time video processing. Let me explain what alternatives we have.',
+      pt: 'Para ser honesto, existem algumas limitações no AppSheet para processamento de vídeo em tempo real. Deixe-me explicar quais alternativas temos.'
     },
     
     // 6. Areas for Improvement / Áreas para Melhoria
     {
       category: 'improvement',
-      en: 'I notice your current process has a bottleneck at [step]. We can improve that.',
-      pt: 'Percebo que seu processo atual tem um gargalo em [etapa]. Podemos melhorar isso.'
+      en: 'I notice your current process has a bottleneck at the approval stage. We can improve that with automatic notifications.',
+      pt: 'Percebo que seu processo atual tem um gargalo na etapa de aprovação. Podemos melhorar isso com notificações automáticas.'
     },
     {
       category: 'improvement',
-      en: 'Is your team finding the current interface easy to use?',
-      pt: 'Sua equipe está achando a interface atual fácil de usar?'
+      en: 'Is your team finding the current interface easy to use or do they struggle with certain features?',
+      pt: 'Sua equipe está achando a interface atual fácil de usar ou eles têm dificuldades com certos recursos?'
     },
     {
       category: 'improvement',
-      en: 'We could automate [process] to save you about [time] every week.',
-      pt: 'Poderíamos automatizar [processo] para economizar cerca de [tempo] toda semana.'
+      en: 'We could automate your monthly report generation to save you about five hours every week.',
+      pt: 'Poderíamos automatizar a geração de relatórios mensais para economizar cerca de cinco horas toda semana.'
     },
     {
       category: 'improvement',
-      en: 'Adding data validation here would prevent most of the errors you\'re seeing.',
-      pt: 'Adicionar validação de dados aqui evitaria a maioria dos erros que você está vendo.'
+      en: 'Adding data validation here would prevent most of the errors you\'re seeing in the customer information.',
+      pt: 'Adicionar validação de dados aqui evitaria a maioria dos erros que você está vendo nas informações do cliente.'
     },
     {
       category: 'improvement',
-      en: 'Have you considered reorganizing this workflow to reduce the approval steps?',
-      pt: 'Você já considerou reorganizar este fluxo de trabalho para reduzir as etapas de aprovação?'
+      en: 'Have you considered reorganizing this workflow to reduce the approval steps from five to just two?',
+      pt: 'Você já considerou reorganizar este fluxo de trabalho para reduzir as etapas de aprovação de cinco para apenas duas?'
     },
     {
       category: 'improvement',
-      en: 'I can see several manual steps here that could be easily automated.',
-      pt: 'Vejo várias etapas manuais aqui que poderiam ser facilmente automatizadas.'
+      en: 'I can see several manual steps here that could be easily automated with form triggers.',
+      pt: 'Vejo várias etapas manuais aqui que poderiam ser facilmente automatizadas com gatilhos de formulário.'
     },
     {
       category: 'improvement',
-      en: 'What\'s your biggest pain point with the current system?',
-      pt: 'Qual é o maior ponto de dor com o sistema atual?'
+      en: 'What\'s your biggest pain point with the current system? Is it the speed, usability, or something else?',
+      pt: 'Qual é o maior ponto de dor com o sistema atual? É a velocidade, usabilidade ou outra coisa?'
     },
     
     // 7. Technical Solutions / Soluções Técnicas
     {
       category: 'solutions',
-      en: 'We can create a workflow that automatically triggers when [event happens].',
-      pt: 'Podemos criar um fluxo que dispara automaticamente quando [evento acontece].'
+      en: 'We can create a workflow that automatically triggers when a new order is received in your system.',
+      pt: 'Podemos criar um fluxo que dispara automaticamente quando um novo pedido é recebido em seu sistema.'
     },
     {
       category: 'solutions',
-      en: 'Google Sheets works well as a database here because it integrates with your tools.',
-      pt: 'O Google Sheets funciona bem como banco de dados aqui porque se integra com suas ferramentas.'
+      en: 'Google Sheets works well as a database here because it integrates with your existing tools and is easy to update.',
+      pt: 'O Google Sheets funciona bem como banco de dados aqui porque se integra com suas ferramentas existentes e é fácil de atualizar.'
     },
     {
       category: 'solutions',
-      en: 'For this requirement, we\'d use computed columns to calculate [values] in real-time.',
-      pt: 'Para este requisito, usaríamos colunas calculadas para calcular [valores] em tempo real.'
+      en: 'For this requirement, we\'d use computed columns to calculate the total prices in real-time as orders are entered.',
+      pt: 'Para este requisito, usaríamos colunas calculadas para calcular os preços totais em tempo real conforme os pedidos são inseridos.'
     },
     {
       category: 'solutions',
-      en: 'We can connect this to your other systems using API calls.',
-      pt: 'Podemos conectar isso aos seus outros sistemas usando chamadas de API.'
+      en: 'We can connect this to your accounting system using API calls that will sync data every hour.',
+      pt: 'Podemos conectar isso ao seu sistema contábil usando chamadas de API que sincronizarão dados a cada hora.'
     },
     {
       category: 'solutions',
-      en: 'The solution will have: 1) data storage, 2) business logic, and 3) user interface.',
-      pt: 'A solução terá: 1) armazenamento de dados, 2) lógica de negócios e 3) interface do usuário.'
+      en: 'The solution will have three main components: data storage in Google Sheets, business logic in AppSheet, and a user-friendly interface.',
+      pt: 'A solução terá três componentes principais: armazenamento de dados no Google Sheets, lógica de negócios no AppSheet e uma interface amigável ao usuário.'
     },
     {
       category: 'solutions',
-      en: 'Using AppSheet\'s slice feature, we can show different views to different user roles.',
-      pt: 'Usando o recurso de slice do AppSheet, podemos mostrar diferentes visualizações para diferentes funções de usuário.'
+      en: 'Using AppSheet\'s slice feature, we can show different views to managers versus regular staff members.',
+      pt: 'Usando o recurso de slice do AppSheet, podemos mostrar diferentes visualizações para gerentes versus membros regulares da equipe.'
     },
     {
       category: 'solutions',
-      en: 'Push notifications will alert users when they need to take action.',
-      pt: 'Notificações push alertarão os usuários quando precisarem tomar ações.'
+      en: 'Push notifications will alert users when they need to approve a document or take action on a request.',
+      pt: 'Notificações push alertarão os usuários quando precisarem aprovar um documento ou tomar ações em uma solicitação.'
     },
     {
       category: 'solutions',
-      en: 'We can build custom dashboards to give you real-time visibility of key metrics.',
-      pt: 'Podemos criar painéis personalizados para dar visibilidade em tempo real de métricas-chave.'
+      en: 'We can build custom dashboards to give you real-time visibility of key metrics like sales performance and inventory levels.',
+      pt: 'Podemos criar painéis personalizados para dar visibilidade em tempo real de métricas-chave como desempenho de vendas e níveis de estoque.'
     },
     
     // 8. Agreements and Affirmations / Concordâncias e Afirmações
     {
       category: 'agreement',
-      en: 'Yes, I can do that.',
-      pt: 'Sim, posso fazer isso.'
+      en: 'Yes, I can do that for you.',
+      pt: 'Sim, posso fazer isso para você.'
     },
     {
       category: 'agreement',
-      en: 'That makes sense.',
-      pt: 'Isso faz sentido.'
+      en: 'That makes sense to me.',
+      pt: 'Isso faz sentido para mim.'
     },
     {
       category: 'agreement',
-      en: 'I agree with your approach.',
-      pt: 'Concordo com sua abordagem.'
+      en: 'I agree with your approach to tackle this issue.',
+      pt: 'Concordo com sua abordagem para lidar com esse problema.'
     },
     {
       category: 'agreement',
-      en: 'You\'re right about that.',
-      pt: 'Você está certo sobre isso.'
+      en: 'You\'re right about that concern.',
+      pt: 'Você está certo sobre essa preocupação.'
     },
     {
       category: 'agreement',
-      en: 'That\'s a good point.',
-      pt: 'Isso é um bom ponto.'
+      en: 'That\'s a good point about user training.',
+      pt: 'Isso é um bom ponto sobre treinamento de usuários.'
     },
     {
       category: 'agreement',
-      en: 'I understand your concern.',
-      pt: 'Entendo sua preocupação.'
+      en: 'I understand your concern about data security.',
+      pt: 'Entendo sua preocupação sobre segurança de dados.'
     },
     {
       category: 'agreement',
-      en: 'Let\'s proceed with that plan.',
-      pt: 'Vamos prosseguir com esse plano.'
+      en: 'Let\'s proceed with that plan to develop in phases.',
+      pt: 'Vamos prosseguir com esse plano de desenvolver em fases.'
     },
     
     // 9. Next Steps / Próximos Passos
     {
       category: 'nextsteps',
-      en: 'Let me review your current setup and send you my recommendations.',
-      pt: 'Deixe-me revisar sua configuração atual e enviar minhas recomendações.'
+      en: 'Let me review your current setup and send you my recommendations by Friday.',
+      pt: 'Deixe-me revisar sua configuração atual e enviar minhas recomendações até sexta-feira.'
     },
     {
       category: 'nextsteps',
-      en: 'I\'ll prepare a proposal outlining the scope, timeline, and cost.',
-      pt: 'Prepararei uma proposta descrevendo o escopo, cronograma e custo.'
+      en: 'I\'ll prepare a proposal outlining the scope, timeline, and cost by next Monday.',
+      pt: 'Prepararei uma proposta descrevendo o escopo, cronograma e custo até a próxima segunda-feira.'
     },
     {
       category: 'nextsteps',
-      en: 'Can we schedule a follow-up call next week to discuss the details?',
-      pt: 'Podemos agendar uma chamada de acompanhamento na próxima semana para discutir os detalhes?'
+      en: 'Can we schedule a follow-up call next week to discuss the technical details?',
+      pt: 'Podemos agendar uma chamada de acompanhamento na próxima semana para discutir os detalhes técnicos?'
     },
     {
       category: 'nextsteps',
-      en: 'What\'s your timeline for making a decision about this project?',
-      pt: 'Qual é seu prazo para tomar uma decisão sobre este projeto?'
+      en: 'What\'s your timeline for making a decision about starting this project?',
+      pt: 'Qual é seu prazo para tomar uma decisão sobre iniciar este projeto?'
     },
     {
       category: 'nextsteps',
-      en: 'Would you like me to send a summary of what we discussed today?',
-      pt: 'Você gostaria que eu enviasse um resumo do que discutimos hoje?'
+      en: 'Would you like me to send a summary of what we discussed today via email?',
+      pt: 'Você gostaria que eu enviasse um resumo do que discutimos hoje por email?'
     },
     {
       category: 'nextsteps',
-      en: 'I\'ll send you some examples of similar projects I\'ve completed.',
-      pt: 'Vou enviar alguns exemplos de projetos semelhantes que concluí.'
+      en: 'I\'ll send you some examples of similar projects I\'ve completed for other clients.',
+      pt: 'Vou enviar alguns exemplos de projetos semelhantes que concluí para outros clientes.'
     },
     {
       category: 'nextsteps',
-      en: 'Let\'s set up a short demo so I can show you how this would work.',
-      pt: 'Vamos configurar uma breve demonstração para que eu possa mostrar como isso funcionaria.'
+      en: 'Let\'s set up a short demo so I can show you how this would work with your actual data.',
+      pt: 'Vamos configurar uma breve demonstração para que eu possa mostrar como isso funcionaria com seus dados reais.'
     },
     
     // 10. Rates & Timeline / Taxas e Cronograma
     {
       category: 'rates',
-      en: 'My hourly rate is $100, based on the complexity of this type of project.',
-      pt: 'Minha taxa horária é $100, com base na complexidade deste tipo de projeto.'
+      en: 'My hourly rate is one hundred dollars, based on the complexity of this type of project.',
+      pt: 'Minha taxa horária é cem dólares, com base na complexidade deste tipo de projeto.'
     },
     {
       category: 'rates',
-      en: 'I estimate this project will take about [X] hours to complete.',
-      pt: 'Estimo que este projeto levará cerca de [X] horas para ser concluído.'
+      en: 'I estimate this project will take about forty hours to complete from start to finish.',
+      pt: 'Estimo que este projeto levará cerca de quarenta horas para ser concluído do início ao fim.'
     },
     {
       category: 'rates',
-      en: 'I can work around 1-2 hours per day on this project.',
-      pt: 'Posso trabalhar cerca de 1-2 horas por dia neste projeto.'
+      en: 'I can work around one to two hours per day on this project during weekdays.',
+      pt: 'Posso trabalhar cerca de uma a duas horas por dia neste projeto durante dias úteis.'
     },
     {
       category: 'rates',
-      en: 'The timeline for completion would be approximately [X] weeks.',
-      pt: 'O prazo para conclusão seria aproximadamente [X] semanas.'
+      en: 'The timeline for completion would be approximately four weeks from the start date.',
+      pt: 'O prazo para conclusão seria aproximadamente quatro semanas a partir da data de início.'
     },
     {
       category: 'rates',
-      en: 'Would you prefer a fixed project fee or hourly billing?',
-      pt: 'Você prefere uma taxa fixa de projeto ou cobrança por hora?'
+      en: 'Would you prefer a fixed project fee of four thousand dollars or hourly billing?',
+      pt: 'Você prefere uma taxa fixa de projeto de quatro mil dólares ou cobrança por hora?'
     },
     {
       category: 'rates',
-      en: 'I can offer a 10% discount if we agree to a longer-term engagement.',
-      pt: 'Posso oferecer um desconto de 10% se concordarmos com um compromisso de longo prazo.'
+      en: 'I can offer a ten percent discount if we agree to a longer-term support contract.',
+      pt: 'Posso oferecer um desconto de dez por cento se concordarmos com um contrato de suporte de longo prazo.'
     },
     {
       category: 'rates',
-      en: 'My payment terms are [details about payment schedule].',
-      pt: 'Meus termos de pagamento são [detalhes sobre cronograma de pagamento].'
+      en: 'My payment terms are fifty percent upfront and fifty percent upon completion.',
+      pt: 'Meus termos de pagamento são cinquenta por cento adiantado e cinquenta por cento após a conclusão.'
     },
+    
+    // 11. Closing / Encerramento da Reunião
+    {
+      category: 'closing',
+      en: 'Thank you for your time today. It was great discussing your project needs.',
+      pt: 'Obrigado pelo seu tempo hoje. Foi ótimo discutir as necessidades do seu projeto.'
+    },
+    {
+      category: 'closing',
+      en: 'Feel free to email me if you have any other questions before our next meeting.',
+      pt: 'Sinta-se à vontade para me enviar um email se tiver outras perguntas antes da nossa próxima reunião.'
+    },
+    {
+      category: 'closing',
+      en: 'I\'ll send you the meeting notes and action items via email by the end of the day.',
+      pt: 'Enviarei as notas da reunião e itens de ação por email até o final do dia.'
+    },
+    {
+      category: 'closing',
+      en: 'We can continue this discussion on WhatsApp if that\'s more convenient for you.',
+      pt: 'Podemos continuar esta discussão no WhatsApp se for mais conveniente para você.'
+    },
+    {
+      category: 'closing',
+      en: 'Would you prefer to review the proposal via email or in another call?',
+      pt: 'Você prefere revisar a proposta por email ou em outra chamada?'
+    },
+    {
+      category: 'closing',
+      en: 'Let\'s connect on LinkedIn so we can stay in touch professionally.',
+      pt: 'Vamos nos conectar no LinkedIn para mantermos contato profissional.'
+    },
+    {
+      category: 'closing',
+      en: 'I\'ll set up a shared Slack channel where we can continue the discussion with your team.',
+      pt: 'Configurarei um canal compartilhado no Slack onde podemos continuar a discussão com sua equipe.'
+    },
+    {
+      category: 'closing',
+      en: 'I look forward to working with you on this project.',
+      pt: 'Estou ansioso para trabalhar com você neste projeto.'
+    },
+    {
+      category: 'closing',
+      en: 'Is there anything else you\'d like to discuss before we wrap up?',
+      pt: 'Há mais alguma coisa que você gostaria de discutir antes de encerrarmos?'
+    }
   ];
 
   // Partes da apresentação profissional
@@ -526,7 +573,8 @@ document.addEventListener('DOMContentLoaded', function() {
       'solutions': 'Technical Solutions',
       'agreement': 'Agreement',
       'nextsteps': 'Next Steps',
-      'rates': 'Rates & Timeline'
+      'rates': 'Rates & Timeline',
+      'closing': 'Closing the Meeting'
     };
     
     // Adicionar contagem de frases em cada categoria
@@ -548,7 +596,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const orderedCategories = [
         'introduction', 'overview', 'clarification', 'terminology', 
         'assessment', 'improvement', 'solutions', 'agreement', 
-        'nextsteps', 'rates'
+        'nextsteps', 'rates', 'closing'
       ];
       
       // Remover todos os itens exceto o "All"
@@ -1098,7 +1146,8 @@ document.addEventListener('DOMContentLoaded', function() {
       'solutions': 'Technical Solutions',
       'agreement': 'Agreement',
       'nextsteps': 'Next Steps',
-      'rates': 'Rates & Timeline'
+      'rates': 'Rates & Timeline',
+      'closing': 'Closing'
     };
     
     return titles[category] || category.charAt(0).toUpperCase() + category.slice(1);
