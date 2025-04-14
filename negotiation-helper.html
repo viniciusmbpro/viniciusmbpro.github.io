@@ -8,63 +8,142 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/negotiation-helper.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#55BB00',
+            secondary: '#63D3BE',
+            accent: '#3CB4D6',
+            background: '#0E2A52',
+            darkblue: '#081C38',
+            lightblue: '#1A3A6A',
+          },
+          fontFamily: {
+            'poppins': ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Estilos adicionais para corrigir problemas de compatibilidade */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: rgba(10, 34, 66, 0.9);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 550px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
 </head>
 
-<body>
+<body class="font-poppins">
   <div class="app-container">
-    <header>
-      <h1>Meeting Assistant <span class="subtitle">| Private Tool</span></h1>
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search phrases...">
-        <button id="toggleLayout" title="Toggle Layout"><ion-icon name="grid-outline"></ion-icon></button>
+    <header
+      class="sticky top-0 z-50 bg-darkblue bg-opacity-80 backdrop-blur-lg border-b border-[rgba(255,255,255,0.1)] p-4 flex justify-between items-center">
+      <h1 class="text-xl font-semibold text-primary">Meeting Assistant <span
+          class="subtitle text-sm font-normal text-gray-300">| Private Tool</span></h1>
+      <div class="search-container flex items-center gap-2">
+        <input type="text" id="searchInput" placeholder="Search phrases..."
+          class="bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-2 text-white outline-none focus:border-accent focus:ring-1 focus:ring-accent w-64 transition-all">
+        <button id="toggleLayout" title="Toggle Layout"
+          class="bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.1)] text-white h-10 w-10 rounded-lg flex items-center justify-center hover:bg-[rgba(255,255,255,0.2)] transition-all">
+          <ion-icon name="grid-outline"></ion-icon>
+        </button>
       </div>
     </header>
 
-    <main>
-      <div class="sidebar">
-        <div class="tab-selector">
-          <button class="tab-btn active" data-tab="phrases">Common Phrases</button>
-          <button class="tab-btn" data-tab="presentation">My Presentation</button>
-          <button class="tab-btn" data-tab="notes">Meeting Notes</button>
+    <main class="flex flex-1 h-[calc(100vh-4rem)]">
+      <div
+        class="sidebar w-[280px] bg-darkblue bg-opacity-60 backdrop-blur-md border-r border-[rgba(255,255,255,0.1)] py-6 flex flex-col overflow-y-auto">
+        <div class="tab-selector mx-4 mb-6 flex rounded-lg bg-[rgba(255,255,255,0.05)] overflow-hidden">
+          <button
+            class="tab-btn flex-1 py-3 text-sm font-medium text-gray-300 hover:text-white transition-colors active:text-primary"
+            data-tab="phrases">Common Phrases</button>
+          <button class="tab-btn flex-1 py-3 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+            data-tab="presentation">My Presentation</button>
+          <button class="tab-btn flex-1 py-3 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+            data-tab="notes">Meeting Notes</button>
         </div>
-        <div class="category-selector">
-          <h3>Categories</h3>
-          <ul id="categoryList">
-            <li data-category="all" class="active">All Phrases</li>
-            <li data-category="overview">Project Overview</li>
-            <li data-category="improvement">Areas for Improvement</li>
-            <li data-category="clarification">Clarification Requests</li>
-            <li data-category="terminology">Terminology</li>
-            <li data-category="agreement">Agreements</li>
-            <li data-category="assessment">Assessment</li>
-            <li data-category="nextsteps">Next Steps</li>
-            <li data-category="rates">Rates & Timeline</li>
+        <div class="category-selector px-6">
+          <h3 class="text-sm font-semibold text-gray-300 mb-4 pl-2">Categories</h3>
+          <ul id="categoryList" class="space-y-1">
+            <li data-category="all"
+              class="active py-2 px-4 rounded-lg text-sm cursor-pointer hover:bg-[rgba(255,255,255,0.1)] transition-all bg-[rgba(85,187,0,0.2)] text-primary font-medium">
+              All Phrases</li>
           </ul>
         </div>
       </div>
 
-      <div class="content-area">
+      <div class="content-area flex-1 p-6 overflow-y-auto">
         <!-- Phrases Tab Content -->
         <div id="phrases-content" class="tab-content active">
-          <div class="phrases-grid" id="phrasesContainer">
+          <div class="phrases-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="phrasesContainer">
             <!-- Phrases will be added here by JavaScript -->
           </div>
         </div>
 
         <!-- Presentation Tab Content -->
         <div id="presentation-content" class="tab-content">
-          <div class="presentation-container">
+          <div class="presentation-container space-y-8">
             <!-- The professional presentation in English will be loaded here -->
           </div>
         </div>
 
         <!-- Notes Tab Content -->
         <div id="notes-content" class="tab-content">
-          <div class="notes-container">
-            <textarea id="meetingNotes" placeholder="Take notes during your meeting here..."></textarea>
-            <div class="notes-actions">
-              <button id="saveNotes">Save Notes</button>
-              <button id="clearNotes">Clear</button>
+          <div
+            class="notes-container bg-darkblue bg-opacity-40 backdrop-blur-md rounded-xl p-6 border border-[rgba(255,255,255,0.1)]">
+            <textarea id="meetingNotes" placeholder="Take notes during your meeting here..."
+              class="w-full h-[60vh] bg-[rgba(255,255,255,0.05)] text-white p-4 rounded-lg border border-[rgba(255,255,255,0.1)] outline-none focus:border-accent resize-none"></textarea>
+            <div class="notes-actions flex justify-end gap-3 mt-4">
+              <button id="saveNotes"
+                class="px-5 py-2 bg-primary hover:bg-opacity-80 text-darkblue font-medium rounded-lg transition-all flex items-center gap-2">
+                <ion-icon name="save-outline"></ion-icon>
+                Save Notes
+              </button>
+              <button id="clearNotes"
+                class="px-5 py-2 bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)] text-white font-medium rounded-lg transition-all flex items-center gap-2">
+                <ion-icon name="trash-outline"></ion-icon>
+                Clear
+              </button>
             </div>
           </div>
         </div>
@@ -74,12 +153,67 @@
     <!-- Modal for displaying translations -->
     <div id="translationModal" class="modal">
       <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h3>Translation</h3>
-        <div id="translationContent"></div>
+        <button
+          class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-[rgba(255,255,255,0.1)] transition-all">&times;</button>
+        <h3 class="text-xl font-semibold text-primary mb-4">Translation</h3>
+        <div id="translationContent" class="text-white"></div>
       </div>
     </div>
   </div>
+
+  <!-- Add Tailwind's utility classes for the reset-order-btn, if needed -->
+  <style>
+    .reset-order-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      margin-left: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .reset-order-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Grid/List view styles */
+    .phrase-item.grid-view {
+      height: 100%;
+    }
+
+    .phrase-item.list-view {
+      display: flex;
+      align-items: center;
+    }
+
+    .phrase-item.list-view .phrase-content {
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .phrase-item.list-view .phrase-text {
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+
+    /* Drag and drop styles */
+    .phrase-item.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+    }
+
+    .phrase-item.drag-over {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(85, 187, 0, 0.3);
+    }
+  </style>
 
   <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
   <script src="js/negotiation-helper.js"></script>

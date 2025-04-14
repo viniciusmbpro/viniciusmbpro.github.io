@@ -728,7 +728,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adicionar cada frase ao container
     filteredPhrases.forEach((phrase, index) => {
       const phraseElement = document.createElement('div');
-      phraseElement.className = `phrase-item ${isGridView ? 'grid-view' : 'list-view'}`;
+      phraseElement.className = `phrase-item ${isGridView ? 'grid-view' : 'list-view'} bg-opacity-60 bg-[#0A2242] backdrop-blur-md border border-[rgba(255,255,255,0.1)] rounded-xl transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl hover:border-[rgba(255,255,255,0.2)] hover:bg-[#1A3A6A]`;
       phraseElement.setAttribute('data-index', index);
       phraseElement.setAttribute('data-category', phrase.category);
       phraseElement.setAttribute('draggable', true);
@@ -742,27 +742,31 @@ document.addEventListener('DOMContentLoaded', function() {
       phraseElement.addEventListener('dragend', handleDragEnd);
       
       phraseElement.innerHTML = `
-        <div class="phrase-content">
-          <div class="phrase-text">${phrase.en}</div>
-          <div class="phrase-actions">
-            <button class="translate-btn" title="Show translation">
-              <ion-icon name="language-outline"></ion-icon>
-            </button>
-            <button class="copy-btn" title="Copy to clipboard">
-              <ion-icon name="copy-outline"></ion-icon>
-            </button>
+        <div class="phrase-content flex flex-col p-4">
+          <div class="phrase-text text-white mb-3 font-medium">${phrase.en}</div>
+          <div class="flex justify-between items-center">
+            <div class="category-tag text-xs font-medium px-2 py-1 rounded-full bg-[#55BB00] bg-opacity-20 text-[#55BB00]">${getCategoryTitle(phrase.category)}</div>
+            <div class="phrase-actions flex gap-2">
+              <button class="translate-btn p-2 rounded-full bg-[#3CB4D6] bg-opacity-20 text-[#3CB4D6] hover:bg-opacity-40 transition-all duration-200" title="Show translation">
+                <ion-icon name="language-outline" class="text-sm"></ion-icon>
+              </button>
+              <button class="copy-btn p-2 rounded-full bg-[#55BB00] bg-opacity-20 text-[#55BB00] hover:bg-opacity-40 transition-all duration-200" title="Copy to clipboard">
+                <ion-icon name="copy-outline" class="text-sm"></ion-icon>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="category-tag">${getCategoryTitle(phrase.category)}</div>
       `;
       
       // Adicionar evento para mostrar a tradução
-      phraseElement.querySelector('.translate-btn').addEventListener('click', function() {
+      phraseElement.querySelector('.translate-btn').addEventListener('click', function(e) {
+        e.stopPropagation(); // Impedir propagação do evento
         showTranslation(phrase.en, phrase.pt);
       });
       
       // Adicionar evento para copiar para a área de transferência
-      phraseElement.querySelector('.copy-btn').addEventListener('click', function() {
+      phraseElement.querySelector('.copy-btn').addEventListener('click', function(e) {
+        e.stopPropagation(); // Impedir propagação do evento
         copyToClipboard(phrase.en);
         showToast('Phrase copied to clipboard!');
       });
@@ -773,8 +777,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Exibir mensagem se não houver frases encontradas
     if (filteredPhrases.length === 0) {
       phrasesContainer.innerHTML = `
-        <div class="no-results">
-          <ion-icon name="search-outline" class="text-4xl text-gray-400"></ion-icon>
+        <div class="no-results flex flex-col items-center justify-center p-8 text-gray-400">
+          <ion-icon name="search-outline" class="text-4xl mb-3"></ion-icon>
           <p>No phrases found. Try a different search term or category.</p>
         </div>
       `;
@@ -920,40 +924,54 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Ativar a aba e conteúdo selecionados
         this.classList.add('active');
-        document.getElementById(`${tabName}-content`).classList.add('active');
+        const targetContent = document.getElementById(`${tabName}-content`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+        }
       });
     });
     
     // Ouvinte para o botão de alternar layout
-    toggleLayoutBtn.addEventListener('click', function() {
-      isGridView = !isGridView;
-      
-      // Atualizar o ícone
-      this.innerHTML = isGridView 
-        ? '<ion-icon name="grid-outline"></ion-icon>' 
-        : '<ion-icon name="list-outline"></ion-icon>';
-      
-      // Atualizar as classes dos itens
-      document.querySelectorAll('.phrase-item').forEach(item => {
-        item.classList.toggle('grid-view', isGridView);
-        item.classList.toggle('list-view', !isGridView);
+    if (toggleLayoutBtn) {
+      toggleLayoutBtn.addEventListener('click', function() {
+        isGridView = !isGridView;
+        
+        // Atualizar o ícone
+        this.innerHTML = isGridView 
+          ? '<ion-icon name="grid-outline"></ion-icon>' 
+          : '<ion-icon name="list-outline"></ion-icon>';
+        
+        // Atualizar as classes dos itens
+        document.querySelectorAll('.phrase-item').forEach(item => {
+          if (isGridView) {
+            item.classList.add('grid-view');
+            item.classList.remove('list-view');
+          } else {
+            item.classList.add('list-view');
+            item.classList.remove('grid-view');
+          }
+        });
+        
+        // Salvar a preferência
+        localStorage.setItem('isGridView', isGridView);
       });
-      
-      // Salvar a preferência
-      localStorage.setItem('isGridView', isGridView);
-    });
+    }
     
     // Ouvinte para fechar o modal
-    closeModal.addEventListener('click', function() {
-      modal.classList.remove('active');
-    });
+    if (closeModal) {
+      closeModal.addEventListener('click', function() {
+        modal.classList.remove('active');
+      });
+    }
     
     // Clicar fora do modal para fechar
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+    }
     
     // Salvar notas
     saveNotesBtn.addEventListener('click', function() {
@@ -1002,11 +1020,23 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mostrar tradução no modal
   function showTranslation(textEN, textPT) {
     translationContent.innerHTML = `
-      <div class="translation-en">${textEN}</div>
-      <hr style="margin: 15px 0; border-color: var(--light-blue);">
+      <div class="translation-en mb-4">${textEN}</div>
+      <hr class="border-[#1A3A6A] my-4">
       <div class="translation-pt">${textPT}</div>
     `;
     modal.classList.add('active');
+    
+    // Garantir que o modal possa ser fechado
+    document.querySelector('.close-modal').addEventListener('click', function() {
+      modal.classList.remove('active');
+    });
+    
+    // Clicar fora do modal para fechar
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
   }
 
   // Copiar para a área de transferência
@@ -1103,6 +1133,17 @@ document.addEventListener('DOMContentLoaded', function() {
       .replace(/&gt;/g, ">")
       .replace(/&quot;/g, "\"")
       .replace(/&#039;/g, "'");
+  }
+
+  // Função auxiliar para debounce
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
   }
 
   // Inicializar a aplicação
