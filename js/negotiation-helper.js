@@ -501,13 +501,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Inicializar a aplicação
   function init() {
+    updateCategoryList();
     loadPhrases();
     loadPresentation();
     setupEventListeners();
     loadSavedNotes();
     createSecretPage();
     setupProfileImageEasterEgg();
-    updateCategoryList();
   }
 
   // Atualizar a lista de categorias no sidebar
@@ -532,15 +532,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adicionar contagem de frases em cada categoria
     const categoryList = document.getElementById('categoryList');
     if (categoryList) {
-      // Manter o item "All" existente
-      const allItem = categoryList.querySelector('[data-category="all"]');
-      
-      // Limpar lista existente, mas manter o item "All"
-      categoryList.innerHTML = '';
-      categoryList.appendChild(allItem);
+      // Criar ou atualizar o item "All"
+      let allItem = categoryList.querySelector('[data-category="all"]');
+      if (!allItem) {
+        allItem = document.createElement('li');
+        allItem.setAttribute('data-category', 'all');
+        categoryList.appendChild(allItem);
+      }
       
       // Adicionar contagem ao item "All"
       allItem.textContent = `All Phrases (${phrasesData.length})`;
+      allItem.classList.add('active');
       
       // Recriar itens de categoria na ordem lógica desejada
       const orderedCategories = [
@@ -549,6 +551,11 @@ document.addEventListener('DOMContentLoaded', function() {
         'nextsteps', 'rates'
       ];
       
+      // Remover todos os itens exceto o "All"
+      const itemsToRemove = categoryList.querySelectorAll('li:not([data-category="all"])');
+      itemsToRemove.forEach(item => item.remove());
+      
+      // Adicionar itens de categoria na ordem correta
       orderedCategories.forEach(category => {
         if (categories.includes(category)) {
           const count = phrasesData.filter(phrase => phrase.category === category).length;
@@ -557,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
           li.textContent = `${categoryTitles[category]} (${count})`;
           categoryList.appendChild(li);
           
-          // Adicionar evento de clique
+          // Adicionar evento de clique aqui para garantir que funcione
           li.addEventListener('click', function() {
             document.querySelectorAll('#categoryList li').forEach(item => {
               item.classList.remove('active');
@@ -569,8 +576,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       
-      // Ativar o item "All" por padrão
-      allItem.classList.add('active');
+      // Adicionar evento de clique ao item "All" também
+      allItem.addEventListener('click', function() {
+        document.querySelectorAll('#categoryList li').forEach(item => {
+          item.classList.remove('active');
+        });
+        this.classList.add('active');
+        currentCategory = 'all';
+        loadPhrases(searchInput.value, currentCategory);
+      });
     }
   }
 
@@ -892,15 +906,8 @@ document.addEventListener('DOMContentLoaded', function() {
       loadPhrases(this.value, currentCategory);
     }, 300));
     
-    // Ouvintes para as categorias
-    categoryItems.forEach(item => {
-      item.addEventListener('click', function() {
-        categoryItems.forEach(i => i.classList.remove('active'));
-        this.classList.add('active');
-        currentCategory = this.getAttribute('data-category');
-        loadPhrases(searchInput.value, currentCategory);
-      });
-    });
+    // Não precisamos adicionar eventos de clique para as categorias aqui
+    // porque já adicionamos na função updateCategoryList
     
     // Ouvintes para as abas
     tabButtons.forEach(button => {
