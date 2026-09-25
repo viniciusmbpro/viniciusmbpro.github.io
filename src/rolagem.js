@@ -16,7 +16,7 @@ export function criarRolagem() {
       aoRolar: (f) => ouvintes.add(f),
       parar() {},
       soltar() {},
-      irPara: (alvo) => (typeof alvo === 'number' ? window.scrollTo(0, alvo) : document.querySelector(alvo)?.scrollIntoView()),
+      irPara: (alvo) => (typeof alvo === 'number' ? window.scrollTo(0, alvo) : (typeof alvo === 'string' ? document.querySelector(alvo) : alvo)?.scrollIntoView()),
     };
   }
 
@@ -43,6 +43,6 @@ export function criarRolagem() {
     aoRolar: (f) => ouvintes.add(f),
     parar: () => lenis.stop(),
     soltar: () => lenis.start(),
-    irPara: (alvo) => lenis.scrollTo(alvo),
+    irPara: (alvo, opcoes) => lenis.scrollTo(alvo, { duration: 1.2, ...opcoes }),
   };
 }

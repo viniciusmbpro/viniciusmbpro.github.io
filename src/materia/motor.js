@@ -280,6 +280,18 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
   let introInicio = null;
   let morfe = null; // uma troca de forma dentro da mesma estação
   const carregadas = { A: null, B: null };
+  // o véu: uma caixa pode pedir que a matéria dela suma (o sistema já está
+  // inteiro por cima) e volte (a passagem começou). Guardado por elemento,
+  // suavizado quadro a quadro.
+  const veuAlvo = new Map();
+  const veuAtual = new Map();
+  const veuDe = (el) => {
+    const alvo = veuAlvo.has(el) ? veuAlvo.get(el) : 1;
+    const v = veuAtual.has(el) ? veuAtual.get(el) : alvo;
+    const novo = v + (alvo - v) * 0.12;
+    veuAtual.set(el, novo);
+    return novo;
+  };
   const t0 = performance.now();
   const mouse = { x: -9999, y: -9999, on: 0, alvoOn: 0, r: 140 };
   const inclina = { x: 0, y: 0 };
@@ -496,7 +508,7 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
     cor.claro += ((mistura(A.esquema === 'claro' ? 1 : 0, B.esquema === 'claro' ? 1 : 0, tc)) - cor.claro) * k;
 
     alfaEntrada = Math.min(1, alfaEntrada + (parado ? 1 : 0.025));
-    let alfa = alfaEntrada;
+    let alfa = alfaEntrada * mistura(veuDe(A.el), veuDe(B.el), t);
     let tt = t;
     // na abertura a matéria já nasce mais leve e chega inteira
     if (intro !== null) alfa *= 0.35 + 0.65 * intro;
@@ -608,6 +620,11 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
       return e && N ? formaDe(e).f : null;
     },
     // a forma de uma caixa mudou: anima da antiga (de) para a nova, no lugar
+    velar(el, visivel) {
+      const e = estacoes.find((x) => x.el === el || x.caixaEl === el);
+      veuAlvo.set(e ? e.el : el, visivel ? 1 : 0);
+      ligar();
+    },
     morfar(el, de, dur = 1500) {
       const e = estacoes.find((x) => x.el === el || x.caixaEl === el);
       if (!e || !de) return;

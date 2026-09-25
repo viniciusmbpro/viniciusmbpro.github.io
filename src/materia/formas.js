@@ -745,5 +745,6 @@ export const FORMAS = {
   linha: formaLinha,
   aro: formaAro,
   monte: (w, h, n, esq) => (dinamicas.monte || vazia)(w, h, n, esq),
+  sistema: (w, h, n, esq) => (dinamicas.sistema || vazia)(w, h, n, esq),
   conta: (w, h, n, esq) => (dinamicas.conta || vazia)(w, h, n, esq),
 };

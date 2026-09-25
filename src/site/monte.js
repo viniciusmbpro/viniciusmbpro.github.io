@@ -6,9 +6,9 @@
 // O vermelhão aqui tem um sentido só: o visto marca o módulo em que UMA
 // PESSOA APROVA. É a tese do site no desenho: a IA faz, a pessoa aprova.
 //
-// "Ver funcionando" põe pedidos para correr pela planta; eles param no visto
-// até a aprovação e seguem. No fim, a ficha técnica do sistema (módulos, o
-// que a IA faz, onde a pessoa aprova) vai por e-mail.
+// "Abrir o sistema" transforma a planta no sistema de verdade (sistema.js).
+// A ficha técnica (módulos, o que a IA faz, onde a pessoa aprova) vai por
+// e-mail.
 import { amostrar, dinamicas, BRANCO, ACESO } from '../materia/formas.js';
 
 // cada área: um núcleo (sempre presente) e as dores que viram módulos.
@@ -60,32 +60,26 @@ const AREAS = {
   },
 };
 
-const TOTAL = 10; // pedidos por rodada
-const FAIXA = 0.4; // a altura (em fração da caixa) por onde os pedidos correm
-const calmo = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('parado');
 
-export function iniciarMonte({ materia, som }) {
+export function iniciarMonte({ materia, som, sistema, rolagem }) {
   const raiz = document.getElementById('monte');
   if (!raiz) return;
   const figura = raiz.querySelector('.monte-planta');
   const nomes = raiz.querySelector('.monte-nomes');
-  const fluxo = raiz.querySelector('.monte-fluxo');
   const doresEl = raiz.querySelector('.monte-dores');
   const passoDores = raiz.querySelector('.monte-passo--dores');
   const ficha = raiz.querySelector('.monte-ficha');
-  const rodar = raiz.querySelector('[data-acao="rodar"]');
-  const enviar = raiz.querySelector('[data-acao="enviar"]');
-  const aviso = raiz.querySelector('.monte-aviso');
+  const abrir = raiz.querySelector('[data-acao="abrir"]');
+  const enviar = [...raiz.querySelectorAll('[data-acao="enviar"]')];
 
   let area = null;
   let marcadas = []; // índices das dores, na ordem em que foram marcadas
   let versao = 0;
   let W = 1;
   let H = 1;
-  let rodando = null;
 
   // os módulos do sistema montado: o núcleo e as dores marcadas
-  const modulos = () => (area ? [{ ...AREAS[area].nucleo, aprova: null }, ...marcadas.map((i) => AREAS[area].dores[i])] : []);
+  const modulos = () => (area ? [{ ...AREAS[area].nucleo, aprova: null, nucleo: true }, ...marcadas.map((i) => AREAS[area].dores[i])] : []);
 
   // os lugares da planta: 6, em "cobra" (a linha de baixo volta), para o
   // fluxo ser um caminho contínuo
@@ -165,7 +159,7 @@ export function iniciarMonte({ materia, som }) {
     if (Math.abs(A.y - B.y) < 2) {
       const esq = A.x < B.x ? A : B;
       const dir = esq === A ? B : A;
-      const y = A.y + A.h * FAIXA;
+      const y = A.y + A.h / 2;
       const p = [[esq.x + esq.w + 4, y], [dir.x - 4, y]];
       return esq === A ? p : [p[1], p[0]];
     }
@@ -198,7 +192,7 @@ export function iniciarMonte({ materia, som }) {
   function pintarFicha() {
     const M = modulos();
     ficha.hidden = !M.length;
-    rodar.disabled = M.length < 2;
+    abrir.disabled = M.length < 2;
     if (!M.length) return;
     const aprovacoes = M.filter((m) => m.aprova);
     ficha.querySelector('.monte-resumo').textContent =
@@ -225,11 +219,11 @@ export function iniciarMonte({ materia, som }) {
       'Empresa e tamanho:',
       'Quem decide e para quando:',
     ].join('\n');
-    enviar.href = `mailto:viniciusmbpro@gmail.com?subject=${encodeURIComponent(`Sistema de ${AREAS[area].nome.toLowerCase()}`)}&body=${encodeURIComponent(corpo)}`;
+    const href = `mailto:viniciusmbpro@gmail.com?subject=${encodeURIComponent(`Sistema de ${AREAS[area].nome.toLowerCase()}`)}&body=${encodeURIComponent(corpo)}`;
+    enviar.forEach((a) => (a.href = href));
   }
 
   function mudar(fn) {
-    parar();
     const de = materia.formaAtual(figura);
     fn();
     versao++;
@@ -269,96 +263,29 @@ export function iniciarMonte({ materia, som }) {
     }
   });
 
-  // ---- ver funcionando: pedidos correndo pela planta ----
-  function parar() {
-    if (!rodando) return;
-    cancelAnimationFrame(rodando.quadro);
-    rodando = null;
-    fluxo.replaceChildren();
-    rodar.textContent = 'Ver funcionando';
-    rodar.setAttribute('aria-pressed', 'false');
-  }
-  function iniciarFluxo() {
-    const L = lugares(W, H).slice(0, modulos().length);
-    const M = modulos();
-    if (calmo()) {
-      aviso.textContent = 'Com o movimento reduzido, os pedidos não correm: cada um passa pelos módulos em ordem e para no visto até alguém aprovar.';
-      return;
-    }
-    // o caminho: centro de cada módulo, na ordem
-    const pontos = L.map((s) => [s.x + s.w / 2, s.y + s.h * FAIXA]);
-    const trecho = pontos.slice(1).map((p, k) => Math.hypot(p[0] - pontos[k][0], p[1] - pontos[k][1]));
-    const pedidos = [];
-    let criados = 0;
-    let feitos = 0;
-    let aprovados = 0;
-    let ultimo = 0;
-    rodando = { quadro: 0 };
-    rodar.textContent = 'Parar';
-    rodar.setAttribute('aria-pressed', 'true');
-    const velocidade = 0.42; // px por ms
-    function quadro(agora) {
-      if (!rodando) return;
-      if (criados < TOTAL && agora - ultimo > 420) {
-        ultimo = agora;
-        criados++;
-        const el = document.createElement('span');
-        el.className = 'monte-pedido';
-        fluxo.append(el);
-        pedidos.push({ el, k: 0, d: 0, espera: 0 });
-      }
-      for (const p of pedidos) {
-        if (p.fim) continue;
-        if (p.espera > agora) continue;
-        p.d += velocidade * 16;
-        while (p.k < trecho.length && p.d >= trecho[p.k]) {
-          p.d -= trecho[p.k];
-          p.k++;
-          // chegou a um módulo com visto: espera a aprovação
-          if (M[p.k]?.aprova) {
-            p.espera = agora + 650;
-            p.el.classList.add('aguarda');
-            setTimeout(() => {
-              p.el.classList.remove('aguarda');
-              p.el.classList.add('aprovado');
-              aprovados++;
-            }, 600);
-            break;
-          }
-        }
-        if (p.k >= trecho.length) {
-          p.fim = true;
-          feitos++;
-          p.el.classList.add('pronto');
-          setTimeout(() => p.el.remove(), 500);
-          continue;
-        }
-        const [a, b] = [pontos[p.k], pontos[p.k + 1]];
-        const t = Math.min(1, p.d / trecho[p.k]);
-        p.el.style.transform = `translate(${a[0] + (b[0] - a[0]) * t}px, ${a[1] + (b[1] - a[1]) * t}px)`;
-      }
-      aviso.textContent = `${feitos} de ${TOTAL} pedidos prontos${M.some((m) => m.aprova) ? ` · ${aprovados} aprovações de uma pessoa` : ''}.`;
-      if (feitos >= TOTAL) {
-        setTimeout(parar, 600);
-        som?.visto();
-        return;
-      }
-      rodando.quadro = requestAnimationFrame(quadro);
-    }
-    rodando.quadro = requestAnimationFrame(quadro);
-  }
   raiz.addEventListener('click', (e) => {
     const b = e.target.closest('[data-acao]');
     if (!b) return;
-    if (b.dataset.acao === 'rodar') {
-      if (rodando) parar();
-      else iniciarFluxo();
+    if (b.dataset.acao === 'abrir') {
+      // a planta vira o sistema de verdade
+      const de = materia.formaAtual(figura);
+      raiz.classList.add('usando');
+      sistema.abrir({ chave: area, nome: AREAS[area].nome, lista: modulos() }, de);
+      rolagem?.irPara?.(document.getElementById('sistema'), { offset: -90 });
+    } else if (b.dataset.acao === 'voltar') {
+      const de = sistema.formaAtual();
+      sistema.fechar();
+      raiz.classList.remove('usando');
+      materia.remedir();
+      versao++;
+      pintarNomes();
+      requestAnimationFrame(() => materia.morfar(figura, de, 1300));
+      rolagem?.irPara?.(raiz, { offset: -90 });
     } else if (b.dataset.acao === 'recomecar') {
       mudar(() => {
         marcadas = [];
       });
       doresEl.querySelectorAll('input').forEach((i) => (i.checked = false));
-      aviso.textContent = '';
     }
   });
 
@@ -366,7 +293,6 @@ export function iniciarMonte({ materia, som }) {
     const r = figura.getBoundingClientRect();
     W = r.width;
     H = r.height;
-    parar();
     versao++;
     pintarNomes();
   }).observe(figura);
