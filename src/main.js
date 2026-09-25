@@ -1,13 +1,13 @@
 // A ordem da página:
 //   1. os ajustes guardados (tema e qualidade) — antes de tudo desenhar;
-//   2. a rolagem, o som (só efeitos, e só depois de um gesto) e as trocas;
+//   2. a rolagem, o som (só efeitos curtos, e só depois de um gesto — não
+//      há som de fundo) e as trocas;
 //   3. a matéria, que já mede as estações mas só aparece quando o
 //      carregamento sai da frente;
 //   4. o carregamento conta até 100 esperando as fontes e o retrato;
 //   5. na saída: a poeira vira o visto, o título do início assenta.
 import { criarRolagem } from './rolagem.js';
 import { criarSom } from './som.js';
-import { criarAmbiente } from './ambiente.js';
 import { criarMateria } from './materia/motor.js';
 import { carregarRetrato } from './materia/formas.js';
 import { lerAjustes, iniciarAjustes } from './site/ajustes.js';
@@ -36,21 +36,12 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 const som = criarSom();
 som.armar();
-const ambiente = criarAmbiente(som);
-// o ambiente só volta sozinho para quem escolheu: no primeiro gesto
-if (ambiente.quer && som.ligado) {
-  const umaVez = () => {
-    ambiente.tocar(true);
-    window.removeEventListener('click', umaVez, true);
-  };
-  window.addEventListener('click', umaVez, true);
-}
 
 const trocas = iniciarTrocas(rolagem);
 const revisao = iniciarRevisao({ som });
 const materia = criarMateria({ rolagem, som, qualidade });
 
-iniciarTopo(rolagem, { aoCapitulo: (s) => ambiente.carater(s.dataset.tema) });
+iniciarTopo(rolagem);
 iniciarRoda(rolagem, { som, parado });
 iniciarTrilho(rolagem);
 iniciarMetodo(rolagem, { som });
@@ -62,7 +53,6 @@ iniciarCasos(rolagem);
 iniciarRetrato();
 iniciarAjustes({
   som,
-  ambiente,
   qualidade: materia.qualidade,
   aoMudarTema() {
     trocas.marcar();

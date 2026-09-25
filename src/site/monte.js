@@ -1,13 +1,14 @@
 // MONTE O SEU SISTEMA — a obra.
 //
-// O sistema já está na tela desde o começo: a janela real do aplicativo, com
-// o conteúdo feito só de matéria ("em obra"). A pessoa escolhe a área, e as
+// O sistema já está na tela desde o começo: a janela real de um aplicativo,
+// ainda só em matéria. A pessoa escolhe a área — e cada área é um produto
+// com cara própria (sistema.js) —, e as
 // dores daquela área aparecem como CARTAS sobre a mesa, nas palavras de quem
 // vive o problema ("Aprovação de pagamento pelo WhatsApp").
 //
 // Cada carta jogada para dentro do sistema (arrastada, ou só tocada) voa até
-// o menu e vira um módulo; a matéria desenha ali o esqueleto da tela daquele
-// módulo. "Ligar o sistema" solidifica tudo, e as telas passam a funcionar.
+// o menu e vira um módulo: a matéria desenha o esqueleto da tela daquele
+// módulo e ela se solidifica na hora, já funcionando. Sem modos: montar é usar.
 //
 // O vermelhão tem um sentido só: o visto marca o módulo em que UMA PESSOA
 // APROVA. A IA faz; a pessoa aprova.
@@ -71,7 +72,6 @@ export function iniciarMonte({ som, sistema }) {
   const dica = raiz.querySelector('.monte-dica');
   const resumo = raiz.querySelector('.monte-resumo');
   const acoes = raiz.querySelector('.monte-acoes');
-  const ligar = raiz.querySelector('[data-acao="ligar"]');
   const enviar = [...raiz.querySelectorAll('[data-acao="enviar"]')];
   const caixa = sistema.caixa;
 
@@ -102,11 +102,10 @@ export function iniciarMonte({ som, sistema }) {
 
   function atualizar() {
     const M = modulos();
-    ligar.disabled = M.length < 2;
     acoes.hidden = !area;
     if (!area) return;
     const ap = M.filter((m) => m.aprova).length;
-    resumo.textContent = `${AREAS[area].nome}: ${M.length} ${M.length === 1 ? 'módulo' : 'módulos'}${ap ? `, ${ap} com aprovação de uma pessoa` : ''}.${M.length < 2 ? ' Jogue ao menos uma carta para poder ligar.' : ''}`;
+    resumo.textContent = `${AREAS[area].nome}: ${M.length} ${M.length === 1 ? 'módulo' : 'módulos'}${ap ? `, ${ap} com aprovação de uma pessoa` : ''}.`;
     const corpo = [
       'Olá, Vinícius.',
       '',
@@ -215,18 +214,12 @@ export function iniciarMonte({ som, sistema }) {
     }
     const b = e.target.closest('[data-acao]');
     if (!b) return;
-    if (b.dataset.acao === 'ligar') {
-      if (sistema.ligado) sistema.desligar();
-      else sistema.ligar();
-      b.textContent = sistema.ligado ? 'Voltar à obra' : 'Ligar o sistema';
-      b.classList.toggle('app-botao--sim', !sistema.ligado);
-    } else if (b.dataset.acao === 'desfazer' && jogadas.length) {
+    if (b.dataset.acao === 'desfazer' && jogadas.length) {
       jogadas.pop();
       configurar(jogadas.length);
       pintarCartas();
     } else if (b.dataset.acao === 'recomecar') {
       jogadas = [];
-      if (sistema.ligado) ligar.click();
       configurar(0, true);
       pintarCartas(true);
     }

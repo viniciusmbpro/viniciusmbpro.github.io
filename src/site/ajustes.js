@@ -38,7 +38,7 @@ export function lerAjustes() {
   return { tema, qualidade };
 }
 
-export function iniciarAjustes({ som, ambiente, qualidade, aoMudarTema, aoMudarQualidade }) {
+export function iniciarAjustes({ som, qualidade, aoMudarTema, aoMudarQualidade }) {
   const botao = document.getElementById('ajustes-abre');
   const painel = document.getElementById('ajustes');
   const raiz = document.documentElement;
@@ -46,7 +46,7 @@ export function iniciarAjustes({ som, ambiente, qualidade, aoMudarTema, aoMudarQ
     const r = painel.querySelector(`input[name="${nome}"][value="${valor}"]`);
     if (r) r.checked = true;
   };
-  marcar('som', !som.ligado ? 'off' : ambiente.quer ? 'ambiente' : 'efeitos');
+  marcar('som', som.ligado ? 'efeitos' : 'off');
   marcar('tema', raiz.dataset.prefTema);
   marcar('qualidade', qualidade);
   marcar('paleta', raiz.dataset.paleta === 'classica' ? 'classica' : 'visto');
@@ -80,9 +80,8 @@ export function iniciarAjustes({ som, ambiente, qualidade, aoMudarTema, aoMudarQ
   painel.addEventListener('change', async (e) => {
     const { name, value } = e.target;
     if (name === 'som') {
+      // só efeitos curtos, ou nada: não há som de fundo
       som.alternar(value !== 'off');
-      ambiente.querer(value === 'ambiente');
-      await ambiente.tocar(value === 'ambiente');
       if (value !== 'off') {
         await som.destravar();
         som.visto();

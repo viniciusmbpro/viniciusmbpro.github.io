@@ -24,7 +24,7 @@ O motivo central é **o visto** — o V de Vinícius desenhado como a marca de q
 | Tipografia | Bricolage Grotesque (variável: peso, largura, tamanho ótico) — estreita e pesada nos títulos, larga e calma no texto; JetBrains Mono só para dado medido | uma grotesca com traço de gente (terminais irregulares), que lê como letreiro de obra nos títulos. O mono não é fantasia de "técnico": só aparece em números das fichas e no contador |
 | Marca | **vm**: o v é o visto de pontas cortadas (o traço do lápis de revisão), apoiado na linha de base do m — o m estreito e pesado da Bricolage dos títulos. Arquivos: `img/marca.svg` (fundo escuro), `img/marca-papel.svg` (fundo claro), `img/favicon.svg` | o nome virou o gesto: "v" de Vinícius e visto de aprovado, na mesma forma. O m em contorno vetorial (não depende da fonte), para servir em favicon, assinatura e documento |
 | Motivo | o visto; a frase quebrada com ↪ (a segunda linha é a virada); o grifo à mão sob a palavra-chave; a troca de seção com a borda em V | tudo sai do mesmo gesto do lápis |
-| Som | um risco de grafite e o "visto": duas notas subindo uma quinta (mi → si) | a assinatura sonora; nada de som contínuo por padrão |
+| Som | um risco de grafite e o "visto": duas notas subindo uma quinta (mi → si) | a assinatura sonora. Só efeitos curtos: não há som de fundo |
 
 ## A matéria
 
@@ -38,7 +38,13 @@ Uma massa de 9 a 22 mil partículas (na GPU) acompanha a página inteira e muda 
 ## O que a pessoa pode fazer (não só assistir)
 
 - **A conta** (`src/site/conta.js`): pessoas × horas por semana × 48 semanas × custo da hora. A matéria escreve o custo anual e acende a fração que a IA pode assumir — o gráfico é o próprio número. "Levar essa conta para a conversa" abre um e-mail já com os números.
-- **Monte o seu sistema — a obra** (`src/site/monte.js` + `src/site/sistema.js`): o sistema já está na tela desde o começo, a janela real de um aplicativo com o conteúdo feito só de matéria ("em obra"). A pessoa escolhe a área e as dores daquela área caem na mesa como **cartas de papel**, nas palavras de quem vive o problema ("Aprovação de pagamento pelo WhatsApp"). Arrastar uma carta para dentro do sistema (ou só tocar nela) faz a carta voar até o menu e virar um módulo; a matéria desenha ali o **esqueleto lido da própria interface** daquela tela (contornos, linhas de texto, botões — o principal em vermelhão). "Ligar o sistema" solidifica o conteúdo e tudo passa a funcionar, com dados fictícios (e ditos como tal): lista com busca e filtro, fila de aprovação, leitura de documento, conversa com resposta sugerida e painel. O vermelhão tem um sentido só: o visto marca o módulo em que **uma pessoa aprova**. "Quero este sistema" manda a ficha por e-mail.
+- **Monte o seu sistema** (`src/site/monte.js` + `src/site/sistema.js`): a janela de um aplicativo já está na tela. A pessoa escolhe a área e as dores daquela área caem na mesa como **cartas de papel**, nas palavras de quem vive o problema. Arrastar uma carta para dentro do sistema (ou só tocar nela) faz a carta voar até o menu e virar um módulo: a matéria desenha o **esqueleto lido da própria interface** daquela tela (contornos, linhas de texto, botões — o principal aceso —, as rotas do mapa) e a tela se solidifica na hora, já funcionando. Sem modos: montar é usar.
+  Cada área é um **produto próprio**, com casca e telas que o trabalho pede (dados fictícios, ditos como tal):
+  - **Caixa** (financeiro): menu lateral e faixa de saldos; agenda da semana, fila de alçada com a régua do limite, nota fiscal (DANFE) com o marca-texto da leitura, conciliação extrato × sistema, régua de cobrança, checklist do fechamento.
+  - **Torre** (operação): abas; mapa de rotas com os veículos, escala por hora (Gantt) com o conflito aceso, mensagens dos motoristas × o que a IA registrou, a página de rastreio que o cliente vê, ocorrência por áudio, custos previsto × realizado.
+  - **Funil** (comercial): pílulas; quadro de etapas, triagem com etiquetas da IA, a proposta como documento, contrato comparado cláusula a cláusula com o modelo, funil de conversão, saúde dos clientes.
+  - **Central** (atendimento): trilho escuro; filas por canal com o tempo de resposta, caixa única em três colunas, resposta com a fonte da base citada, quadro de tratativas, checklist da política de troca, motivos da semana.
+  Os dados e textos de cada tela ficam no topo de `sistema.js`, um bloco por tela.
 - **Casos na horizontal** (`src/site/casos.js`): no computador a seção fica presa e as fichas passam de lado, parando em cada uma enquanto a matéria desenha o sistema dela. No celular, empilham.
 - **A foto por baixo** (`src/site/retrato.js`): o retrato em partículas é o rascunho; com o mouse, uma lanterna mostra a foto real onde a pessoa olha. No toque (ou pelo botão "Ver a foto"), a foto aparece inteira.
 
@@ -60,11 +66,11 @@ O motor aceita formas **vivas** (`dinamicas` em `formas.js`): quando uma delas m
 | `src/site/metodo.js` | a régua do Método: cada etapa ganha o visto quando a leitura passa |
 | `src/site/revisar.js` | o título do início assentando como tinta; o grifo à mão nos títulos |
 | `src/site/cursor.js` | o cursor-anel e os botões magnéticos (só com mouse) |
-| `src/site/ajustes.js` · `src/som.js` · `src/ambiente.js` | painel de som, tema e qualidade; som sintetizado |
+| `src/site/ajustes.js` · `src/som.js` | painel de som, tema e qualidade; som sintetizado |
 | `src/site/segredo.js` | o detalhe escondido: digite **jarvis** em qualquer lugar da página |
 | `scripts/capturas.mjs` | capturas de conferência com o Playwright |
 
-**Som:** o navegador só toca depois de um gesto; no celular esse gesto é o `click`, e no iPhone o site declara `navigator.audioSession.type = 'playback'`. O padrão é **Só efeitos**; o ambiente (notas soltas, com silêncio entre elas) só toca para quem escolher.
+**Som:** o navegador só toca depois de um gesto; no celular esse gesto é o `click`, e no iPhone o site declara `navigator.audioSession.type = 'playback'`. Só há efeitos curtos (ligados ou desligados no painel); não há som de fundo.
 
 ## Preservado sem mudança
 

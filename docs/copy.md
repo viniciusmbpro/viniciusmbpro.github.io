@@ -77,7 +77,7 @@ A ordem segue o StoryBrand (herói → o que está em jogo → guia → plano �
 - **Título:** Monte o sistema ↪ que falta na sua empresa.
 - Escolha a área. Depois jogue para dentro do sistema as cartas do que acontece aí hoje: cada uma vira uma tela, feita de matéria. Quando estiver pronto, ligue o sistema e use.
 - As cartas estão escritas como o dono fala (Joanna Wiebe, voz do cliente): "Hoje: Aprovação de pagamento pelo WhatsApp — vira Aprovação em alçadas". Cada módulo diz o que a IA faz e, quando há, o que a pessoa aprova.
-- No sistema: "em obra" → **Ligar o sistema** → "ligado" (e "Voltar à obra"). Embaixo: Quero este sistema · Tirar a última carta · Recomeçar.
+- Cada carta vira uma tela que já funciona, sem botão de ligar. Cada área tem o seu produto: Caixa, Torre, Funil e Central. Embaixo: Quero este sistema · Tirar a última carta · Recomeçar.
 - Por quê: o dono não compra diagrama, compra a tela que a equipe vai usar na segunda-feira. Montar com as próprias dores e ver a fila de aprovação com a nota da IA responde, sem argumento, "não sei onde aplicar" e "e quando a IA errar?".
 
 ### Como começa
