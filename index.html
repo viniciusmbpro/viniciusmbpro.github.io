@@ -54,7 +54,9 @@
       try {
         var t = localStorage.getItem('vm:tema');
         if (t) r.dataset.prefTema = t;
-        // ?paleta=classica (ou =visto) no endereço escolhe e guarda a paleta
+        // no ar a paleta é fixa (data-paleta-fixa, posto no build): não lê nada
+        if (r.hasAttribute('data-paleta-fixa')) return;
+        // localmente: ?paleta=classica (ou =visto) no endereço escolhe e guarda
         var pp = new URLSearchParams(location.search).get('paleta');
         if (pp === 'classica' || pp === 'visto') localStorage.setItem('vm:paleta', pp);
         var p = localStorage.getItem('vm:paleta');
@@ -124,11 +126,13 @@
       <label><input type="radio" name="tema" value="escuro" /> <span>Só escuro</span></label>
       <label><input type="radio" name="tema" value="claro" /> <span>Só claro</span></label>
     </fieldset>
+    <!-- paleta:inicio (a escolha de cores só existe localmente; o build tira) -->
     <fieldset>
       <legend>Cores</legend>
       <label><input type="radio" name="paleta" value="visto" /> <span>Nova (vermelhão)</span></label>
       <label><input type="radio" name="paleta" value="classica" /> <span>Clássica (verde e azul)</span></label>
     </fieldset>
+    <!-- paleta:fim -->
     <fieldset>
       <legend>Qualidade</legend>
       <label><input type="radio" name="qualidade" value="alta" /> <span>Completa</span></label>
