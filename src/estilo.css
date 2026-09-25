@@ -28,6 +28,9 @@
   --tinta-2: #5a5248;
   --vermelhao: #ff5533;
   --vermelhao-papel: #b8331a;
+  --acento-papel: #d23c1d;
+  --acento-halo: rgba(255, 85, 51, 0.16);
+  --acento-halo-papel: rgba(184, 51, 26, 0.12);
 
   --display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
   --texto-fonte: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
@@ -40,6 +43,31 @@
   --sobre: 30svh; /* quanto a troca de seção sobe por cima da anterior */
   --ease-saida: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-mola: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* A PALETA CLÁSSICA: as cores do site antigo (azul-marinho, verde e
+   turquesa), para comparar com a identidade nova. Troca só as variáveis de
+   base; a estrutura, a tipografia e o motivo do visto continuam os mesmos.
+   Contrastes conferidos: texto #eaf2f8 e #a9bfd3 sobre #0e2a52 (13,6:1 e
+   7,4:1); verde #55bb00 sobre #0e2a52 (5,8:1); no papel-gelo, texto verde
+   #2f7a00 (4,9:1) e o secundário #3e5670 (6,9:1). */
+html[data-paleta='classica'] {
+  --carvao: #0e2a52;
+  --carvao-2: #081c38;
+  --papel: #eef5f3;
+  --papel-2: #e0ecea;
+  --osso: #eaf2f8;
+  --osso-2: #a9bfd3;
+  --tinta: #0e2a52;
+  --tinta-2: #3e5670;
+  --vermelhao: #55bb00;
+  --vermelhao-papel: #2f7a00;
+  --acento-papel: #2f7a00;
+  --acento-halo: rgba(99, 211, 190, 0.18);
+  --acento-halo-papel: rgba(47, 122, 0, 0.1);
+}
+html[data-paleta='classica'] ::-webkit-scrollbar-thumb {
+  background: #2b4a73;
 }
 
 /* os dois temas. Cada seção declara o seu; o painel pode forçar um só */
@@ -55,7 +83,7 @@ html[data-pref-tema='escuro'] .ajustes {
   --sobre-acento: var(--carvao);
   --fio: rgba(236, 229, 216, 0.16);
   --fio-forte: rgba(236, 229, 216, 0.34);
-  --marca-confirmar: rgba(255, 85, 51, 0.16);
+  --marca-confirmar: var(--acento-halo);
 }
 [data-tema='claro'],
 html[data-pref-tema='claro'] [data-tema],
@@ -64,12 +92,12 @@ html[data-pref-tema='claro'] .ajustes {
   --fundo-2: var(--papel-2);
   --texto: var(--tinta);
   --texto-2: var(--tinta-2);
-  --acento: #d23c1d;
+  --acento: var(--acento-papel);
   --acento-texto: var(--vermelhao-papel);
   --sobre-acento: #fbf7f0;
   --fio: rgba(23, 20, 15, 0.16);
   --fio-forte: rgba(23, 20, 15, 0.36);
-  --marca-confirmar: rgba(184, 51, 26, 0.12);
+  --marca-confirmar: var(--acento-halo-papel);
 }
 
 *,
@@ -1295,7 +1323,7 @@ main {
 }
 .cursor.sobre .cursor-anel {
   scale: 2.6;
-  background: rgba(255, 85, 51, 0.12);
+  background: var(--acento-halo);
 }
 .cursor.recolhido .cursor-anel {
   scale: 0.4;

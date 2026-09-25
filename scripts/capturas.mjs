@@ -13,6 +13,7 @@ const erros = [];
 p.on('console', (m) => m.type() === 'error' && erros.push(m.text()));
 p.on('pageerror', (e) => erros.push(String(e)));
 if (process.env.QUALIDADE) await p.addInitScript((q) => localStorage.setItem('vm:qualidade', q), process.env.QUALIDADE);
+if (process.env.PALETA) await p.addInitScript((c) => localStorage.setItem('vm:paleta', c), process.env.PALETA);
 if (process.env.TEMA) await p.addInitScript((t) => localStorage.setItem('vm:tema', t), process.env.TEMA);
 await p.goto(url);
 await p.waitForTimeout(500);

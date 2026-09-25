@@ -49,6 +49,7 @@ export function iniciarAjustes({ som, ambiente, qualidade, aoMudarTema, aoMudarQ
   marcar('som', !som.ligado ? 'off' : ambiente.quer ? 'ambiente' : 'efeitos');
   marcar('tema', raiz.dataset.prefTema);
   marcar('qualidade', qualidade);
+  marcar('paleta', raiz.dataset.paleta === 'classica' ? 'classica' : 'visto');
 
   // o painel toma as cores da seção sob o topo
   const tingir = () => (painel.dataset.tema = document.getElementById('topo').dataset.tema || 'escuro');
@@ -91,6 +92,12 @@ export function iniciarAjustes({ som, ambiente, qualidade, aoMudarTema, aoMudarQ
       guardar(CHAVE_TEMA, value);
       aoMudarTema?.(value);
       tingir();
+    } else if (name === 'paleta') {
+      if (value === 'classica') raiz.dataset.paleta = 'classica';
+      else delete raiz.dataset.paleta;
+      guardar('vm:paleta', value);
+      // a matéria relê as cores no próximo quadro; o remedir a acorda
+      aoMudarTema?.(raiz.dataset.prefTema);
     } else if (name === 'qualidade') {
       guardar(CHAVE_QUALIDADE, value);
       raiz.classList.toggle('parado', value === 'parado');

@@ -27,6 +27,14 @@ function buscarThree() {
 }
 import { FORMAS, esquecerFormas } from './formas.js';
 
+// a paleta clássica (as cores do site antigo): no escuro a matéria é
+// turquesa e acende em verde; no claro é azul-marinho e acende em verde
+// fechado
+const CLASSICA = {
+  escuro: { base: [0.39, 0.83, 0.75], luz: [0.45, 0.85, 0.05] },
+  claro: { base: [0.055, 0.165, 0.32], luz: [0.18, 0.48, 0.0] },
+};
+const coresDe = (esquema) => (document.documentElement.dataset.paleta === 'classica' ? CLASSICA : CORES)[esquema];
 const CORES = {
   // no escuro, a matéria é o papel; no claro, é a tinta. O acento é o mesmo
   // vermelhão nos dois (um pouco mais fechado no papel, pelo contraste)
@@ -451,8 +459,8 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
 
     // a cor segue o tema da seção de destino
     const t = limitar(onde.t);
-    const ca = CORES[A.esquema];
-    const cb = CORES[B.esquema];
+    const ca = coresDe(A.esquema);
+    const cb = coresDe(B.esquema);
     const tc = suave(limitar((t - 0.3) / 0.4));
     const k = parado ? 1 : 0.18;
     for (let c = 0; c < 3; c++) {

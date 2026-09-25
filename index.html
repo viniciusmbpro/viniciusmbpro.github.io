@@ -54,6 +54,14 @@
       try {
         var t = localStorage.getItem('vm:tema');
         if (t) r.dataset.prefTema = t;
+        // ?paleta=classica (ou =visto) no endereço escolhe e guarda a paleta
+        var pp = new URLSearchParams(location.search).get('paleta');
+        if (pp === 'classica' || pp === 'visto') localStorage.setItem('vm:paleta', pp);
+        var p = localStorage.getItem('vm:paleta');
+        if (p === 'classica') {
+          r.dataset.paleta = 'classica';
+          document.querySelector('meta[name="theme-color"]').content = '#0e2a52';
+        }
       } catch (e) {}
     })();
   </script>
@@ -114,6 +122,11 @@
       <label><input type="radio" name="tema" value="alternado" /> <span>Carvão e papel</span></label>
       <label><input type="radio" name="tema" value="escuro" /> <span>Só escuro</span></label>
       <label><input type="radio" name="tema" value="claro" /> <span>Só claro</span></label>
+    </fieldset>
+    <fieldset>
+      <legend>Cores</legend>
+      <label><input type="radio" name="paleta" value="visto" /> <span>Nova (vermelhão)</span></label>
+      <label><input type="radio" name="paleta" value="classica" /> <span>Clássica (verde e azul)</span></label>
     </fieldset>
     <fieldset>
       <legend>Qualidade</legend>
