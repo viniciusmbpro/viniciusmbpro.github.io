@@ -715,8 +715,8 @@ export function formaAro(w, h, n) {
   }, { semente: 83 });
 }
 
-// formas que vêm de fora e mudam enquanto a página está aberta: o desenho de
-// quem lê (esboço) e o número da conta. Cada módulo registra aqui a sua
+// formas que vêm de fora e mudam enquanto a página está aberta: as escolhas de
+// quem lê (monte o seu sistema) e o número da conta. Cada módulo registra aqui a sua
 // função; a versão entra na chave do cache, então uma mudança gera um objeto
 // novo e o motor recarrega sozinho.
 export const dinamicas = {};
@@ -744,6 +744,6 @@ export const FORMAS = {
   retrato: (w, h, n, esquema) => formaRetrato(w, h, n, { claro: esquema === 'claro' }),
   linha: formaLinha,
   aro: formaAro,
-  esboco: (w, h, n, esq) => (dinamicas.esboco || vazia)(w, h, n, esq),
+  monte: (w, h, n, esq) => (dinamicas.monte || vazia)(w, h, n, esq),
   conta: (w, h, n, esq) => (dinamicas.conta || vazia)(w, h, n, esq),
 };

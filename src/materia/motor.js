@@ -374,7 +374,8 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
         // que a lista entra até ela terminar (medido pelo pai, porque a
         // posição de quem está preso muda com a rolagem)
         const ate = document.querySelector(el.dataset.ate);
-        a = topoNaPagina(caixaEl.parentElement) - H * 0.35;
+        const de = el.dataset.de ? document.querySelector(el.dataset.de) : caixaEl.parentElement;
+        a = topoNaPagina(de) - H * 0.35;
         b = topoNaPagina(ate) + ate.offsetHeight - H * 0.62;
       } else {
         const r = caixaEl.getBoundingClientRect();

@@ -27,7 +27,7 @@ O motivo central é **o visto** — o V de Vinícius desenhado como a marca de q
 
 ## A matéria
 
-Uma massa de 9 a 22 mil partículas (na GPU) acompanha a página inteira e muda de forma a cada capítulo, junto com o texto: **visto → pilotos → a conta → pedido → aro → o seu rabisco → mapa → camadas → semanas → agentes → rotas → casco → pagamento → voz → página → retrato → horizonte → visto**. O fim fecha o começo.
+Uma massa de 9 a 22 mil partículas (na GPU) acompanha a página inteira e muda de forma a cada capítulo, junto com o texto: **visto → pilotos → a conta → pedido → aro → o sistema que a pessoa monta → mapa → camadas → semanas → agentes → rotas → casco → pagamento → voz → página → retrato → horizonte → visto**. O fim fecha o começo.
 
 - Cada forma é **desenhada** num canvas escondido e **amostrada** (`src/materia/formas.js`): texto, traço ou foto viram forma, e ela tem acabamento de desenho, não de nuvem sorteada.
 - A rolagem diz entre quais duas formas estamos; a GPU faz a mistura, o voo, o respiro, o cursor e o estiramento da rolagem (`src/materia/motor.js`). O processador só troca os buffers quando o par de formas muda.
@@ -37,7 +37,7 @@ Uma massa de 9 a 22 mil partículas (na GPU) acompanha a página inteira e muda 
 ## O que a pessoa pode fazer (não só assistir)
 
 - **A conta** (`src/site/conta.js`): pessoas × horas por semana × 48 semanas × custo da hora. A matéria escreve o custo anual e acende a fração que a IA pode assumir — o gráfico é o próprio número. "Levar essa conta para a conversa" abre um e-mail já com os números.
-- **Rabisque** (`src/site/esboco.js`): um quadro onde a pessoa desenha caixas (módulos) e setas (o caminho do trabalho). A cada traço a matéria ocupa o desenho. "Passar a limpo" reconhece caixas fechadas e setas, alinha tudo numa grade, liga cada seta às caixas certas e dá nome a cada módulo (editável). Sai por e-mail (módulos e fluxos escritos) ou como imagem. No toque, o quadro só captura o dedo depois de "Tocar para desenhar", para não virar armadilha de rolagem. Pelo teclado: "Adicionar módulo".
+- **Monte o seu sistema** (`src/site/monte.js`): a pessoa escolhe a área (financeiro, operação, comercial, atendimento) e marca, em frases do dia a dia, o que acontece ali hoje. Cada dor vira um módulo que a matéria encaixa na planta (os lugares vazios ficam tracejados). O vermelhão tem um sentido só: o visto marca o módulo em que **uma pessoa aprova**. "Ver funcionando" põe pedidos para correr pela planta, parando no visto até a aprovação. A ficha técnica (módulos, o que a IA faz, onde a pessoa aprova) vai por e-mail. Tudo por clique e por teclado; no computador a planta fica presa ao lado das escolhas.
 - **Casos na horizontal** (`src/site/casos.js`): no computador a seção fica presa e as fichas passam de lado, parando em cada uma enquanto a matéria desenha o sistema dela. No celular, empilham.
 - **A foto por baixo** (`src/site/retrato.js`): o retrato em partículas é o rascunho; com o mouse, uma lanterna mostra a foto real onde a pessoa olha. No toque (ou pelo botão "Ver a foto"), a foto aparece inteira.
 

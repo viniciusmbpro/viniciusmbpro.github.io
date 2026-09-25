@@ -90,7 +90,7 @@
     <nav class="menu" id="menu" aria-label="Seções">
       <ul>
         <li><a href="#construo">O que construo</a></li>
-        <li><a href="#rabisque">Rabisque</a></li>
+        <li><a href="#monte">Monte o seu</a></li>
         <li><a href="#oferta">Como começa</a></li>
         <li><a href="#metodo">Método</a></li>
         <li><a href="#casos">Casos</a></li>
@@ -248,30 +248,43 @@
       </div>
     </section>
 
-    <!-- O ESBOÇO -->
-    <section class="secao esboco-secao" id="rabisque" data-tema="claro" data-capitulo="Rabisque">
+    <!-- MONTE O SEU SISTEMA -->
+    <section class="secao monte-secao" id="monte" data-tema="claro" data-capitulo="Monte o seu">
       <div class="duas-colunas duas-colunas--topo">
-        <h2 class="titulo"><span class="linha">Rabisque o sistema</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>que falta na sua <em class="grifo">empresa</em>.</span></h2>
-        <p class="lide lide--menor">Uma caixa para cada parte do trabalho, uma seta para o caminho que ele faz. Não precisa ser bonito: é assim que todo sistema começa. Depois, passe a limpo.</p>
+        <h2 class="titulo"><span class="linha">Monte o sistema</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>que falta na sua <em class="grifo">empresa</em>.</span></h2>
+        <p class="lide lide--menor">Escolha a área e marque o que acontece aí hoje. Cada coisa marcada vira um módulo. O visto vermelho mostra onde uma pessoa aprova — a IA faz o resto.</p>
       </div>
-      <div class="esboco" id="esboco">
-        <div class="esboco-quadro figura" data-forma="esboco" data-estacao="larga" data-cursor="desenhar" role="group" aria-label="Quadro de desenho. Desenhe com o mouse ou o dedo; pelo teclado, use o botão Adicionar módulo.">
-          <canvas class="esboco-lapis" aria-hidden="true"></canvas>
-          <div class="esboco-rotulos"></div>
-          <p class="esboco-dica">Desenhe aqui: caixas para os módulos, setas entre elas.</p>
-          <button class="botao botao--cheio esboco-tocar" type="button" data-acao="desenhar">Tocar para desenhar</button>
-        </div>
-        <div class="esboco-controles">
-          <button class="botao botao--cheio" type="button" data-acao="limpo">Passar a limpo</button>
-          <button class="botao botao--linha" type="button" data-acao="desfazer">Desfazer</button>
-          <button class="botao botao--linha" type="button" data-acao="apagar">Apagar tudo</button>
-          <button class="botao botao--linha" type="button" data-acao="exemplo">Ver um exemplo</button>
-          <button class="botao botao--linha" type="button" data-acao="modulo">Adicionar módulo</button>
-        </div>
-        <p class="esboco-resumo" aria-live="polite"></p>
-        <div class="esboco-envio" hidden>
-          <a class="botao botao--cheio" data-acao="enviar" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com">Me mandar este esboço</a>
-          <button class="botao botao--linha" type="button" data-acao="baixar">Baixar a imagem</button>
+      <div class="monte-grade" id="monte-grade">
+        <form class="monte-escolhas" onsubmit="return false">
+          <fieldset class="monte-passo">
+            <legend>1. A área</legend>
+            <div class="monte-opcoes">
+              <label class="ficha-opcao"><input type="radio" name="area" value="financeiro" /><span>Financeiro</span></label>
+              <label class="ficha-opcao"><input type="radio" name="area" value="operacao" /><span>Operação e logística</span></label>
+              <label class="ficha-opcao"><input type="radio" name="area" value="comercial" /><span>Comercial</span></label>
+              <label class="ficha-opcao"><input type="radio" name="area" value="atendimento" /><span>Atendimento</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="monte-passo monte-passo--dores" hidden>
+            <legend>2. O que acontece aí hoje</legend>
+            <div class="monte-opcoes monte-dores"></div>
+          </fieldset>
+          <div class="monte-ficha" hidden>
+            <p class="monte-resumo" aria-live="polite"></p>
+            <ol class="monte-lista"></ol>
+            <div class="monte-acoes">
+              <button class="botao botao--linha" type="button" data-acao="rodar" aria-pressed="false" disabled>Ver funcionando</button>
+              <a class="botao botao--cheio" data-acao="enviar" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com">Me mandar esta ficha</a>
+              <button class="botao botao--linha" type="button" data-acao="recomecar">Recomeçar</button>
+            </div>
+          </div>
+        </form>
+        <div class="monte-saida">
+          <div class="monte-planta figura" data-forma="monte" data-de="#monte-grade" data-ate="#monte-grade" data-som="chegada" role="img" aria-label="A planta do sistema: um lugar para cada módulo; os escolhidos aparecem inteiros e ligados em sequência.">
+            <div class="monte-nomes" aria-hidden="true"></div>
+            <div class="monte-fluxo" aria-hidden="true"></div>
+          </div>
+          <p class="monte-aviso" aria-live="polite"></p>
         </div>
       </div>
     </section>
