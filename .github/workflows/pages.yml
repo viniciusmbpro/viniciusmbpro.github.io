@@ -1,0 +1,51 @@
+# Publica o site no GitHub Pages: instala, builda (Vite) e publica a pasta dist/.
+#
+# ATENÇÃO — antes deste arquivo chegar à main:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions".
+# Enquanto a fonte for "Deploy from a branch", a main é servida crua, e o
+# index.html de desenvolvimento (que aponta para /src/main.js) quebraria o site.
+# Passo a passo completo no README, em "Publicar".
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# uma publicação por vez; a mais nova vence
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # o playwright só serve para as capturas locais: não baixa navegador aqui
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicar.outputs.page_url }}
+    steps:
+      - id: publicar
+        uses: actions/deploy-pages@v4

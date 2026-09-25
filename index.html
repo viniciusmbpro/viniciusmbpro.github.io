@@ -1,771 +1,427 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
+<!doctype html>
+<html lang="pt-BR" class="sem-js">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vinícius Marques | Desenvolvedor</title>
-  <!-- Favicon -->
-  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
-  <meta name="theme-color" content="#0E2A52">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <!-- Dev Icon Fonts -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@master/devicon.min.css">
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#55BB00',
-            secondary: '#63D3BE',
-            accent: '#3CB4D6',
-            background: '#0E2A52',
-            darkblue: '#081C38',
-            lightblue: '#1A3A6A',
-          },
-          fontFamily: {
-            'poppins': ['Poppins', 'sans-serif']
-          }
-        }
-      }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Vinícius Marques — sistemas com IA para a operação da sua empresa</title>
+  <meta name="description" content="Eu construo, com IA no centro do processo, os sistemas internos que tiram o trabalho manual de financeiro, logística, contratos e atendimento. Diagnóstico, construção e acompanhamento, com preço fechado por etapa." />
+  <link rel="canonical" href="https://viniciusmarques.dev/" />
+  <meta name="theme-color" content="#100f0d" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/img/favicon-180.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:url" content="https://viniciusmarques.dev/" />
+  <meta property="og:site_name" content="Vinícius Marques" />
+  <meta property="og:title" content="Sua equipe já usa IA. Sua operação ainda não." />
+  <meta property="og:description" content="Sistemas internos construídos com IA no centro do processo — do diagnóstico à produção, com preço fechado por etapa." />
+  <meta property="og:image" content="https://viniciusmarques.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="O visto em vermelhão sobre fundo carvão, com a frase: Sua equipe já usa IA. Sua operação ainda não." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sua equipe já usa IA. Sua operação ainda não." />
+  <meta name="twitter:description" content="Sistemas internos construídos com IA no centro do processo." />
+  <meta name="twitter:image" content="https://viniciusmarques.dev/og.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Vinícius Marques — sistemas com IA",
+    "url": "https://viniciusmarques.dev/",
+    "email": "mailto:viniciusmbpro@gmail.com",
+    "areaServed": "BR",
+    "founder": {
+      "@type": "Person",
+      "name": "Vinícius Marques",
+      "jobTitle": "Gerente de TI e construtor de sistemas com IA",
+      "sameAs": ["https://www.linkedin.com/in/viniciusmbpro", "https://github.com/viniciusmbpro"]
     }
+  }
   </script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0E2A52;
-      background-image: radial-gradient(#1A3A6A 0.5px, #0E2A52 0.5px);
-      background-size: 20px 20px;
-    }
 
-    .glow {
-      text-shadow: 0 0 10px rgba(85, 187, 0, 0.5);
-    }
-
-    .glass {
-      background: rgba(10, 34, 66, 0.6);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .tech-icon {
-      transition: all 0.3s ease;
-    }
-
-    .tech-icon:hover {
-      transform: translateY(-5px);
-    }
-
-    /* Botão flutuante de e-mail para mobile */
-    .floating-mail-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #55BB00, #63D3BE);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-      transform: scale(0);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .floating-mail-btn.show {
-      transform: scale(1);
-    }
-
-    .floating-mail-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* Mostrar apenas em dispositivos móveis */
-    @media (min-width: 768px) {
-      .floating-mail-btn {
-        display: none;
-      }
-    }
-  </style>
-  <!-- Idioma -->
+  <!-- antes da primeira pintura: marca que há JS e aplica o tema guardado,
+       para a página não piscar no tema errado -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const userLang = navigator.language || navigator.userLanguage;
-      setLanguage(userLang.includes('pt') ? 'pt' : 'en');
-
-      document.getElementById('lang-pt').addEventListener('click', () => setLanguage('pt'));
-      document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
-    });
-
-    function setLanguage(lang) {
-      document.querySelectorAll('[data-lang]').forEach(el => {
-        el.classList.add('hidden');
-      });
-
-      document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
-        el.classList.remove('hidden');
-      });
-
-      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en-US';
-
-      // Ativar botão de idioma selecionado
-      document.getElementById('lang-pt').classList.toggle('bg-primary', lang === 'pt');
-      document.getElementById('lang-pt').classList.toggle('text-background', lang === 'pt');
-      document.getElementById('lang-en').classList.toggle('bg-primary', lang === 'en');
-      document.getElementById('lang-en').classList.toggle('text-background', lang === 'en');
-    }
+    (function () {
+      var r = document.documentElement;
+      r.classList.remove('sem-js');
+      r.classList.add('js');
+      try {
+        var t = localStorage.getItem('vm:tema');
+        if (t) r.dataset.prefTema = t;
+      } catch (e) {}
+    })();
   </script>
+  <link rel="stylesheet" href="/src/estilo.css" />
+  <script type="module" src="/src/main.js"></script>
 </head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-<body class="text-white min-h-screen">
-  <!-- Header/Navbar -->
-  <header class="glass sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="#" class="text-primary font-bold text-xl">VM<span class="text-white">Dev</span></a>
+  <!-- o carregamento: um contador que chega a 100 enquanto a matéria se forma -->
+  <div class="carregador" id="carregador" aria-hidden="true">
+    <div class="carregador-marca">
+      <svg class="visto-svg" viewBox="0 0 100 85" aria-hidden="true"><path d="M8 41 L36 65 L94 7" /></svg>
+    </div>
+    <p class="carregador-conta"><span id="conta">000</span></p>
+    <p class="carregador-nome">Vinícius Marques · sistemas com IA</p>
+  </div>
 
-      <!-- Seletor de idioma -->
-      <div class="flex items-center gap-3">
-        <div class="flex rounded-full border border-accent overflow-hidden">
-          <button id="lang-pt" class="px-3 py-1 text-sm font-medium transition duration-300">PT</button>
-          <button id="lang-en" class="px-3 py-1 text-sm font-medium transition duration-300">EN</button>
-        </div>
+  <canvas id="materia" aria-hidden="true"></canvas>
 
-        <ul class="flex gap-4 items-center">
-          <li><a href="https://www.linkedin.com/in/viniciusmbpro" target="_blank"
-              class="text-accent hover:text-primary transition-colors duration-300 text-xl"><ion-icon
-                name="logo-linkedin"></ion-icon></a></li>
-          <li><a href="https://github.com/viniciusmbpro" target="_blank"
-              class="text-accent hover:text-primary transition-colors duration-300 text-xl"><ion-icon
-                name="logo-github"></ion-icon></a></li>
-          <li><a href="mailto:viniciusmbpro@gmail.com"
-              class="text-accent hover:text-primary transition-colors duration-300 text-xl"><ion-icon
-                name="mail-outline"></ion-icon></a></li>
-        </ul>
-      </div>
+  <header class="topo" id="topo">
+    <a class="marca" href="#inicio" aria-label="Vinícius Marques, voltar ao início">
+      <svg class="visto-svg" viewBox="0 0 100 85" aria-hidden="true"><path d="M8 41 L36 65 L94 7" /></svg>
+      <span class="marca-nome">Vinícius Marques</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Seções">
+      <ul>
+        <li><a href="#construo">O que construo</a></li>
+        <li><a href="#oferta">Como começa</a></li>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#casos">Casos</a></li>
+        <li><a href="#quem">Quem sou</a></li>
+      </ul>
+    </nav>
+    <div class="topo-acoes">
+      <button class="botao-icone" id="ajustes-abre" type="button" aria-expanded="false" aria-controls="ajustes" data-cursor="ajustar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10" /><circle cx="16" cy="7" r="2" /><circle cx="8" cy="17" r="2" /></svg>
+        <span class="visualmente-oculto">Ajustes de som, tema e qualidade</span>
+      </button>
+      <a class="botao botao--cheio botao--topo" href="#contato">Conversar</a>
+      <button class="botao-icone menu-abre" id="menu-abre" type="button" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16" /></svg>
+        <span class="visualmente-oculto">Abrir o menu</span>
+      </button>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="py-16 container mx-auto px-6 md:px-12">
-    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-      <div class="md:w-1/2">
-        <div class="relative mb-4">
-          <span class="absolute -left-2 -top-2 w-8 h-8 border-t-4 border-l-4 border-primary"></span>
-          <span class="absolute -right-2 -top-2 w-8 h-8 border-t-4 border-r-4 border-secondary"></span>
-          <span class="absolute -left-2 -bottom-2 w-8 h-8 border-b-4 border-l-4 border-accent"></span>
-          <span class="absolute -right-2 -bottom-2 w-8 h-8 border-b-4 border-r-4 border-primary"></span>
-          <img src="img/profile.jpeg" alt="Vinícius Marques"
-            class="w-64 h-64 mx-auto object-cover rounded-2xl border-2 border-accent/30">
+  <!-- o painel de ajustes: som, tema e qualidade gráfica -->
+  <div class="ajustes" id="ajustes" role="dialog" aria-label="Ajustes" hidden>
+    <fieldset>
+      <legend>Som</legend>
+      <label><input type="radio" name="som" value="efeitos" /> <span>Só efeitos</span></label>
+      <label><input type="radio" name="som" value="ambiente" /> <span>Ambiente e efeitos</span></label>
+      <label><input type="radio" name="som" value="off" /> <span>Desligado</span></label>
+    </fieldset>
+    <fieldset>
+      <legend>Tema</legend>
+      <label><input type="radio" name="tema" value="alternado" /> <span>Carvão e papel</span></label>
+      <label><input type="radio" name="tema" value="escuro" /> <span>Só escuro</span></label>
+      <label><input type="radio" name="tema" value="claro" /> <span>Só claro</span></label>
+    </fieldset>
+    <fieldset>
+      <legend>Qualidade</legend>
+      <label><input type="radio" name="qualidade" value="alta" /> <span>Completa</span></label>
+      <label><input type="radio" name="qualidade" value="leve" /> <span>Leve</span></label>
+      <label><input type="radio" name="qualidade" value="parado" /> <span>Parado</span></label>
+    </fieldset>
+    <button class="ajustes-fecha" type="button">Fechar</button>
+  </div>
+
+  <main id="conteudo">
+    <!-- INÍCIO -->
+    <section class="secao inicio" id="inicio" data-tema="escuro" data-capitulo="Início">
+      <div class="inicio-texto">
+        <h1 class="titulo-mestre">
+          <span class="linha">Sua equipe já usa IA.</span>
+          <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>Sua operação ainda não.</span>
+        </h1>
+        <p class="lide">Eu construo, com IA no centro do processo, os sistemas internos que tiram o trabalho manual de financeiro, logística, contratos e atendimento. Primeiro encontro onde está o retorno. Depois entrego funcionando — e o sistema fica com a sua empresa.</p>
+        <div class="acoes">
+          <a class="botao botao--cheio" href="#contato" data-cursor="conversar">Marcar uma conversa de 30 minutos</a>
+          <a class="botao botao--linha" href="#casos">Ver o que já está rodando</a>
         </div>
-        <ul class="flex justify-center gap-4 mt-6">
-          <li><a href="https://www.linkedin.com/in/viniciusmbpro" target="_blank"
-              class="text-accent hover:text-primary transition-colors duration-300 text-3xl"><ion-icon
-                name="logo-linkedin"></ion-icon></a></li>
-          <li><a href="https://github.com/viniciusmbpro" target="_blank"
-              class="text-accent hover:text-primary transition-colors duration-300 text-3xl"><ion-icon
-                name="logo-github"></ion-icon></a></li>
-          <li><a href="https://www.instagram.com/viniciusmarques.dev" target="_blank"
-              class="text-accent hover:text-primary transition-colors duration-300 text-3xl"><ion-icon
-                name="logo-instagram"></ion-icon></a></li>
+        <p class="prova-curta">Sistemas em produção em logística, pagamentos e gestão, construídos com agentes de IA.</p>
+      </div>
+      <div class="inicio-figura figura" data-forma="visto" data-estacao="topo" role="img" aria-label="O visto: o V de Vinícius desenhado como a marca de quem revisa e aprova, formado por milhares de partículas."></div>
+      <p class="rolar-dica" aria-hidden="true">Role para ver a matéria mudar de forma</p>
+    </section>
+
+    <!-- O PROBLEMA -->
+    <section class="secao vao" id="vao" data-tema="escuro" data-capitulo="O problema">
+      <div class="duas-colunas">
+        <div class="texto">
+          <h2 class="titulo"><span class="linha">O problema não é a IA.</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>É ela não entrar no <em class="grifo">processo</em>.</span></h2>
+          <p>Quase toda empresa já testou IA. Pouquíssimas colheram resultado. Um estudo do MIT com mais de 300 iniciativas encontrou valor mensurável em cerca de <strong>1 de cada 20</strong> pilotos de IA generativa. No Brasil, só <strong>7%</strong> das empresas conseguem medir o retorno do que fizeram com IA.</p>
+          <p>O motivo quase nunca é o modelo. O ChatGPT ajuda cada pessoa a escrever mais rápido, mas não muda o pedido, o pagamento nem o contrato. A IA que dá resultado é a que entra no fluxo de trabalho — com regra, com histórico e com alguém aprovando o que tem consequência.</p>
+          <p class="fontes">Fontes: MIT NANDA, <cite>The GenAI Divide: State of AI in Business</cite>, 2025 · TOTVS, <cite>Panorama da IA nas empresas brasileiras</cite>, 2025.</p>
+        </div>
+        <figure class="desenho">
+          <div class="figura figura--quadrada" data-forma="pilotos" data-som="chegada" role="img" aria-label="Vinte quadrados: dezenove se desfazendo, um inteiro e aceso."></div>
+          <figcaption>Vinte pilotos. Um chega à operação.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- A VIRADA -->
+    <section class="secao virada" id="virada" data-tema="claro" data-capitulo="A virada">
+      <div class="coluna-larga">
+        <h2 class="titulo"><span class="linha">Eu não instalo IA.</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>Eu construo o <em class="grifo">sistema</em> com ela.</span></h2>
+        <figure class="desenho desenho--largo">
+          <div class="figura figura--faixa" data-forma="pedido" data-som="chegada" role="img" aria-label="À esquerda, linhas de texto: o pedido. Uma seta. À direita, a tela de um sistema com menu, cabeçalho e módulos."></div>
+          <figcaption>Do pedido escrito ao sistema em uso.</figcaption>
+        </figure>
+        <div class="texto texto--duas">
+          <p>Até pouco tempo, eu construía sistemas do jeito tradicional: AppSheet, integrações, Django, Next.js. Hoje a IA está no centro de como eu trabalho. Agentes de IA levantam as regras, escrevem o código e os testes, em paralelo. Eu decido o que construir, reviso o que eles fazem e respondo pelo que vai para produção.</p>
+          <p>O resultado é prazo de semanas onde antes eram meses — com mais teste automatizado, não menos. E um sistema que é seu: código, dados e documentação ficam com a sua empresa, na infraestrutura que você escolher.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE EU CONSTRUO -->
+    <section class="secao construo" id="construo" data-tema="escuro" data-capitulo="O que construo">
+      <div class="duas-colunas duas-colunas--topo">
+        <h2 class="titulo"><span class="linha">Trabalho de operação,</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>não chatbot de <em class="grifo">vitrine</em>.</span></h2>
+        <p class="lide lide--menor">A IA que paga a conta está no back-office: onde o trabalho é repetitivo, tem regra e custa horas de gente boa. É ali que eu construo.</p>
+      </div>
+      <div class="roda-palco">
+        <ol class="roda" id="roda">
+          <li><h3>Sistemas internos sob medida</h3><p>O processo que hoje vive em planilha e grupo de WhatsApp vira sistema: com regra, permissão, histórico e a IA fazendo a parte repetitiva.</p></li>
+          <li><h3>Documentos que se preenchem</h3><p>Contratos, propostas, notas e ordens: a IA lê, extrai e preenche; a pessoa confere e assina.</p></li>
+          <li><h3>Pagamentos e aprovações</h3><p>Ordens com alçada de aprovação e a trilha de quem aprovou o quê, quando e por quê.</p></li>
+          <li><h3>Operação e logística</h3><p>Ordens de serviço, frota, rotas, torre de controle e um painel ao vivo para o seu cliente.</p></li>
+          <li><h3>Atendimento e triagem</h3><p>Agentes que respondem, classificam e passam para uma pessoa quando é hora de decidir.</p></li>
+          <li><h3>Integrações</h3><p>Os sistemas que você já tem — ERP, AppSheet, planilhas, APIs — passam a conversar entre si.</p></li>
+          <li><h3>Assistentes por voz</h3><p>Do comando falado à tarefa feita, com registro do que foi pedido e do que foi executado.</p></li>
+        </ol>
+        <div class="figura figura--aro" data-forma="aro" data-ate="#roda" data-som="chegada" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- COMO COMEÇA: a oferta -->
+    <section class="secao oferta" id="oferta" data-tema="claro" data-capitulo="Como começa">
+      <div class="duas-colunas duas-colunas--topo">
+        <h2 class="titulo"><span class="linha">Três etapas.</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>Você <em class="grifo">decide</em> a cada uma.</span></h2>
+        <p class="lide lide--menor">Você não compra um projeto inteiro no escuro. Cada etapa tem preço fechado, entrega definida e um critério de pronto escrito antes de começar.</p>
+      </div>
+      <div class="trilho" id="trilho-oferta" style="--passos: 3">
+        <div class="palco">
+          <ol class="etapas">
+            <li class="etapa" data-forma="mapa" data-caixa="#figura-oferta" data-som="chegada">
+              <h3>Diagnóstico da operação</h3>
+              <p class="etapa-meta">1 a 2 semanas · preço fechado <mark class="confirmar">[CONFIRMAR: prazo e se o valor é abatido no projeto]</mark></p>
+              <p>Mapeio os processos que mais custam tempo e erro e devolvo três oportunidades priorizadas, cada uma com a conta de retorno. A primeira sai desenhada, com critério de sucesso — e, quando couber, com um protótipo navegável. Se a conta não fechar, a gente não segue.</p>
+            </li>
+            <li class="etapa" data-forma="camadas" data-caixa="#figura-oferta" data-som="chegada">
+              <h3>Construção</h3>
+              <p class="etapa-meta">3 a 8 semanas por sistema · preço fechado <mark class="confirmar">[CONFIRMAR: prazo]</mark></p>
+              <p>O sistema entra em produção integrado ao que você já usa e roda em paralelo ao processo atual até bater o critério combinado. A equipe aprende no próprio sistema. <mark class="confirmar">[CONFIRMAR: Se não bater o critério no prazo, eu continuo trabalhando sem custo até bater.]</mark></p>
+            </li>
+            <li class="etapa" data-forma="semanas" data-caixa="#figura-oferta" data-som="chegada">
+              <h3>Acompanhamento</h3>
+              <p class="etapa-meta">mensal · sem fidelidade</p>
+              <p>Ajustes, novos fluxos e a medição do resultado, todo mês. Código, dados e documentação são da sua empresa desde o primeiro dia — se quiser seguir com outra pessoa, leva tudo.</p>
+            </li>
+          </ol>
+          <div class="figura figura--oferta" id="figura-oferta" role="img" aria-label="Um desenho por etapa: o mapa da operação, as camadas do sistema em uso e as semanas de acompanhamento."></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÉTODO -->
+    <section class="secao metodo" id="metodo" data-tema="escuro" data-capitulo="Método">
+      <div class="duas-colunas">
+        <div class="texto">
+          <h2 class="titulo"><span class="linha">Como eu construo</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>com <em class="grifo">agentes</em> de IA.</span></h2>
+          <p>Chamo o processo de <strong>Estaleiro</strong>: um método escrito, com etapas, portões de aprovação e agentes especializados, que eu uso para fazer nascer sistemas novos. A IA faz o trabalho pesado. O que tem consequência passa por uma pessoa.</p>
+        </div>
+        <figure class="desenho">
+          <div class="figura figura--larga" data-forma="faixas" data-som="chegada" role="img" aria-label="Cinco faixas correndo lado a lado que se juntam num tronco só, aceso no fim."></div>
+          <figcaption>Agentes em paralelo, um tronco só.</figcaption>
+        </figure>
+      </div>
+      <ol class="linha-metodo" id="linha-metodo">
+        <li><h3>Levantar o domínio</h3><p>Regras, dados e perguntas, tirados da sua planilha, do seu sistema antigo ou de uma conversa. Cada afirmação com a fonte.</p></li>
+        <li><h3>Planejar</h3><p>O que o sistema herda de uma base já testada, o que adapta e o que nasce do zero. É o portão em que tudo para até você aprovar.</p></li>
+        <li><h3>Nascer</h3><p>A base é copiada por script, não por agente, e o sistema já nasce com a suíte de testes passando.</p></li>
+        <li><h3>Construir</h3><p>Para cada módulo, o contrato vem antes do código. Agentes de backend e de frontend trabalham em paralelo, e cada lote passa por aceite no navegador.</p></li>
+        <li><h3>Publicar</h3><p>No ar com a volta testada: se algo der errado, a versão anterior volta em segundos.</p></li>
+        <li><h3>Validar em uso</h3><p>Com gente de verdade, medindo se o sistema cumpriu o que prometeu. O veredito é continuar, ajustar ou parar.</p></li>
+      </ol>
+      <div class="regras">
+        <h3 class="regras-titulo">O que eu não negocio</h3>
+        <ul>
+          <li>Contrato antes do código.</li>
+          <li>Todo critério de aceite vira o nome de um teste.</li>
+          <li>Prova é o teste passando, não a frase de resumo.</li>
+          <li>Decisão de negócio é sua, não do agente.</li>
         </ul>
       </div>
+    </section>
 
-      <div class="md:w-1/2">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-          <span data-lang="pt">Olá, sou</span>
-          <span data-lang="en" class="hidden">Hi, I'm</span>
-          <div class="mt-2">Vinícius <span class="text-primary glow">Marques</span></div>
-        </h1>
-
-        <div data-lang="pt">
-          <p class="text-2xl font-bold mb-4 text-secondary">Desenvolvedor Full Stack & Gerente de TI</p>
-          <p class="text-lg text-gray-300 mb-8">Especialista em AppSheet com foco em integração de sistemas e
-            desenvolvimento de soluções personalizadas para empresas.</p>
-        </div>
-
-        <div data-lang="en" class="hidden">
-          <p class="text-2xl font-bold mb-4 text-secondary">Full Stack Developer & IT Manager</p>
-          <p class="text-lg text-gray-300 mb-8">AppSheet specialist focused on systems integration and development of
-            custom solutions for companies.</p>
-        </div>
-
-        <a href="https://github.com/viniciusmbpro#projects" target="_blank"
-          class="inline-flex items-center bg-primary text-background px-6 py-3 rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20">
-          <ion-icon name="code-slash-outline" class="mr-2 text-xl"></ion-icon>
-          <span data-lang="pt">Ver Projetos</span>
-          <span data-lang="en" class="hidden">View Projects</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sobre Section -->
-  <section class="py-16 container mx-auto px-6 md:px-12">
-    <div class="glass rounded-3xl p-8 md:p-12">
-      <div class="flex flex-col md:flex-row gap-12">
-        <div class="w-full">
-          <div class="inline-block mb-8">
-            <h2 class="text-3xl font-bold mb-2 relative">
-              <div class="absolute -left-6 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-primary rounded-full"></div>
-              <span data-lang="pt">Sobre Mim</span>
-              <span data-lang="en" class="hidden">About Me</span>
-            </h2>
-            <div class="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded"></div>
-          </div>
-
-          <!-- Conteúdo em Português -->
-          <div data-lang="pt" class="space-y-6 text-gray-300">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Coluna 1: Profissional -->
-              <div
-                class="glass p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full">
-                <h3 class="text-lg font-bold text-accent mb-3 flex items-center">
-                  <ion-icon name="briefcase-outline" class="mr-2 text-xl"></ion-icon>
-                  Atuação Profissional
-                </h3>
-                <p class="mb-3">Desenvolvedor com +2 anos de experiência, especialista em AppSheet e gerente de TI
-                  liderando uma equipe de 4 desenvolvedores.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                  <span class="bg-accent/20 text-accent text-xs font-medium px-2.5 py-1 rounded">Gestão</span>
-                  <span
-                    class="bg-primary/20 text-primary text-xs font-medium px-2.5 py-1 rounded">Desenvolvimento</span>
-                  <span class="bg-secondary/20 text-secondary text-xs font-medium px-2.5 py-1 rounded">Liderança</span>
-                </div>
-              </div>
-
-              <!-- Coluna 2: Sistemas -->
-              <div
-                class="glass p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300 h-full">
-                <h3 class="text-lg font-bold text-primary mb-3 flex items-center">
-                  <ion-icon name="build-outline" class="mr-2 text-xl"></ion-icon>
-                  Sistemas Desenvolvidos
-                </h3>
-                <ul class="list-none space-y-2">
-                  <li class="flex items-start">
-                    <ion-icon name="checkmark-circle" class="text-primary mt-1 mr-2"></ion-icon>
-                    <span>Gestão de contratos</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="checkmark-circle" class="text-primary mt-1 mr-2"></ion-icon>
-                    <span>Gestão de tarefas e reuniões</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="checkmark-circle" class="text-primary mt-1 mr-2"></ion-icon>
-                    <span>CRM e propostas comerciais</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Coluna 3: Tecnologias -->
-              <div
-                class="glass p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all duration-300 h-full">
-                <h3 class="text-lg font-bold text-secondary mb-3 flex items-center">
-                  <ion-icon name="code-slash-outline" class="mr-2 text-xl"></ion-icon>
-                  Especialidades
-                </h3>
-                <p class="mb-3">Além do AppSheet, trabalho com Python (Django), React e Next.js, tanto como freelancer
-                  quanto em projetos internos.</p>
-                <p>Formado em Análise e Desenvolvimento de Sistemas, já atuei como professor e palestrante em eventos de
-                  tecnologia como a Campus Party.</p>
-              </div>
-
-              <!-- Coluna 4: Integrações -->
-              <div
-                class="glass p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full transform hover:scale-[1.02] transition-all duration-300">
-                <h3 class="text-lg font-bold text-accent mb-3 flex items-center">
-                  <ion-icon name="git-network-outline" class="mr-2 text-xl"></ion-icon>
-                  <span class="relative">
-                    Integrações
-                  </span>
-                </h3>
-                <p class="mb-2">Especialista em ampliação de capacidades do AppSheet através de:</p>
-                <ul class="list-none space-y-2">
-                  <li class="flex items-start">
-                    <ion-icon name="arrow-forward-circle" class="text-accent mt-1 mr-2"></ion-icon>
-                    <span>Google Apps Script</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="arrow-forward-circle" class="text-accent mt-1 mr-2"></ion-icon>
-                    <span>APIs RESTful</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="arrow-forward-circle" class="text-accent mt-1 mr-2"></ion-icon>
-                    <span>Automações entre sistemas</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Conteúdo em Inglês -->
-          <div data-lang="en" class="hidden space-y-6 text-gray-300">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Coluna 1: Profissional -->
-              <div
-                class="glass p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full">
-                <h3 class="text-lg font-bold text-accent mb-3 flex items-center">
-                  <ion-icon name="briefcase-outline" class="mr-2 text-xl"></ion-icon>
-                  Professional Experience
-                </h3>
-                <p class="mb-3">Developer with +2 years of experience, AppSheet specialist and IT manager leading a team
-                  of 4 developers.</p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                  <span class="bg-accent/20 text-accent text-xs font-medium px-2.5 py-1 rounded">Management</span>
-                  <span class="bg-primary/20 text-primary text-xs font-medium px-2.5 py-1 rounded">Development</span>
-                  <span class="bg-secondary/20 text-secondary text-xs font-medium px-2.5 py-1 rounded">Leadership</span>
-                </div>
-              </div>
-
-              <!-- Coluna 2: Sistemas -->
-              <div
-                class="glass p-6 rounded-xl border border-primary/20 hover:border-primary/40 transition-all duration-300 h-full">
-                <h3 class="text-lg font-bold text-primary mb-3 flex items-center">
-                  <ion-icon name="build-outline" class="mr-2 text-xl"></ion-icon>
-                  Developed Systems
-                </h3>
-                <ul class="list-none space-y-2">
-                  <li class="flex items-start">
-                    <ion-icon name="checkmark-circle" class="text-primary mt-1 mr-2"></ion-icon>
-                    <span>Contract management</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="checkmark-circle" class="text-primary mt-1 mr-2"></ion-icon>
-                    <span>Task and meeting management</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="checkmark-circle" class="text-primary mt-1 mr-2"></ion-icon>
-                    <span>CRM and commercial proposals</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Coluna 3: Tecnologias -->
-              <div
-                class="glass p-6 rounded-xl border border-secondary/20 hover:border-secondary/40 transition-all duration-300 h-full">
-                <h3 class="text-lg font-bold text-secondary mb-3 flex items-center">
-                  <ion-icon name="code-slash-outline" class="mr-2 text-xl"></ion-icon>
-                  Specialties
-                </h3>
-                <p class="mb-3">Beyond AppSheet, I work with Python (Django), React, and Next.js, both as a freelancer
-                  and on internal projects.</p>
-                <p>Graduated in Systems Analysis and Development, I've worked as a teacher and speaker at technology
-                  events like Campus Party.</p>
-              </div>
-
-              <!-- Coluna 4: Integrações -->
-              <div
-                class="glass p-6 rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full transform hover:scale-[1.02] transition-all duration-300">
-                <h3 class="text-lg font-bold text-accent mb-3 flex items-center">
-                  <ion-icon name="git-network-outline" class="mr-2 text-xl"></ion-icon>
-                  <span class="relative">
-                    Integrations
-                  </span>
-                </h3>
-                <p class="mb-2">Specialist in extending AppSheet capabilities through:</p>
-                <ul class="list-none space-y-2">
-                  <li class="flex items-start">
-                    <ion-icon name="arrow-forward-circle" class="text-accent mt-1 mr-2"></ion-icon>
-                    <span>Google Apps Script</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="arrow-forward-circle" class="text-accent mt-1 mr-2"></ion-icon>
-                    <span>RESTful APIs</span>
-                  </li>
-                  <li class="flex items-start">
-                    <ion-icon name="arrow-forward-circle" class="text-accent mt-1 mr-2"></ion-icon>
-                    <span>Cross-system automations</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Habilidades Section -->
-  <section class="py-16 container mx-auto px-6 md:px-12">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold mb-3">
-        <span data-lang="pt">Minhas Habilidades</span>
-        <span data-lang="en" class="hidden">My Skills</span>
-      </h2>
-      <div class="h-1 w-24 bg-gradient-to-r from-primary to-secondary rounded mx-auto"></div>
-      <p class="mt-4 text-gray-300" data-lang="pt">Tecnologias que utilizo no dia a dia</p>
-      <p class="mt-4 text-gray-300 hidden" data-lang="en">Technologies I use every day</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Front-end Card -->
-      <div
-        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 border border-lightblue">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-gradient-to-br from-primary to-secondary rounded-lg">
-            <ion-icon name="layers-outline" class="text-xl text-background"></ion-icon>
-          </div>
-          <h3 class="text-xl font-bold">Front-end</h3>
-        </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div class="tech-icon">
-            <i class="devicon-html5-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-css3-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-javascript-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-react-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-nextjs-original text-4xl"></i>
-          </div>
-        </div>
+    <!-- CASOS -->
+    <section class="secao casos" id="casos" data-tema="escuro" data-capitulo="Casos">
+      <div class="duas-colunas duas-colunas--topo">
+        <h2 class="titulo"><span class="linha">O que já está</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg><em class="grifo">rodando</em>.</span></h2>
+        <p class="lide lide--menor">Sistemas que construí com esse método e que estão em uso. Os nomes ficam de fora; os números saem dos próprios repositórios, contados em 25 de setembro de 2026. <mark class="confirmar">[CONFIRMAR: posso publicar esses números de sistemas feitos para a empresa?]</mark></p>
       </div>
 
-      <!-- Back-end Card -->
-      <div
-        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 border border-lightblue">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-gradient-to-br from-secondary to-accent rounded-lg">
-            <ion-icon name="server-outline" class="text-xl text-background"></ion-icon>
-          </div>
-          <h3 class="text-xl font-bold">Back-end</h3>
+      <article class="ficha">
+        <div class="figura figura--ficha" data-forma="rede" data-som="chegada" role="img" aria-label="Uma malha de pontos ligados por rotas, com uma rota acesa."></div>
+        <div class="ficha-texto">
+          <h3>Plataforma de operações logísticas <mark class="confirmar">[CONFIRMAR: citar o nome?]</mark></h3>
+          <p>Ordens de serviço com fluxo de aprovação, frota, roteirização, torre de controle, painel ao vivo para o cliente e pagamentos a fornecedores. É a reescrita, como sistema próprio, de um app no-code.</p>
+          <dl class="ficha-dados">
+            <div><dt>Primeiro commit → produção</dt><dd>1 dia</dd></div>
+            <div><dt>Commits</dt><dd>775 · 97% em coautoria com IA</dd></div>
+            <div><dt>Testes automatizados</dt><dd>6.152</dd></div>
+            <div><dt>Tamanho</dt><dd>73 telas · 460 operações de API</dd></div>
+            <div><dt>Volta de versão</dt><dd>cerca de 30 s</dd></div>
+            <div><dt>Base</dt><dd>FastAPI · Postgres · Next.js · PWA</dd></div>
+          </dl>
         </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div class="tech-icon">
-            <i class="devicon-python-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-django-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-nodejs-plain colored text-4xl"></i>
-          </div>
+      </article>
+
+      <article class="ficha">
+        <div class="figura figura--ficha" data-forma="casco" data-som="chegada" role="img" aria-label="Um casco de navio em construção sobre a grade do dique."></div>
+        <div class="ficha-texto">
+          <h3>Sistema de gestão nascido pelo método <mark class="confirmar">[CONFIRMAR: citar o nome?]</mark></h3>
+          <p>Portfólio de projetos, tarefas, custos, orçamento, metas e reuniões. O primeiro sistema a nascer inteiro pelo Estaleiro, de uma base já testada.</p>
+          <dl class="ficha-dados">
+            <div><dt>Primeiro commit → produção</dt><dd>5 dias</dd></div>
+            <div><dt>Commits</dt><dd>585 · 93% em coautoria com IA</dd></div>
+            <div><dt>Testes automatizados</dt><dd>3.998</dd></div>
+            <div><dt>Tamanho</dt><dd>61 telas · 389 rotas de API</dd></div>
+            <div><dt>No nascimento</dt><dd>129 agentes · cerca de 35 h</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="ficha">
+        <div class="figura figura--ficha" data-forma="pagamento" data-som="chegada" role="img" aria-label="Um cartão e o caminho de uma transação em três etapas, a última acesa."></div>
+        <div class="ficha-texto">
+          <h3>Ordens de pagamento com aprovação em alçadas <mark class="confirmar">[CONFIRMAR: citar o nome?]</mark></h3>
+          <p>Pedidos de pagamento com até dois níveis de aprovação e permissão por perfil e equipe. Migrado de um app no-code, com 14.479 ordens trazidas da origem.</p>
+          <dl class="ficha-dados">
+            <div><dt>Primeiro commit → produção</dt><dd>12 dias</dd></div>
+            <div><dt>Commits</dt><dd>115 · 97% em coautoria com IA</dd></div>
+            <div><dt>Testes automatizados</dt><dd>395</dd></div>
+            <div><dt>Tamanho</dt><dd>40 telas · 115 rotas de API</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="ficha">
+        <div class="figura figura--ficha" data-forma="onda" data-som="chegada" role="img" aria-label="A onda sonora de uma frase dita, com o meio aceso."></div>
+        <div class="ficha-texto">
+          <h3>Jarvis, o assistente por voz que comanda agentes</h3>
+          <p>Eu falo; ele abre, conduz e lê sessões de agentes de código nos meus projetos e acompanha o contexto do dia. É a ferramenta com que trabalho todo dia — não é produto à venda.</p>
+          <dl class="ficha-dados">
+            <div><dt>Construção</dt><dd>3 semanas</dd></div>
+            <div><dt>Commits</dt><dd>186 · 81% em coautoria com IA</dd></div>
+            <div><dt>Peças</dt><dd>servidor, voz, Mac e Android</dd></div>
+            <div><dt>Ferramentas para agentes</dt><dd>20 (MCP)</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="ficha">
+        <div class="figura figura--ficha" data-forma="pagina" data-som="chegada" role="img" aria-label="O desenho de uma página: topo, título aceso e três blocos."></div>
+        <div class="ficha-texto">
+          <h3>Site institucional com abertura em 3D <mark class="confirmar">[CONFIRMAR: citar a empresa?]</mark></h3>
+          <p>Abertura em 3D, partículas guiadas pela rolagem e som sintetizado — construído e lapidado em um dia, com a mesma técnica deste site.</p>
+          <dl class="ficha-dados">
+            <div><dt>Construção</dt><dd>1 dia · 5 commits</dd></div>
+            <div><dt>Revisão de design automática</dt><dd>81 → 2 achados</dd></div>
+          </dl>
+        </div>
+      </article>
+    </section>
+
+    <!-- QUEM SOU -->
+    <section class="secao quem" id="quem" data-tema="claro" data-capitulo="Quem sou">
+      <div class="duas-colunas duas-colunas--retrato">
+        <figure class="desenho">
+          <div class="figura figura--retrato" data-forma="retrato" data-som="chegada" role="img" aria-label="Retrato de Vinícius Marques em meio-tom, feito de partículas."></div>
+          <figcaption>Vinícius Marques, em partículas.</figcaption>
+        </figure>
+        <div class="texto">
+          <h2 class="titulo"><span class="linha">A mesma pessoa</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>do diagnóstico à <em class="grifo">produção</em>.</span></h2>
+          <p>Sou Vinícius Marques, gerente de TI de uma equipe de desenvolvimento que constrói os sistemas internos de uma empresa de fretamento de transporte — contratos, CRM, propostas, operação e pagamentos. É daí que vem o que eu sei sobre operação: de sistema que precisa funcionar na segunda-feira de manhã.</p>
+          <p>Sou graduado em Análise e Desenvolvimento de Sistemas, fui professor de TI e palestrei na Campus Party. Comecei no AppSheet e em integrações, passei por Python, Django, React e Next.js, e hoje construo com agentes de IA no centro do processo.</p>
+          <p>Quando você me contrata, é comigo que você fala: no diagnóstico, na construção e no que vai para produção.</p>
+          <dl class="fatos">
+            <div><dt>Hoje</dt><dd>Gerente de TI</dd></div>
+            <div><dt>Antes</dt><dd>Professor de TI</dd></div>
+            <div><dt>Palco</dt><dd>Campus Party</dd></div>
+            <div><dt>Formação</dt><dd>Análise e Desenvolvimento de Sistemas</dd></div>
+          </dl>
         </div>
       </div>
+    </section>
 
-      <!-- Database Card -->
-      <div
-        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 border border-lightblue">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-gradient-to-br from-accent to-primary rounded-lg">
-            <ion-icon name="cube-outline" class="text-xl text-background"></ion-icon>
-          </div>
-          <h3 class="text-xl font-bold">Database</h3>
-        </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div class="tech-icon">
-            <i class="devicon-mysql-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-postgresql-plain colored text-4xl"></i>
-          </div>
-        </div>
+    <!-- PERGUNTAS -->
+    <section class="secao perguntas" id="perguntas" data-tema="escuro" data-capitulo="Perguntas">
+      <h2 class="titulo"><span class="linha">O que todo dono</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>me pergunta <em class="grifo">antes</em>.</span></h2>
+      <div class="figura figura--linha" data-forma="linha" aria-hidden="true"></div>
+      <div class="lista-perguntas">
+        <details>
+          <summary>IA dá retorno de verdade, ou é modinha?</summary>
+          <p>Modinha é chatbot de vitrine. O retorno aparece onde o trabalho é repetitivo e tem regra — financeiro, operação, contratos. O próprio estudo do MIT encontrou o maior retorno no back-office, embora a maior parte do orçamento vá para vendas e marketing. É por isso que eu começo pelo processo e faço a conta antes de construir.</p>
+        </details>
+        <details>
+          <summary>E os meus dados? E a LGPD?</summary>
+          <p>Uso as versões corporativas dos modelos, que por contrato não usam os seus dados para treinar (Anthropic e OpenAI publicam isso). O sistema roda na infraestrutura que você escolher e registra quem viu e mudou o quê. Hoje o risco maior costuma ser o contrário: gente da equipe colando dado de cliente numa conta pessoal de IA.</p>
+        </details>
+        <details>
+          <summary>E quando a IA errar?</summary>
+          <p>Ela vai errar às vezes, e o sistema é desenhado para isso. A IA faz a parte repetitiva, a pessoa aprova o que tem consequência — pagamento, contrato, resposta a cliente —, tudo fica registrado e a taxa de erro é medida. Erro que ninguém mede é o que dá prejuízo.</p>
+        </details>
+        <details>
+          <summary>Minha equipe não vai usar.</summary>
+          <p>Ninguém usa ferramenta que obriga a trocar de tela. A IA entra no sistema que eles já usam, a equipe aprende no próprio sistema e o processo antigo continua rodando em paralelo até todo mundo confiar no novo. Uma pesquisa do BCG mostra que o uso cresce muito quando a liderança apoia e a equipe recebe algumas horas de treino.</p>
+        </details>
+        <details>
+          <summary>Vou ficar preso a você?</summary>
+          <p>Não. O código, os dados e a documentação são seus desde o primeiro dia. Se amanhã você quiser outro fornecedor ou outro modelo de IA, leva tudo. O acompanhamento é mensal, sem fidelidade.</p>
+        </details>
+        <details>
+          <summary>Quanto custa?</summary>
+          <p>Preço fechado por etapa, nunca por hora. O diagnóstico tem valor fixo <mark class="confirmar">[CONFIRMAR: valor ou faixa do diagnóstico]</mark> e devolve a conta de retorno antes de você decidir o resto. Se a conta não fechar, você não segue.</p>
+        </details>
+        <details>
+          <summary>Para quem isso não é?</summary>
+          <p>Se você procura um robô para postar no Instagram, eu não sou a pessoa certa. Trabalho melhor com empresas que têm operação de verdade — pedidos, pagamentos, contratos, frota, atendimento — rodando em planilha e processo manual, e alguém que decide disposto a acompanhar de perto.</p>
+        </details>
       </div>
+      <p class="fontes">Fontes: MIT NANDA, <cite>The GenAI Divide</cite>, 2025 · BCG, <cite>AI at Work</cite>, 2025 · políticas de dados comerciais da Anthropic e da OpenAI. Os links estão em <a href="https://github.com/viniciusmbpro/viniciusmbpro.github.io/blob/main/docs/copy.md">docs/copy.md</a>.</p>
+    </section>
 
-      <!-- Low-Code Card -->
-      <div
-        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 border border-lightblue">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-gradient-to-br from-primary to-secondary rounded-lg">
-            <ion-icon name="flash-outline" class="text-xl text-background"></ion-icon>
+    <!-- CONTATO -->
+    <section class="secao contato" id="contato" data-tema="escuro" data-capitulo="Contato">
+      <div class="contato-grade">
+        <div class="texto">
+          <h2 class="titulo titulo--grande"><span class="linha">Me conte o processo</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>que mais toma o seu <em class="grifo">tempo</em>.</span></h2>
+          <p class="lide lide--menor">Uma conversa de 30 minutos, direta comigo, sem apresentação comercial. Se não fizer sentido para a sua empresa, eu digo.</p>
+          <div class="acoes">
+            <a class="botao botao--cheio botao--final" id="convite" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com?subject=Conversa%20de%2030%20minutos&amp;body=Ol%C3%A1%2C%20Vin%C3%ADcius.%0A%0A1.%20Empresa%20e%20tamanho%20(n%C3%BAmero%20de%20pessoas)%3A%0A2.%20O%20processo%20que%20mais%20consome%20tempo%20hoje%3A%0A3.%20O%20que%20j%C3%A1%20tentamos%20com%20IA%3A%0A4.%20Quem%20decide%20e%20para%20quando%3A%0A">
+              <span>Marcar uma conversa de 30 minutos</span>
+              <svg class="visto-svg" viewBox="0 0 100 85" aria-hidden="true"><path d="M8 41 L36 65 L94 7" /></svg>
+            </a>
           </div>
-          <h3 class="text-xl font-bold">Low-Code</h3>
+          <p class="nota-contato">O botão abre um e-mail com quatro perguntas curtas. <mark class="confirmar">[CONFIRMAR: trocar por link de agenda ou WhatsApp?]</mark></p>
+          <ul class="canais">
+            <li><a href="mailto:viniciusmbpro@gmail.com">viniciusmbpro@gmail.com</a></li>
+            <li><a href="https://www.linkedin.com/in/viniciusmbpro" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/viniciusmbpro" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
         </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div class="tech-icon p-2">
-            <span class="text-2xl text-primary font-medium">AppSheet</span>
-          </div>
-        </div>
+        <div class="figura figura--visto" data-forma="visto" data-estacao="fim" data-som="visto" aria-hidden="true"></div>
       </div>
+    </section>
+  </main>
 
-      <!-- Tools Card -->
-      <div
-        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 border border-lightblue">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-gradient-to-br from-secondary to-accent rounded-lg">
-            <ion-icon name="construct-outline" class="text-xl text-background"></ion-icon>
-          </div>
-          <h3 class="text-xl font-bold">Tools</h3>
-        </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div class="tech-icon">
-            <i class="devicon-git-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-github-original text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-vscode-plain colored text-4xl"></i>
-          </div>
-          <div class="tech-icon">
-            <i class="devicon-googlecloud-plain colored text-4xl"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- Integration Card -->
-      <div
-        class="glass rounded-xl p-6 hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 border border-lightblue">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="p-2 bg-gradient-to-br from-accent to-primary rounded-lg">
-            <ion-icon name="git-network-outline" class="text-xl text-background"></ion-icon>
-          </div>
-          <h3 class="text-xl font-bold" data-lang="pt">Integração</h3>
-          <h3 class="text-xl font-bold hidden" data-lang="en">Integration</h3>
-        </div>
-        <div class="flex flex-wrap gap-4 mt-6">
-          <div class="tech-icon p-2">
-            <span class="text-2xl text-accent font-medium">REST API</span>
-          </div>
-          <div class="tech-icon p-2">
-            <span class="text-2xl text-secondary font-medium">Apps Script</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA/Contato Section -->
-  <section class="py-16 container mx-auto px-6 md:px-12">
-    <div class="glass rounded-3xl p-8 md:p-12 text-center">
-      <h2 class="text-3xl font-bold mb-4">
-        <span data-lang="pt">Vamos Trabalhar Juntos?</span>
-        <span data-lang="en" class="hidden">Let's Work Together?</span>
-      </h2>
-      <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
-        <span data-lang="pt">Estou disponível para novos projetos e oportunidades. Entre em contato para discutirmos
-          como posso ajudar a transformar suas ideias em realidade.</span>
-        <span data-lang="en" class="hidden">I'm available for new projects and opportunities. Get in touch to discuss
-          how I can help transform your ideas into reality.</span>
-      </p>
-      <a href="mailto:viniciusmbpro@gmail.com"
-        class="inline-flex items-center bg-gradient-to-r from-primary to-secondary text-background px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-all duration-300 shadow-lg">
-        <ion-icon name="mail-outline" class="mr-2 text-xl"></ion-icon>
-        <span data-lang="pt">Enviar Mensagem</span>
-        <span data-lang="en" class="hidden">Send Message</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 border-t border-lightblue">
-    <div class="container mx-auto px-6 md:px-12 text-center">
-      <p class="text-sm text-gray-400">© 2024 Vinícius Marques. <span data-lang="pt">Todos os direitos
-          reservados</span><span data-lang="en" class="hidden">All rights reserved</span>.</p>
-    </div>
+  <footer class="rodape" data-tema="escuro">
+    <p>© 2026 Vinícius Marques · viniciusmarques.dev</p>
+    <p>Construído com o mesmo método que ele descreve: agentes de IA fazendo, uma pessoa revisando.</p>
   </footer>
 
-  <!-- Botão flutuante de e-mail para mobile -->
-  <a href="mailto:viniciusmbpro@gmail.com" class="floating-mail-btn" id="floatingMailBtn" aria-label="Enviar e-mail">
-    <ion-icon name="mail-outline" class="text-background text-2xl"></ion-icon>
-  </a>
-
-  <!-- Ion Icons -->
-  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
-
-  <!-- Script do botão flutuante -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Mostrar o botão flutuante após um pequeno delay
-      setTimeout(function () {
-        document.getElementById('floatingMailBtn').classList.add('show');
-      }, 2000);
-
-      // Esconder/mostrar o botão baseado na rolagem
-      const floatingBtn = document.getElementById('floatingMailBtn');
-      let lastScrollTop = 0;
-
-      window.addEventListener('scroll', function () {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > 100 && scrollTop > lastScrollTop) {
-          // Rolando para baixo e já passou do topo
-          floatingBtn.classList.add('show');
-        } else if (scrollTop < 100) {
-          // Próximo ao topo, esconder o botão
-          floatingBtn.classList.remove('show');
-        }
-
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-      }, false);
-
-      // Easter Egg na foto de perfil
-      const profileImage = document.querySelector('img[src="img/profile.jpeg"]');
-      if (profileImage) {
-        let imageClickCount = 0;
-        let lastImageClickTime = 0;
-
-        // Criar página secreta para o Easter Egg
-        const secretPage = document.createElement('div');
-        secretPage.id = 'secretPage';
-        secretPage.className = 'modal';
-        secretPage.innerHTML = `
-          <div class="modal-content secret-content">
-            <span class="close-modal">&times;</span>
-            <h3>🎉 Easter Egg Encontrado! 🎉</h3>
-            <div class="secret-message">
-              <p>Parabéns por descobrir este easter egg!</p>
-              <p>Este é um espaço secreto e pessoal onde compartilho alguns pensamentos:</p>
-              <blockquote>"A tecnologia é melhor quando ela aproxima pessoas."</blockquote>
-              <p>Obrigado por explorar minha aplicação com tanta curiosidade!</p>
-              <div class="secret-image">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjFvdWZ6eWE1ZXgxdnAyOTh0NXY2MzU5cGdubm14ZDdlODZ3djlmNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ornk57KwDXf81rjWM/giphy.gif" alt="Easter Egg" style="max-width: 100%;">
-              </div>
-              <div class="secret-button-container">
-                <a href="/negotiation-helper.html" class="secret-button">
-                  <ion-icon name="key-outline" class="mr-2"></ion-icon>
-                  Acessar Ferramenta de Negociação
-                </a>
-              </div>
-            </div>
-          </div>
-        `;
-
-        document.body.appendChild(secretPage);
-
-        // Estilo para o Easter Egg
-        const style = document.createElement('style');
-        style.textContent = `
-          #secretPage {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
-          
-          #secretPage.active {
-            display: flex;
-            opacity: 1;
-          }
-          
-          .secret-content {
-            background: #081C38;
-            background-image: linear-gradient(135deg, rgba(85, 187, 0, 0.1) 0%, rgba(60, 180, 214, 0.1) 100%);
-            max-width: 500px;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            color: white;
-            position: relative;
-          }
-          
-          .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #3CB4D6;
-          }
-          
-          .secret-message {
-            line-height: 1.6;
-          }
-          
-          .secret-message p {
-            margin-bottom: 15px;
-          }
-          
-          .secret-message blockquote {
-            border-left: 3px solid #55BB00;
-            padding-left: 15px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #3CB4D6;
-          }
-          
-          .secret-image {
-            margin-top: 20px;
-            text-align: center;
-          }
-          
-          .secret-button-container {
-            margin-top: 25px;
-            text-align: center;
-          }
-          
-          .secret-button {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(135deg, #55BB00, #3CB4D6);
-            color: #081C38;
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(85, 187, 0, 0.3);
-          }
-          
-          .secret-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(85, 187, 0, 0.4);
-          }
-          
-          .secret-button:active {
-            transform: translateY(1px);
-          }
-        `;
-        document.head.appendChild(style);
-
-        // Eventos para o Easter Egg
-        profileImage.addEventListener('click', function () {
-          const currentTime = new Date().getTime();
-
-          // Resetar contador se passou muito tempo desde o último clique (2 segundos)
-          if (currentTime - lastImageClickTime > 2000) {
-            imageClickCount = 0;
-          }
-
-          imageClickCount++;
-          lastImageClickTime = currentTime;
-
-          // Verificar se atingiu 5 cliques
-          if (imageClickCount === 5) {
-            secretPage.classList.add('active');
-            imageClickCount = 0; // Resetar contador
-          }
-        });
-
-        // Adicionar evento para fechar
-        secretPage.querySelector('.close-modal').addEventListener('click', function () {
-          secretPage.classList.remove('active');
-        });
-
-        // Clicar fora do modal para fechar
-        secretPage.addEventListener('click', function (e) {
-          if (e.target === secretPage) {
-            secretPage.classList.remove('active');
-          }
-        });
-      }
-    });
-  </script>
+  <p class="segredo" id="segredo" role="status" aria-live="polite"></p>
 </body>
-
 </html>
