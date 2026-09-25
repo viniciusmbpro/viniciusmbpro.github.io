@@ -72,6 +72,7 @@ function desenhistaGPU(canvas, N) {
     uMouse: { value: new THREE.Vector2(-9999, -9999) }, uMouseR: { value: 140 }, uMouseOn: { value: 0 },
     uVel: { value: 0 }, uBase: { value: new THREE.Color() }, uLuz: { value: new THREE.Color() },
     uAlfa: { value: 1 }, uTam: { value: 2 }, uVoo: { value: 1 }, uClaro: { value: 0 },
+    uInclina: { value: new THREE.Vector2() },
   };
   const material = new THREE.ShaderMaterial({
     uniforms: u,
@@ -82,7 +83,7 @@ function desenhistaGPU(canvas, N) {
       attribute float aLuzA; attribute float aLuzB; attribute float aTamA; attribute float aTamB;
       attribute vec3 aOscA; attribute vec3 aOscB;
       uniform float uT, uTempo, uPx, uMouseR, uMouseOn, uVel, uTam, uVoo;
-      uniform vec2 uOffA, uOffB, uRes, uMouse;
+      uniform vec2 uOffA, uOffB, uRes, uMouse, uInclina;
       uniform vec3 uBase, uLuz;
       varying vec3 vCor; varying float vBrilho;
       float saida(float t) { return 1.0 - pow(1.0 - t, 3.0); }
@@ -98,6 +99,11 @@ function desenhistaGPU(canvas, N) {
         float voo = sin(3.14159 * e) * uVoo;
         float ang = aSemente.y * 6.2832 + uTempo * 0.35;
         p += voo * vec2(cos(ang), sin(ang)) * (30.0 + 170.0 * aSemente.w);
+        // a profundidade: cada partícula mora numa camada; o mouse inclina a
+        // massa inteira e as camadas deslizam umas sobre as outras (paralaxe),
+        // como um objeto de verdade no espaço, não um desenho chapado
+        float camada = aSemente.z - 0.5;
+        p += uInclina * camada * 34.0;
         // o respiro: ninguém fica completamente parado
         p += vec2(sin(uTempo * 0.8 + aSemente.y * 40.0), cos(uTempo * 0.7 + aSemente.z * 40.0)) * 1.2;
         // a rolagem rápida estica a massa no sentido do movimento
@@ -162,6 +168,7 @@ function desenhistaGPU(canvas, N) {
       u.uTam.value = q.tam;
       u.uVoo.value = q.voo;
       u.uClaro.value = q.claro;
+      u.uInclina.value.set(q.inclina.x, q.inclina.y);
       renderer.render(cena, camera);
     },
     limpar() {
@@ -265,6 +272,7 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
   let introInicio = null;
   const t0 = performance.now();
   const mouse = { x: -9999, y: -9999, on: 0, alvoOn: 0, r: 140 };
+  const inclina = { x: 0, y: 0 };
   const cor = { base: [...CORES.escuro.base], luz: [...CORES.escuro.luz], claro: 0 };
 
   function montar() {
@@ -399,6 +407,11 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
     yAntes = y;
     vel += ((parado ? 0 : dy) - vel) * 0.1;
     mouse.on += (mouse.alvoOn - mouse.on) * 0.08;
+    // a inclinação segue o mouse devagar (e a rolagem rápida inclina também)
+    const ix = mouseFino && mouse.alvoOn && !parado ? mouse.x / W - 0.5 : 0;
+    const iy = mouseFino && mouse.alvoOn && !parado ? mouse.y / H - 0.5 : 0;
+    inclina.x += (ix - inclina.x) * 0.05;
+    inclina.y += (iy + vel * 0.004 - inclina.y) * 0.05;
     const onde = situar(y);
     if (!onde || !aberto) {
       desenhista.limpar();
@@ -481,6 +494,7 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
       alfa,
       tam,
       voo: parado ? 0 : 1,
+      inclina,
     });
     // parado e sem nada mudando: descansa até a próxima rolagem
     return !parado || Math.abs(vel) > 0.05;
