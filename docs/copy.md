@@ -75,12 +75,10 @@ A ordem segue o StoryBrand (herói → o que está em jogo → guia → plano �
 
 ### Monte o seu sistema
 - **Título:** Monte o sistema ↪ que falta na sua empresa.
-- Escolha a área e marque o que acontece aí hoje. Cada coisa marcada vira um módulo. O visto vermelho mostra onde uma pessoa aprova — a IA faz o resto.
-- As dores estão escritas como o dono fala (Joanna Wiebe, voz do cliente): "Aprovação de pagamento pelo WhatsApp", "Conferir nota fiscal uma por uma", "Escala da frota montada na planilha", "Proposta montada do zero toda vez", "As mesmas perguntas o dia inteiro". Cada uma vira um módulo com uma frase do que a IA faz e, quando há, do que a pessoa aprova.
-- Botões: Abrir o sistema · Me mandar esta ficha · Recomeçar.
-- **Abrir o sistema:** a planta vira um aplicativo de verdade, com os módulos no menu e dados fictícios, identificado no topo como "demonstração · dados fictícios". Cada tela mostra "A IA …" e, quando há, "Você aprova …". No topo: Quero este sistema (e-mail com a ficha) · Voltar à planta.
-- Por que um sistema de verdade e não um desenho: o dono não compra diagrama, compra a tela que a equipe dele vai usar na segunda-feira. Ver a fila de aprovação com a nota da IA ao lado responde, sem argumento, "e quando a IA errar?".
-- Por quê: responde de uma vez duas objeções — "não sei onde aplicar" (Sebrae/FGV) e "e quando a IA errar?" (a aprovação humana aparece no desenho, não só no texto).
+- Escolha a área. Depois jogue para dentro do sistema as cartas do que acontece aí hoje: cada uma vira uma tela, feita de matéria. Quando estiver pronto, ligue o sistema e use.
+- As cartas estão escritas como o dono fala (Joanna Wiebe, voz do cliente): "Hoje: Aprovação de pagamento pelo WhatsApp — vira Aprovação em alçadas". Cada módulo diz o que a IA faz e, quando há, o que a pessoa aprova.
+- No sistema: "em obra" → **Ligar o sistema** → "ligado" (e "Voltar à obra"). Embaixo: Quero este sistema · Tirar a última carta · Recomeçar.
+- Por quê: o dono não compra diagrama, compra a tela que a equipe vai usar na segunda-feira. Montar com as próprias dores e ver a fila de aprovação com a nota da IA responde, sem argumento, "não sei onde aplicar" e "e quando a IA errar?".
 
 ### Como começa
 - **Título:** Três etapas. ↪ Você decide a cada uma.

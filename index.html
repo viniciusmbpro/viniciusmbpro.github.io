@@ -74,7 +74,7 @@
   <!-- o carregamento: um contador que chega a 100 enquanto a matéria se forma -->
   <div class="carregador" id="carregador" aria-hidden="true">
     <div class="carregador-marca">
-      <svg class="visto-svg" viewBox="0 0 100 85" aria-hidden="true"><path d="M8 41 L36 65 L94 7" /></svg>
+      <svg class="monograma" viewBox="0 0 108 78" aria-hidden="true"><path class="monograma-visto" d="M2 42 L13 33 L27 51 L58 4 L70 12 L30 73 Z" /><path class="monograma-m" transform="translate(60 73) scale(0.074 -0.074)" d="M20 0V305L20 528H149L148 343H156Q157 417 170 459Q184 502 209 521Q233 540 266 540Q302 540 324 520Q346 500 355 457Q364 414 360 343H368Q371 418 385 460Q399 503 424 521Q449 540 483 540Q514 540 536 527Q558 513 572 488Q586 462 593 423Q600 384 600 332V0H448V289Q448 326 446 350Q444 374 438 386Q432 397 420 397Q402 397 394 377Q387 357 385 324Q383 290 383 250V0H235V291Q235 327 233 351Q231 374 225 386Q219 397 207 397Q190 397 182 376Q174 355 172 320Q170 285 170 242V0Z" /></svg>
     </div>
     <p class="carregador-conta"><span id="conta">000</span></p>
     <p class="carregador-nome">Vinícius Marques · sistemas com IA</p>
@@ -84,7 +84,7 @@
 
   <header class="topo" id="topo">
     <a class="marca" href="#inicio" aria-label="Vinícius Marques, voltar ao início">
-      <svg class="visto-svg" viewBox="0 0 100 85" aria-hidden="true"><path d="M8 41 L36 65 L94 7" /></svg>
+      <svg class="monograma" viewBox="0 0 108 78" aria-hidden="true"><path class="monograma-visto" d="M2 42 L13 33 L27 51 L58 4 L70 12 L30 73 Z" /><path class="monograma-m" transform="translate(60 73) scale(0.074 -0.074)" d="M20 0V305L20 528H149L148 343H156Q157 417 170 459Q184 502 209 521Q233 540 266 540Q302 540 324 520Q346 500 355 457Q364 414 360 343H368Q371 418 385 460Q399 503 424 521Q449 540 483 540Q514 540 536 527Q558 513 572 488Q586 462 593 423Q600 384 600 332V0H448V289Q448 326 446 350Q444 374 438 386Q432 397 420 397Q402 397 394 377Q387 357 385 324Q383 290 383 250V0H235V291Q235 327 233 351Q231 374 225 386Q219 397 207 397Q190 397 182 376Q174 355 172 320Q170 285 170 242V0Z" /></svg>
       <span class="marca-nome">Vinícius Marques</span>
     </a>
     <nav class="menu" id="menu" aria-label="Seções">
@@ -252,50 +252,37 @@
     <section class="secao monte-secao" id="monte" data-tema="claro" data-capitulo="Monte o seu">
       <div class="duas-colunas duas-colunas--topo">
         <h2 class="titulo"><span class="linha">Monte o sistema</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>que falta na sua <em class="grifo">empresa</em>.</span></h2>
-        <p class="lide lide--menor">Escolha a área e marque o que acontece aí hoje. Cada coisa marcada vira um módulo. O visto vermelho mostra onde uma pessoa aprova — a IA faz o resto.</p>
+        <p class="lide lide--menor">Escolha a área. Depois jogue para dentro do sistema as cartas do que acontece aí hoje: cada uma vira uma tela, feita de matéria. Quando estiver pronto, ligue o sistema e use.</p>
       </div>
       <div class="monte-grade" id="monte-grade">
-        <form class="monte-escolhas" onsubmit="return false">
-          <fieldset class="monte-passo">
-            <legend>1. A área</legend>
-            <div class="monte-opcoes">
-              <label class="ficha-opcao"><input type="radio" name="area" value="financeiro" /><span>Financeiro</span></label>
-              <label class="ficha-opcao"><input type="radio" name="area" value="operacao" /><span>Operação e logística</span></label>
-              <label class="ficha-opcao"><input type="radio" name="area" value="comercial" /><span>Comercial</span></label>
-              <label class="ficha-opcao"><input type="radio" name="area" value="atendimento" /><span>Atendimento</span></label>
-            </div>
-          </fieldset>
-          <fieldset class="monte-passo monte-passo--dores" hidden>
-            <legend>2. O que acontece aí hoje</legend>
-            <div class="monte-opcoes monte-dores"></div>
-          </fieldset>
-          <div class="monte-ficha" hidden>
-            <p class="monte-resumo" aria-live="polite"></p>
-            <ol class="monte-lista"></ol>
-            <div class="monte-acoes">
-              <button class="botao botao--cheio" type="button" data-acao="abrir" disabled>Abrir o sistema</button>
-              <a class="botao botao--linha" data-acao="enviar" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com">Me mandar esta ficha</a>
-              <button class="botao botao--linha" type="button" data-acao="recomecar">Recomeçar</button>
-            </div>
-          </div>
-        </form>
-        <div class="monte-saida">
-          <div class="monte-planta figura" data-forma="monte" data-de="#monte-grade" data-ate="#monte-grade" data-som="chegada" role="img" aria-label="A planta do sistema: um lugar para cada módulo; os escolhidos aparecem inteiros e ligados em sequência.">
-            <div class="monte-nomes" aria-hidden="true"></div>
-          </div>
+        <div class="monte-areas" role="radiogroup" aria-label="A área do sistema">
+          <label class="ficha-opcao"><input type="radio" name="area" value="financeiro" /><span>Financeiro</span></label>
+          <label class="ficha-opcao"><input type="radio" name="area" value="operacao" /><span>Operação e logística</span></label>
+          <label class="ficha-opcao"><input type="radio" name="area" value="comercial" /><span>Comercial</span></label>
+          <label class="ficha-opcao"><input type="radio" name="area" value="atendimento" /><span>Atendimento</span></label>
         </div>
-        <div class="sistema figura" id="sistema" data-forma="sistema" data-de="#monte-grade" data-ate="#monte-grade" hidden>
-          <div class="app">
+        <div class="sistema figura" id="sistema" data-forma="sistema" data-de="#monte-grade" data-ate="#monte-grade" data-som="chegada">
+          <div class="app em-obra">
             <header class="app-topo">
-              <span class="app-marca"><svg class="visto-svg" viewBox="0 0 100 85" aria-hidden="true"><path d="M8 41 L36 65 L94 7" /></svg><span class="app-titulo">Sistema</span></span>
+              <span class="app-marca"><svg class="monograma monograma--app" viewBox="0 0 108 78" aria-hidden="true"><path class="monograma-visto" d="M2 42 L13 33 L27 51 L58 4 L70 12 L30 73 Z" /><path class="monograma-m" transform="translate(60 73) scale(0.074 -0.074)" d="M20 0V305L20 528H149L148 343H156Q157 417 170 459Q184 502 209 521Q233 540 266 540Q302 540 324 520Q346 500 355 457Q364 414 360 343H368Q371 418 385 460Q399 503 424 521Q449 540 483 540Q514 540 536 527Q558 513 572 488Q586 462 593 423Q600 384 600 332V0H448V289Q448 326 446 350Q444 374 438 386Q432 397 420 397Q402 397 394 377Q387 357 385 324Q383 290 383 250V0H235V291Q235 327 233 351Q231 374 225 386Q219 397 207 397Q190 397 182 376Q174 355 172 320Q170 285 170 242V0Z" /></svg><span class="app-titulo">Seu sistema</span></span>
+              <span class="app-estado" aria-live="polite">em obra</span>
               <span class="app-demo">demonstração · dados fictícios</span>
               <span class="app-acoes-topo">
-                <a class="app-botao app-botao--sim" data-acao="enviar" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com">Quero este sistema</a>
-                <button type="button" class="app-botao" data-acao="voltar">Voltar à planta</button>
+                <button type="button" class="app-botao app-botao--sim" data-acao="ligar" disabled>Ligar o sistema</button>
               </span>
             </header>
             <nav class="app-menu" aria-label="Módulos do sistema" data-lenis-prevent></nav>
             <section class="app-tela" aria-live="polite" aria-label="Tela do módulo" data-lenis-prevent></section>
+          </div>
+        </div>
+        <div class="monte-mesa">
+          <p class="monte-dica">Escolha uma área acima: as cartas aparecem aqui.</p>
+          <ul class="monte-cartas" aria-label="O que acontece hoje na área"></ul>
+          <p class="monte-resumo" aria-live="polite"></p>
+          <div class="monte-acoes" hidden>
+            <a class="botao botao--cheio" data-acao="enviar" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com">Quero este sistema</a>
+            <button class="botao botao--linha" type="button" data-acao="desfazer">Tirar a última carta</button>
+            <button class="botao botao--linha" type="button" data-acao="recomecar">Recomeçar</button>
           </div>
         </div>
       </div>

@@ -283,11 +283,22 @@ h3 mark.confirmar {
   font-size: 1.06rem;
   letter-spacing: -0.01em;
 }
-.marca .visto-svg {
-  width: 26px;
-  height: 22px;
-  color: var(--acento);
-  stroke-width: 15;
+/* a marca: "vm" — o v é o visto de pontas cortadas (o lápis de revisão),
+   apoiado na linha de base do m, que é o m estreito dos títulos */
+.monograma {
+  display: block;
+  width: auto;
+  height: 26px;
+  overflow: visible;
+}
+.monograma-visto {
+  fill: var(--acento, var(--vermelhao));
+}
+.monograma-m {
+  fill: currentColor;
+}
+.monograma--app {
+  height: 18px;
 }
 .menu ul {
   display: flex;
@@ -1201,14 +1212,11 @@ main {
   justify-self: center;
   color: var(--vermelhao);
 }
-.carregador-marca .visto-svg {
-  width: clamp(72px, 9vw, 120px);
-  height: auto;
-  stroke-width: 11;
-}
-.carregador-marca path {
-  stroke-dasharray: 130;
-  stroke-dashoffset: calc(130 - 130 * var(--carga, 0));
+.carregador-marca .monograma {
+  height: clamp(56px, 7vw, 92px);
+  color: var(--osso);
+  /* a marca aparece da esquerda para a direita, no ritmo do contador */
+  clip-path: inset(-10% calc(100% - var(--carga, 0) * 100%) -10% -10%);
 }
 .carregador-conta {
   margin: 0;
@@ -1752,37 +1760,15 @@ main {
   color: var(--texto-2);
 }
 
-/* ---------- MONTE O SEU SISTEMA ---------- */
+/* ---------- MONTE O SEU SISTEMA: a obra ---------- */
 .monte-grade {
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: clamp(36px, 5vw, 96px);
-  align-items: start;
+  gap: 22px;
 }
-.monte-passo {
-  margin: 0 0 32px;
-  padding: 0;
-  border: 0;
-}
-.monte-passo[hidden] {
-  display: none;
-}
-.monte-passo legend {
-  margin-bottom: 14px;
-  font-family: var(--display);
-  font-size: 1.35rem;
-  font-weight: 680;
-  font-stretch: 84%;
-  color: var(--texto);
-}
-.monte-opcoes {
+.monte-areas {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-.monte-dores {
-  flex-direction: column;
-  align-items: flex-start;
 }
 /* as opções: fichas de papel que se marcam com o visto */
 .ficha-opcao {
@@ -1838,121 +1824,185 @@ main {
   position: sticky;
   top: calc(var(--topo) + 6vh);
 }
-.monte-planta {
-  position: relative;
-  aspect-ratio: 1.55;
+/* desabilitado: contorno tracejado (ainda não está pronto), texto legível */
+.botao:disabled,
+.app-botao:disabled,
+.app-botao--sim:disabled {
+  background: transparent;
+  border: 1px dashed var(--fio-forte);
+  color: var(--texto-2);
+  cursor: not-allowed;
 }
-.monte-nomes,
-.monte-fluxo {
-  position: absolute;
-  inset: 0;
+/* o sistema em obra: o conteúdo é só matéria (e não se clica nele) */
+.app-tela.dissolvido {
   pointer-events: none;
 }
-.monte-nome {
-  position: absolute;
-  display: flex;
-  align-items: flex-end;
-  font-family: var(--display);
-  font-size: clamp(0.9rem, 1.2vw, 1.08rem);
-  font-weight: 680;
-  font-stretch: 88%;
-  line-height: 1.15;
-  color: var(--texto);
-  animation: aparecer 0.6s var(--ease-saida) 0.7s both;
-}
-/* um pedido correndo pela planta */
-.monte-pedido {
-  position: absolute;
-  left: -6px;
-  top: -6px;
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-  background: var(--texto);
-  transition: background-color 0.3s, scale 0.3s var(--ease-saida), opacity 0.4s;
-}
-.monte-pedido.aguarda {
-  background: var(--acento);
-  scale: 1.5;
-}
-.monte-pedido.aprovado {
-  background: var(--acento);
-}
-.monte-pedido.pronto {
-  opacity: 0;
-  scale: 0.2;
-}
-.monte-aviso {
-  min-height: 1.6em;
-  margin-top: 12px;
+.app-estado {
+  padding: 3px 10px;
+  border: 1px dashed var(--fio-forte);
+  border-radius: 999px;
   font-family: var(--mono);
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   color: var(--texto-2);
 }
-.monte-ficha[hidden] {
-  display: none;
+.app:not(.em-obra) .app-estado {
+  border-style: solid;
+  border-color: var(--acento);
+  color: var(--acento-texto);
 }
-.monte-resumo {
-  margin-top: 8px;
-  font-weight: 600;
-  color: var(--texto);
-}
-.monte-lista {
-  list-style: none;
-  margin: 14px 0 0;
-  padding: 0;
-  border-top: 1px solid var(--fio);
-}
-.monte-lista li {
+.app-vazio {
   display: grid;
-  gap: 2px;
-  padding: 12px 0 12px 26px;
-  border-bottom: 1px solid var(--fio);
-  position: relative;
-  font-size: 0.95rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+}
+.app-vazio div {
+  height: 120px;
+  border: 1px solid var(--fio);
+  border-radius: 12px;
+}
+.app.em-obra .app-menu:empty::after {
+  content: 'Os módulos entram aqui';
+  padding: 8px 12px;
   color: var(--texto-2);
-  animation: aparecer 0.5s var(--ease-saida) both;
+  font-size: 0.85rem;
 }
-.monte-lista li strong {
+/* a carta que chega ao menu: um pulso curto no item novo */
+.app-menu button.chegou {
+  animation: chegou 0.7s var(--ease-saida);
+}
+@keyframes chegou {
+  from {
+    box-shadow: inset 0 0 0 2px var(--acento);
+  }
+}
+/* soltar aqui: o sistema se abre para receber */
+.sistema.pronto-para-soltar .app {
+  outline: 2px dashed var(--acento);
+  outline-offset: 6px;
+}
+
+/* a mesa e as cartas de papel */
+.monte-mesa {
+  display: grid;
+  gap: 14px;
+  padding-top: 8px;
+}
+.monte-dica {
+  color: var(--texto-2);
+  font-size: 0.95rem;
+}
+.monte-cartas {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  min-height: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.carta {
+  --giro: 0deg;
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  width: 100%;
+  min-height: 150px;
+  padding: 16px 16px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--fundo) 40%, #fff);
   color: var(--texto);
+  font: inherit;
+  text-align: left;
+  cursor: grab;
+  rotate: var(--giro);
+  box-shadow: 0 10px 22px -16px rgba(20, 16, 10, 0.55);
+  transition: rotate 0.4s var(--ease-saida), translate 0.4s var(--ease-saida), box-shadow 0.3s;
+  touch-action: manipulation;
+  user-select: none;
 }
-.monte-lista li::before {
-  content: '';
-  position: absolute;
-  left: 2px;
-  top: 19px;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--fio-forte);
+.carta:hover {
+  rotate: 0deg;
+  translate: 0 -6px;
+  box-shadow: 0 16px 28px -16px rgba(20, 16, 10, 0.6);
 }
-.monte-lista li.com-visto::before {
-  width: 13px;
-  height: 10px;
-  left: 0;
-  top: 18px;
-  border-radius: 0;
+.carta.arrastando {
+  cursor: grabbing;
+  z-index: 30;
+  transition: none;
+  rotate: 0deg;
+  box-shadow: 0 26px 40px -20px rgba(20, 16, 10, 0.6);
+}
+.carta--voando {
+  position: fixed;
+  z-index: 70;
+  margin: 0;
+  pointer-events: none;
+}
+/* as cartas chegam à mesa uma a uma, como dadas por alguém */
+.carta.dando {
+  animation: dar 0.6s var(--ease-saida) both;
+  animation-delay: calc(var(--k) * 70ms);
+}
+@keyframes dar {
+  from {
+    opacity: 0;
+    translate: 0 40px;
+    rotate: calc(var(--giro) * -3);
+  }
+}
+.carta-hoje {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--texto-2);
+}
+.carta-dor {
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 680;
+  font-stretch: 86%;
+  line-height: 1.15;
+}
+.carta-vira {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed var(--fio-forte);
+  font-size: 0.82rem;
+  color: var(--texto-2);
+}
+.carta-vira strong {
+  color: var(--texto);
+  font-weight: 600;
+}
+.carta-visto {
+  flex: none;
+  width: 12px;
+  height: 9px;
+  margin-left: auto;
   background: var(--acento);
   clip-path: polygon(0 45%, 18% 30%, 38% 58%, 82% 0, 100% 16%, 38% 100%);
 }
-.monte-aprova {
-  color: var(--acento-texto);
+.monte-resumo {
+  min-height: 1.6em;
   font-weight: 600;
 }
 .monte-acoes {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 20px;
+}
+.monte-acoes[hidden] {
+  display: none;
 }
 .monte-acoes .botao {
   min-height: 44px;
   padding: 10px 20px;
   font-size: 0.95rem;
-}
-.botao:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
 }
 
 /* ---------- OS CASOS na horizontal (computador) ---------- */
@@ -2073,19 +2123,28 @@ main {
   .figura--conta {
     order: -1;
   }
-  .monte-grade {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
+  /* as cartas: uma fileira que rola de lado; tocar joga a carta */
+  .monte-cartas {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 6px 4px 14px;
+    margin-inline: calc(var(--margem) * -1);
+    padding-inline: var(--margem);
+    scroll-snap-type: x mandatory;
   }
-  .monte-saida {
-    order: -1;
-    position: static;
+  .monte-cartas li {
+    flex: 0 0 64%;
+    scroll-snap-align: start;
   }
-  .monte-planta {
-    aspect-ratio: 0.82;
+  #monte .app {
+    height: min(600px, 66svh);
   }
-  .monte-nome {
-    font-size: 0.86rem;
+  .app-vazio {
+    grid-template-columns: 1fr;
+  }
+  .app-vazio div {
+    height: 64px;
   }
   .conta-texto {
     order: 1;
@@ -2127,12 +2186,13 @@ main {
    solidifica por cima: as superfícies são opacas de propósito, para cobrir a
    matéria quando o sistema está inteiro. ".dissolvido" as apaga.
    ========================================================================== */
-#monte.usando .monte-escolhas,
-#monte.usando .monte-saida {
-  display: none;
-}
 .sistema {
   grid-column: 1 / -1;
+}
+/* na obra, a janela e as cartas cabem juntas na tela: dá para arrastar de
+   uma para a outra sem rolar */
+#monte .app {
+  height: min(560px, 60vh);
 }
 .sistema[hidden] {
   display: none;
@@ -2180,12 +2240,6 @@ html[data-pref-tema='escuro'] .app {
   font-weight: 700;
   font-stretch: 86%;
   font-size: 1.05rem;
-}
-.app-marca .visto-svg {
-  width: 20px;
-  height: 17px;
-  color: var(--acento);
-  stroke-width: 15;
 }
 .app-demo {
   font-family: var(--mono);

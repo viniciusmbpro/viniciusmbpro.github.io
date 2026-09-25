@@ -1,15 +1,16 @@
-// MONTE O SEU SISTEMA: a pessoa escolhe a área e marca, nas palavras dela,
-// o que acontece ali hoje ("aprovação pelo WhatsApp", "conferir nota por
-// nota"). Cada dor marcada vira um módulo, e a matéria o encaixa na planta —
-// os lugares ainda vazios ficam tracejados, como obra por fazer.
+// MONTE O SEU SISTEMA — a obra.
 //
-// O vermelhão aqui tem um sentido só: o visto marca o módulo em que UMA
-// PESSOA APROVA. É a tese do site no desenho: a IA faz, a pessoa aprova.
+// O sistema já está na tela desde o começo: a janela real do aplicativo, com
+// o conteúdo feito só de matéria ("em obra"). A pessoa escolhe a área, e as
+// dores daquela área aparecem como CARTAS sobre a mesa, nas palavras de quem
+// vive o problema ("Aprovação de pagamento pelo WhatsApp").
 //
-// "Abrir o sistema" transforma a planta no sistema de verdade (sistema.js).
-// A ficha técnica (módulos, o que a IA faz, onde a pessoa aprova) vai por
-// e-mail.
-import { amostrar, dinamicas, BRANCO, ACESO } from '../materia/formas.js';
+// Cada carta jogada para dentro do sistema (arrastada, ou só tocada) voa até
+// o menu e vira um módulo; a matéria desenha ali o esqueleto da tela daquele
+// módulo. "Ligar o sistema" solidifica tudo, e as telas passam a funcionar.
+//
+// O vermelhão tem um sentido só: o visto marca o módulo em que UMA PESSOA
+// APROVA. A IA faz; a pessoa aprova.
 
 // cada área: um núcleo (sempre presente) e as dores que viram módulos.
 // ia = o que a IA faz ali; aprova = o que a pessoa decide (quando há)
@@ -60,155 +61,52 @@ const AREAS = {
   },
 };
 
+const calmo = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('parado');
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
-export function iniciarMonte({ materia, som, sistema, rolagem }) {
+export function iniciarMonte({ som, sistema }) {
   const raiz = document.getElementById('monte');
-  if (!raiz) return;
-  const figura = raiz.querySelector('.monte-planta');
-  const nomes = raiz.querySelector('.monte-nomes');
-  const doresEl = raiz.querySelector('.monte-dores');
-  const passoDores = raiz.querySelector('.monte-passo--dores');
-  const ficha = raiz.querySelector('.monte-ficha');
-  const abrir = raiz.querySelector('[data-acao="abrir"]');
+  if (!raiz || !sistema) return;
+  const cartasEl = raiz.querySelector('.monte-cartas');
+  const dica = raiz.querySelector('.monte-dica');
+  const resumo = raiz.querySelector('.monte-resumo');
+  const acoes = raiz.querySelector('.monte-acoes');
+  const ligar = raiz.querySelector('[data-acao="ligar"]');
   const enviar = [...raiz.querySelectorAll('[data-acao="enviar"]')];
+  const caixa = sistema.caixa;
 
   let area = null;
-  let marcadas = []; // índices das dores, na ordem em que foram marcadas
-  let versao = 0;
-  let W = 1;
-  let H = 1;
+  let jogadas = []; // índices das dores, na ordem em que entraram
 
-  // os módulos do sistema montado: o núcleo e as dores marcadas
-  const modulos = () => (area ? [{ ...AREAS[area].nucleo, aprova: null, nucleo: true }, ...marcadas.map((i) => AREAS[area].dores[i])] : []);
+  const modulos = () => (area ? [{ ...AREAS[area].nucleo, aprova: null, nucleo: true }, ...jogadas.map((i) => AREAS[area].dores[i])] : []);
 
-  // os lugares da planta: 6, em "cobra" (a linha de baixo volta), para o
-  // fluxo ser um caminho contínuo
-  function lugares(w, h) {
-    const col = w / h < 1.15 ? 2 : 3;
-    const n = 6;
-    const lin = Math.ceil(n / col);
-    const gap = Math.min(w, h) * 0.08;
-    const bw = (w - gap * (col + 1)) / col;
-    // no celular (duas colunas) a caixa é mais alta: o nome quebra em mais linhas
-    const bh = Math.min(bw * (col === 2 ? 0.8 : 0.58), (h - gap * (lin + 1)) / lin);
-    const oy = (h - (lin * bh + (lin - 1) * gap)) / 2;
-    const out = [];
-    for (let k = 0; k < n; k++) {
-      const r = Math.floor(k / col);
-      let c = k % col;
-      if (r % 2) c = col - 1 - c;
-      out.push({ x: gap + c * (bw + gap), y: oy + r * (bh + gap), w: bw, h: bh });
-    }
-    return out;
-  }
-
-  // ---- a planta, em partículas ----
-  dinamicas.monte = (w, h, n) =>
-    amostrar(`monte-${versao}`, w, h, n, (c) => {
-      const L = lugares(w, h);
-      const M = modulos();
-      c.lineCap = 'round';
-      c.lineJoin = 'round';
-      L.forEach((s, k) => {
-        const m = M[k];
-        c.strokeStyle = BRANCO;
-        if (!m) {
-          // lugar vazio: tracejado, obra por fazer
-          c.lineWidth = 3;
-          c.setLineDash([10, 12]);
-          c.beginPath();
-          c.roundRect(s.x, s.y, s.w, s.h, 12);
-          c.stroke();
-          c.setLineDash([]);
-          return;
-        }
-        c.lineWidth = 6;
-        c.beginPath();
-        c.roundRect(s.x, s.y, s.w, s.h, 12);
-        c.stroke();
-        c.fillStyle = BRANCO;
-        c.fillRect(s.x + 3, s.y + 3, s.w - 6, Math.min(14, s.h * 0.14));
-        if (m.aprova) {
-          // o visto no canto: aqui uma pessoa aprova
-          const t = Math.min(s.w, s.h) * 0.22;
-          const x = s.x + s.w - t * 1.35;
-          const y = s.y + s.h - t * 1.1;
-          c.strokeStyle = ACESO;
-          c.lineWidth = Math.max(5, t * 0.2);
-          c.beginPath();
-          c.moveTo(x, y + t * 0.45);
-          c.lineTo(x + t * 0.35, y + t * 0.8);
-          c.lineTo(x + t, y);
-          c.stroke();
-        }
-      });
-      // as ligações entre módulos montados, na ordem do caminho
-      c.strokeStyle = BRANCO;
-      c.lineWidth = 4;
-      for (let k = 0; k < M.length - 1; k++) {
-        const [a, b] = ponte(L[k], L[k + 1]);
-        c.beginPath();
-        c.moveTo(...a);
-        c.lineTo(...b);
-        c.stroke();
-      }
-    }, { semente: 101, resolucao: 420 });
-
-  // a ponte entre dois lugares vizinhos: de borda a borda
-  function ponte(A, B) {
-    if (Math.abs(A.y - B.y) < 2) {
-      const esq = A.x < B.x ? A : B;
-      const dir = esq === A ? B : A;
-      const y = A.y + A.h / 2;
-      const p = [[esq.x + esq.w + 4, y], [dir.x - 4, y]];
-      return esq === A ? p : [p[1], p[0]];
-    }
-    const x = A.x + A.w / 2;
-    return [[x, A.y + A.h + 4], [x, B.y - 4]];
-  }
-
-  // ---- os nomes sobre os módulos (texto de verdade, não partícula) ----
-  function pintarNomes() {
-    const L = lugares(W, H);
-    const M = modulos();
-    nomes.replaceChildren(
-      ...M.map((m, k) => {
-        const s = L[k];
-        const el = document.createElement('span');
-        el.className = 'monte-nome';
-        el.textContent = m.nome;
-        // o nome embaixo, à esquerda; o visto fica no canto direito e o
-        // caminho dos pedidos passa acima, na faixa do meio
-        // recuo folgado: a borda de partículas tem uns 8 px de espessura
-        el.style.left = `${s.x + 20}px`;
-        el.style.bottom = `${H - (s.y + s.h) + 16}px`;
-        el.style.width = `${m.aprova ? s.w * 0.58 : s.w - 40}px`;
-        return el;
-      }),
-    );
-  }
-
-  // ---- a ficha técnica e o e-mail ----
-  function pintarFicha() {
-    const M = modulos();
-    ficha.hidden = !M.length;
-    abrir.disabled = M.length < 2;
-    if (!M.length) return;
-    const aprovacoes = M.filter((m) => m.aprova);
-    ficha.querySelector('.monte-resumo').textContent =
-      `${AREAS[area].nome}: ${M.length} ${M.length === 1 ? 'módulo' : 'módulos'}` +
-      (aprovacoes.length ? `, ${aprovacoes.length} com aprovação de uma pessoa.` : ', tudo automático até aqui.');
-    ficha.querySelector('.monte-lista').replaceChildren(
-      ...M.map((m) => {
+  // ---- as cartas na mesa ----
+  function pintarCartas(dar = false) {
+    const livres = AREAS[area].dores.map((d, i) => [d, i]).filter(([, i]) => !jogadas.includes(i));
+    cartasEl.replaceChildren(
+      ...livres.map(([d, i], k) => {
         const li = document.createElement('li');
-        li.className = m.aprova ? 'com-visto' : '';
-        li.innerHTML = `<strong></strong><span class="monte-ia"></span>${m.aprova ? '<span class="monte-aprova"></span>' : ''}`;
-        li.querySelector('strong').textContent = m.nome;
-        li.querySelector('.monte-ia').textContent = `A IA ${m.ia}.`;
-        if (m.aprova) li.querySelector('.monte-aprova').textContent = `Uma pessoa ${m.aprova}.`;
+        // cada carta cai na mesa um pouco torta, como papel de verdade
+        const giro = ((i * 37) % 7) - 3;
+        li.innerHTML = `<button type="button" class="carta${d.aprova ? ' carta--aprova' : ''}" data-i="${i}" style="--giro:${giro}deg;--k:${k}">
+          <span class="carta-hoje">Hoje</span>
+          <span class="carta-dor">${esc(d.dor)}</span>
+          <span class="carta-vira">vira <strong>${esc(d.nome)}</strong>${d.aprova ? '<span class="carta-visto" aria-hidden="true"></span>' : ''}</span>
+        </button>`;
+        if (dar && !calmo()) li.firstElementChild.classList.add('dando');
         return li;
       }),
     );
+    dica.textContent = livres.length ? 'Arraste uma carta para dentro do sistema, ou toque nela.' : 'Todas as cartas estão no sistema.';
+  }
+
+  function atualizar() {
+    const M = modulos();
+    ligar.disabled = M.length < 2;
+    acoes.hidden = !area;
+    if (!area) return;
+    const ap = M.filter((m) => m.aprova).length;
+    resumo.textContent = `${AREAS[area].nome}: ${M.length} ${M.length === 1 ? 'módulo' : 'módulos'}${ap ? `, ${ap} com aprovação de uma pessoa` : ''}.${M.length < 2 ? ' Jogue ao menos uma carta para poder ligar.' : ''}`;
     const corpo = [
       'Olá, Vinícius.',
       '',
@@ -223,78 +121,125 @@ export function iniciarMonte({ materia, som, sistema, rolagem }) {
     enviar.forEach((a) => (a.href = href));
   }
 
-  function mudar(fn) {
-    const de = materia.formaAtual(figura);
-    fn();
-    versao++;
-    materia.morfar(figura, de, 1100);
-    pintarNomes();
-    pintarFicha();
+  function configurar(foco, zerar = false) {
+    sistema.configurar({ chave: area, nome: AREAS[area]?.nome, lista: modulos(), foco, zerar });
+    atualizar();
   }
 
-  // ---- as escolhas ----
-  function mostrarDores() {
-    doresEl.replaceChildren(
-      ...AREAS[area].dores.map((d, i) => {
-        const l = document.createElement('label');
-        l.className = 'ficha-opcao';
-        l.innerHTML = `<input type="checkbox" name="dor" value="${i}" /><span></span>`;
-        l.querySelector('span').textContent = d.dor;
-        return l;
-      }),
-    );
-    passoDores.hidden = false;
+  // ---- jogar uma carta no sistema ----
+  function jogar(i, de) {
+    if (!area || jogadas.includes(i)) return;
+    jogadas.push(i);
+    configurar(jogadas.length);
+    som?.graos();
+    // o voo: a carta sai de onde estava e encolhe até o novo item do menu
+    const alvo = sistema.botao(jogadas.length);
+    if (de && alvo && !calmo()) {
+      const r = alvo.getBoundingClientRect();
+      const fantasma = de.el.cloneNode(true);
+      fantasma.classList.add('carta--voando');
+      fantasma.classList.remove('dando', 'arrastando');
+      Object.assign(fantasma.style, { left: `${de.r.left}px`, top: `${de.r.top}px`, width: `${de.r.width}px`, height: `${de.r.height}px`, transform: de.transform || '' });
+      document.body.append(fantasma);
+      const dx = r.left + r.width / 2 - (de.r.left + de.r.width / 2);
+      const dy = r.top + r.height / 2 - (de.r.top + de.r.height / 2);
+      const k = Math.min(r.width / de.r.width, 0.6);
+      fantasma
+        .animate([{ transform: de.transform || 'none', opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(${k}) rotate(0deg)`, opacity: 0.2 }], { duration: 650, easing: 'cubic-bezier(0.6, 0, 0.2, 1)' })
+        .finished.then(() => {
+          fantasma.remove();
+          alvo.classList.add('chegou');
+        });
+    }
+    pintarCartas();
+    // o foco do teclado continua na mesa
+    cartasEl.querySelector('.carta')?.focus({ preventScroll: true });
   }
-  raiz.addEventListener('change', (e) => {
-    const alvo = e.target;
-    if (alvo.name === 'area') {
-      mudar(() => {
-        area = alvo.value;
-        marcadas = [];
-      });
-      mostrarDores();
-      som?.tique(0.8);
-    } else if (alvo.name === 'dor') {
-      const i = Number(alvo.value);
-      mudar(() => {
-        marcadas = alvo.checked ? [...marcadas, i] : marcadas.filter((x) => x !== i);
-      });
-      som?.[alvo.checked ? 'graos' : 'tique']?.();
+
+  // ---- arrastar (mouse e caneta; no toque, tocar joga a carta) ----
+  let arrasto = null;
+  cartasEl.addEventListener('pointerdown', (e) => {
+    const c = e.target.closest('.carta');
+    if (!c || e.pointerType === 'touch' || e.button !== 0) return;
+    arrasto = { el: c, x0: e.clientX, y0: e.clientY, ativo: false, id: e.pointerId };
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!arrasto || e.pointerId !== arrasto.id) return;
+    const dx = e.clientX - arrasto.x0;
+    const dy = e.clientY - arrasto.y0;
+    if (!arrasto.ativo && Math.hypot(dx, dy) < 6) return;
+    if (!arrasto.ativo) {
+      arrasto.ativo = true;
+      arrasto.r = arrasto.el.getBoundingClientRect();
+      arrasto.el.classList.add('arrastando');
+      arrasto.el.setPointerCapture?.(e.pointerId);
+    }
+    // a carta inclina para o lado em que está sendo puxada
+    const giro = Math.max(-12, Math.min(12, (e.movementX || 0) * 0.8));
+    arrasto.transform = `translate(${dx}px, ${dy}px) rotate(${giro}deg) scale(1.04)`;
+    arrasto.el.style.transform = arrasto.transform;
+    const s = caixa.getBoundingClientRect();
+    const dentro = e.clientX > s.left && e.clientX < s.right && e.clientY > s.top && e.clientY < s.bottom;
+    caixa.classList.toggle('pronto-para-soltar', dentro);
+  });
+  window.addEventListener('pointerup', (e) => {
+    if (!arrasto || e.pointerId !== arrasto.id) return;
+    const a = arrasto;
+    arrasto = null;
+    caixa.classList.remove('pronto-para-soltar');
+    if (!a.ativo) return; // foi um clique: o click cuida
+    a.el.dataset.arrastou = '1';
+    const s = caixa.getBoundingClientRect();
+    if (e.clientX > s.left && e.clientX < s.right && e.clientY > s.top && e.clientY < s.bottom) {
+      const r = a.el.getBoundingClientRect();
+      jogar(Number(a.el.dataset.i), { el: a.el, r: { left: r.left, top: r.top, width: r.width, height: r.height } });
+    } else {
+      // fora do sistema: a carta volta para a mesa
+      a.el.classList.remove('arrastando');
+      a.el.animate([{ transform: a.transform }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' });
+      a.el.style.transform = '';
     }
   });
 
+  // ---- cliques ----
   raiz.addEventListener('click', (e) => {
+    const carta = e.target.closest('.carta');
+    if (carta) {
+      if (carta.dataset.arrastou) {
+        delete carta.dataset.arrastou;
+        return;
+      }
+      const r = carta.getBoundingClientRect();
+      jogar(Number(carta.dataset.i), { el: carta, r: { left: r.left, top: r.top, width: r.width, height: r.height } });
+      return;
+    }
     const b = e.target.closest('[data-acao]');
     if (!b) return;
-    if (b.dataset.acao === 'abrir') {
-      // a planta vira o sistema de verdade
-      const de = materia.formaAtual(figura);
-      raiz.classList.add('usando');
-      sistema.abrir({ chave: area, nome: AREAS[area].nome, lista: modulos() }, de);
-      rolagem?.irPara?.(document.getElementById('sistema'), { offset: -90 });
-    } else if (b.dataset.acao === 'voltar') {
-      const de = sistema.formaAtual();
-      sistema.fechar();
-      raiz.classList.remove('usando');
-      materia.remedir();
-      versao++;
-      pintarNomes();
-      requestAnimationFrame(() => materia.morfar(figura, de, 1300));
-      rolagem?.irPara?.(raiz, { offset: -90 });
+    if (b.dataset.acao === 'ligar') {
+      if (sistema.ligado) sistema.desligar();
+      else sistema.ligar();
+      b.textContent = sistema.ligado ? 'Voltar à obra' : 'Ligar o sistema';
+      b.classList.toggle('app-botao--sim', !sistema.ligado);
+    } else if (b.dataset.acao === 'desfazer' && jogadas.length) {
+      jogadas.pop();
+      configurar(jogadas.length);
+      pintarCartas();
     } else if (b.dataset.acao === 'recomecar') {
-      mudar(() => {
-        marcadas = [];
-      });
-      doresEl.querySelectorAll('input').forEach((i) => (i.checked = false));
+      jogadas = [];
+      if (sistema.ligado) ligar.click();
+      configurar(0, true);
+      pintarCartas(true);
     }
   });
 
-  new ResizeObserver(() => {
-    const r = figura.getBoundingClientRect();
-    W = r.width;
-    H = r.height;
-    versao++;
-    pintarNomes();
-  }).observe(figura);
-  pintarFicha();
+  raiz.addEventListener('change', (e) => {
+    if (e.target.name !== 'area') return;
+    area = e.target.value;
+    jogadas = [];
+    configurar(0, true);
+    pintarCartas(true);
+    som?.tique(0.8);
+  });
+
+  atualizar();
 }

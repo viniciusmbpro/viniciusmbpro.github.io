@@ -453,6 +453,7 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
     // a abertura: logo depois do carregamento, a poeira solta na tela inteira
     // se junta no visto do início
     let intro = null;
+    let noLugar = false; // troca de forma dentro da mesma caixa: voo curto
     if (introInicio !== null) {
       const p = (agora - introInicio) / 2400;
       if (p >= 1 || parado) introInicio = null;
@@ -477,6 +478,7 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
       else {
         ga = { f: morfe.de, x: gb.x, y: gb.y };
         onde.t = p;
+        noLugar = true;
       }
     }
     // os buffers só são trocados quando a forma de um dos lados muda (as
@@ -539,7 +541,8 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
       claro: cor.claro,
       alfa,
       tam,
-      voo: parado ? 0 : 1,
+      // na troca dentro da mesma caixa o voo é curto: a matéria não sai dela
+      voo: parado ? 0 : noLugar ? 0.22 : 1,
       inclina,
     });
     // parado e sem nada mudando: descansa até a próxima rolagem

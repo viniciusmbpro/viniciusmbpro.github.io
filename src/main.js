@@ -56,7 +56,7 @@ iniciarTrilho(rolagem);
 iniciarMetodo(rolagem, { som });
 const cursor = iniciarCursor(rolagem, { parado, som });
 iniciarSegredo({ materia, som });
-iniciarMonte({ materia, som, rolagem, sistema: criarSistema({ materia, som, rolagem }) });
+iniciarMonte({ som, sistema: criarSistema({ materia, som, rolagem }) });
 iniciarConta({ materia, som });
 iniciarCasos(rolagem);
 iniciarRetrato();

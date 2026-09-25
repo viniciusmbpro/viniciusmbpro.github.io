@@ -200,8 +200,10 @@ export function criarSistema({ materia, som, rolagem }) {
   const tela = caixa.querySelector('.app-tela');
   const titulo = caixa.querySelector('.app-titulo');
   const calmo = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('parado');
+  const estadoEl = caixa.querySelector('.app-estado');
   let area = null;
   let modulos = [];
+  let ligado = false; // em obra (conteúdo só de matéria) ou ligado (sólido e usável)
   let atual = 0;
   let versao = 0;
   let esqueleto = []; // o que a matéria desenha: [{ tipo, x, y, w, h }]
@@ -330,12 +332,22 @@ export function criarSistema({ materia, som, rolagem }) {
   }
 
   function desenharTela() {
+    if (!modulos.length) {
+      // a obra ainda sem área: o esqueleto de uma tela qualquer, à espera
+      tela.innerHTML = `<div class="app-cab"><h3>Escolha uma área</h3><p class="app-ia">As telas do seu sistema vão aparecer aqui, uma por carta.</p></div><div class="app-vazio"><div class="e-caixa"></div><div class="e-caixa"></div><div class="e-caixa"></div></div>`;
+      tela.dataset.tipo = 'vazio';
+      return;
+    }
     const m = modulos[atual];
     const t = telaDe(area, m);
     const f = { lista: telaLista, fila: telaFila, leitura: telaLeitura, conversa: telaConversa, painel: telaPainel }[t.tipo];
     tela.innerHTML = f(m, t.dados);
     tela.dataset.tipo = t.tipo;
     menu.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-current', String(i === atual)));
+    // no celular o menu é uma faixa que rola de lado: traz a aba atual à vista
+    // (só a faixa rola; a página fica onde está)
+    const b = menu.querySelectorAll('button')[atual];
+    if (b && menu.scrollWidth > menu.clientWidth) menu.scrollTo({ left: b.offsetLeft - menu.clientWidth / 2 + b.offsetWidth / 2, behavior: calmo() ? 'auto' : 'smooth' });
   }
 
   // ---- a passagem pela matéria ----
@@ -351,12 +363,13 @@ export function criarSistema({ materia, som, rolagem }) {
     requestAnimationFrame(() => {
       lerEsqueleto();
       if (calmo()) {
-        alvo.classList.remove('dissolvido');
+        if (ligado) alvo.classList.remove('dissolvido');
         return;
       }
       materia.morfar(caixa, de, inteiro ? 1500 : 950);
       som?.graos();
       // a tela se solidifica quando a matéria já pousou
+      if (!ligado) return; // em obra: a tela continua sendo só matéria
       espera = setTimeout(() => {
         alvo.classList.remove('dissolvido');
         // o sistema cobriu a matéria: ela some de vez (sem pontilhado nas bordas)
@@ -430,39 +443,57 @@ export function criarSistema({ materia, som, rolagem }) {
     if (!caixa.hidden) lerEsqueleto();
   }).observe(caixa);
 
+  function pintarMenu() {
+    menu.innerHTML = modulos.map((m, i) => `<button type="button" data-mod="${i}">${m.aprova ? '<span class="app-visto" aria-hidden="true"></span>' : ''}${esc(m.nome)}</button>`).join('');
+  }
+  function marcarEstado() {
+    app.classList.toggle('em-obra', !ligado);
+    estadoEl.textContent = ligado ? 'ligado' : 'em obra';
+  }
+
+  // o começo: a janela vazia, o conteúdo em matéria
+  tela.classList.add('dissolvido');
+  desenharTela();
+  requestAnimationFrame(lerEsqueleto);
+  document.fonts?.ready.then(lerEsqueleto);
+
   return {
-    // abre o sistema montado; `de` é a forma da planta, ponto de partida
-    abrir({ chave, nome, lista }, de) {
-      area = chave;
-      modulos = lista;
-      atual = 0;
-      estado.clear();
-      titulo.textContent = `Sistema de ${nome.toLowerCase()}`;
-      menu.innerHTML = modulos.map((m, i) => `<button type="button" data-mod="${i}">${m.aprova ? '<span class="app-visto" aria-hidden="true"></span>' : ''}${esc(m.nome)}</button>`).join('');
-      desenharTela();
-      app.classList.add('dissolvido');
-      caixa.hidden = false;
-      materia.remedir();
-      requestAnimationFrame(() => {
-        lerEsqueleto();
-        if (calmo()) {
-          app.classList.remove('dissolvido');
-          return;
-        }
-        materia.velar(caixa, true);
-        materia.morfar(caixa, de, 1700);
-        som?.visto();
-        setTimeout(() => {
-          app.classList.remove('dissolvido');
-          setTimeout(() => materia.velar(caixa, false), 700);
-        }, 1500);
+    // monta (ou remonta) o sistema: a área, os módulos e a tela em foco
+    configurar({ chave, nome, lista, foco = lista.length - 1, zerar = false }) {
+      if (zerar) estado.clear();
+      passar(() => {
+        area = chave;
+        modulos = lista;
+        atual = Math.max(0, Math.min(foco, lista.length - 1));
+        titulo.textContent = nome ? `Sistema de ${nome.toLowerCase()}` : 'Seu sistema';
+        pintarMenu();
+        desenharTela();
       });
     },
-    // antes de fechar: a forma atual, para a planta nascer dela
-    formaAtual: () => materia.formaAtual(caixa),
-    fechar() {
-      materia.velar(caixa, true);
-      caixa.hidden = true;
+    // liga: o conteúdo se solidifica e passa a funcionar
+    ligar() {
+      if (ligado || !modulos.length) return;
+      ligado = true;
+      marcarEstado();
+      som?.visto();
+      tela.classList.remove('dissolvido');
+      clearTimeout(espera);
+      espera = setTimeout(() => materia.velar(caixa, false), 900);
     },
+    // volta à obra: o conteúdo vira matéria outra vez
+    desligar() {
+      if (!ligado) return;
+      ligado = false;
+      marcarEstado();
+      clearTimeout(espera);
+      materia.velar(caixa, true);
+      tela.classList.add('dissolvido');
+    },
+    get ligado() {
+      return ligado;
+    },
+    // o botão do menu de um módulo (o alvo do voo das cartas)
+    botao: (i) => menu.querySelectorAll('button')[i],
+    caixa,
   };
 }
