@@ -28,7 +28,7 @@
   --tinta-2: #5a5248;
   --vermelhao: #ff5533;
   --vermelhao-papel: #b8331a;
-  --acento-papel: #d23c1d;
+  --acento-papel: #c8361a;
   --acento-halo: rgba(255, 85, 51, 0.16);
   --acento-halo-papel: rgba(184, 51, 26, 0.12);
 
@@ -386,7 +386,14 @@ h3 mark.confirmar {
 }
 .botao--linha {
   border: 1px solid var(--fio-forte);
+  background: transparent;
   color: var(--texto);
+}
+/* botões de verdade (<button>) não herdam o cinza do navegador */
+button.botao {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: var(--texto-fonte);
 }
 .botao--linha:hover {
   border-color: var(--texto);
@@ -1642,5 +1649,382 @@ main {
   .js .revelar {
     opacity: 1;
     translate: none;
+  }
+}
+
+/* ==========================================================================
+   INTERAÇÃO — a conta, o esboço, a pista dos casos e a foto
+   ========================================================================== */
+
+/* ---------- A CONTA ---------- */
+.conta-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(40px, 6vw, 110px);
+  align-items: center;
+}
+.conta-form {
+  display: grid;
+  gap: 30px;
+}
+.campo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 10px 16px;
+}
+.campo label {
+  color: var(--texto-2);
+  font-size: 0.98rem;
+}
+.campo output {
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--texto);
+}
+/* o controle deslizante desenhado na marca: um fio e um disco */
+.campo input[type='range'] {
+  grid-column: 1 / -1;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  color: var(--acento);
+  font-size: 0;
+  cursor: pointer;
+}
+.campo input[type='range']::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--fio-forte);
+}
+.campo input[type='range']::-moz-range-track {
+  height: 2px;
+  background: var(--fio-forte);
+}
+.campo input[type='range']::-moz-range-progress {
+  height: 2px;
+  background: var(--acento);
+}
+.campo input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--acento);
+  border: 3px solid var(--fundo);
+  box-shadow: 0 0 0 1px var(--acento);
+  transition: scale 0.3s var(--ease-saida);
+}
+.campo input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--acento);
+  border: 3px solid var(--fundo);
+}
+.campo input[type='range']:active::-webkit-slider-thumb {
+  scale: 1.25;
+}
+.campo input[type='range']:focus-visible {
+  outline-offset: 2px;
+}
+.figura--conta {
+  aspect-ratio: 2.5;
+}
+.conta-resultado {
+  margin-top: 8px;
+  color: var(--texto-2);
+  font-size: 1.08rem;
+}
+.conta-resultado strong {
+  color: var(--texto);
+  font-variant-numeric: tabular-nums;
+}
+.conta-formula {
+  margin: 12px 0 28px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--texto-2);
+}
+
+/* ---------- O ESBOÇO ---------- */
+.esboco-quadro {
+  position: relative;
+  aspect-ratio: 2.35;
+  border: 1.5px dashed var(--fio-forte);
+  border-radius: 18px;
+  touch-action: none;
+  cursor: crosshair;
+  overflow: hidden;
+}
+.esboco-lapis {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.esboco-dica {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  translate: -50% 0;
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--fundo);
+  color: var(--texto-2);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.esboco-rotulos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* os nomes dos módulos: um campo sobre cada caixa, como etiqueta a lápis */
+.esboco-rotulos input {
+  position: absolute;
+  translate: -50% -50%;
+  pointer-events: auto;
+  padding: 6px 8px;
+  border: 0;
+  border-bottom: 1.5px dashed transparent;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--fundo) 88%, transparent);
+  color: var(--texto);
+  font: 650 1rem/1.2 var(--texto-fonte);
+  text-align: center;
+  cursor: text;
+  animation: aparecer 0.6s var(--ease-saida) 0.9s both;
+}
+.esboco-rotulos input:hover {
+  border-bottom-color: var(--fio-forte);
+}
+.esboco-rotulos input:focus {
+  outline: none;
+  border-bottom-color: var(--acento);
+  border-bottom-style: solid;
+}
+.esboco-tocar {
+  display: none;
+}
+.esboco-controles,
+.esboco-envio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.esboco-envio[hidden] {
+  display: none;
+}
+.esboco-controles .botao,
+.esboco-envio .botao {
+  min-height: 44px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+}
+.esboco-resumo {
+  margin-top: 16px;
+  min-height: 1.6em;
+  color: var(--texto-2);
+}
+/* no toque, o quadro só captura o dedo depois de "Tocar para desenhar" —
+   senão ele vira uma armadilha que não deixa a página rolar */
+@media (pointer: coarse) {
+  .esboco-quadro {
+    touch-action: pan-y;
+  }
+  .esboco.desenhando .esboco-quadro {
+    touch-action: none;
+    border-style: solid;
+    border-color: var(--acento);
+  }
+  .esboco:not(.desenhando):not(.limpo) .esboco-tocar {
+    display: inline-flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+  .esboco:not(.desenhando) .esboco-dica {
+    display: none;
+  }
+}
+
+/* ---------- OS CASOS na horizontal (computador) ---------- */
+.trilho--h {
+  height: calc((var(--passos) + 0.6) * 100svh);
+}
+.palco--h {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  max-width: none;
+  margin-inline: calc(var(--margem) * -1);
+}
+.pista {
+  display: flex;
+  gap: 6vw;
+  will-change: transform;
+}
+.pista .ficha {
+  flex: 0 0 min(1160px, 82vw);
+  border: 0;
+  padding-block: 0;
+}
+.pista .ficha:last-child {
+  border: 0;
+}
+.pista-rodape {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: clamp(28px, 5vh, 48px) auto 0;
+  width: min(1160px, 82vw);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--texto-2);
+  font-variant-numeric: tabular-nums;
+}
+.pista-barra {
+  flex: 1;
+  height: 2px;
+  background: var(--fio);
+  overflow: hidden;
+}
+.pista-barra span {
+  display: block;
+  height: 100%;
+  background: var(--acento);
+  transform-origin: left;
+  transform: scaleX(0.2);
+}
+
+/* ---------- A FOTO por baixo das partículas ---------- */
+@property --r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+.figura--retrato {
+  --r: 0px;
+  transition: --r 0.7s var(--ease-saida);
+}
+.figura--retrato.lanterna {
+  --r: 130px;
+}
+.figura--retrato.inteira {
+  --r: 760px;
+  transition-duration: 1.2s;
+}
+.retrato-real {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.06);
+  -webkit-mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 45%), #000 calc(var(--r) - 40px), transparent var(--r));
+  mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 45%), #000 calc(var(--r) - 40px), transparent var(--r));
+  pointer-events: none;
+  user-select: none;
+}
+.sem-js .retrato-real {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.quem figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 14px;
+}
+.retrato-botao {
+  padding: 8px 4px;
+  border: 0;
+  background: none;
+  color: var(--texto);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline 1px var(--acento);
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+}
+.sem-lanterna .retrato-dica-mouse {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .conta-grade {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  /* no celular: o número em cima, os controles logo embaixo (os dois cabem
+     juntos na tela, então quem mexe vê a matéria mudar), o texto depois */
+  .conta-saida {
+    display: contents;
+  }
+  .figura--conta {
+    order: -1;
+  }
+  .conta-texto {
+    order: 1;
+  }
+  .esboco-rotulos input {
+    font-size: 0.88rem;
+  }
+  .figura--conta {
+    aspect-ratio: 1.9;
+  }
+  .conta-form {
+    gap: 22px;
+  }
+  .esboco-quadro {
+    aspect-ratio: 0.92;
+  }
+  .esboco-controles .botao {
+    flex: 1 1 calc(50% - 10px);
+  }
+  .esboco-controles .botao:first-child {
+    flex-basis: 100%;
+  }
+  .esboco-dica {
+    white-space: normal;
+    width: max-content;
+    max-width: 88%;
+    text-align: center;
+  }
+  /* os casos empilham: rolar de lado preso, no polegar, cansa */
+  .trilho--h {
+    height: auto;
+  }
+  .palco--h {
+    position: static;
+    height: auto;
+    overflow: visible;
+    margin-inline: 0;
+  }
+  .pista {
+    flex-direction: column;
+    gap: 0;
+    transform: none !important;
+  }
+  .pista .ficha {
+    flex: none;
+    border-top: 1px solid var(--fio);
+    padding-block: 48px;
+  }
+  .pista-rodape {
+    display: none;
   }
 }

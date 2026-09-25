@@ -28,8 +28,10 @@ A ordem segue o StoryBrand (herói → o que está em jogo → guia → plano �
 |---|---|---|---|
 | 1 | **Início** | Promessa + dois CTAs (direto e de transição) + uma linha de prova | o **visto** — o V de Vinícius como marca de revisão |
 | 2 | **O problema** | O que está em jogo, com dado e fonte. Tira a culpa da ferramenta: "o problema não é a IA, é ela não entrar no processo" | **vinte pilotos**, dezenove se desfazendo e um aceso |
+| 2b | **A conta** | Transforma "o que está em jogo" em número da própria empresa (StoryBrand: o custo de não agir). Útil sozinha, e o número vira assunto da conversa | o **número** do custo anual, aceso na fração que volta |
 | 3 | **A virada** | O diferencial: eu não instalo IA, construo o sistema com ela; o sistema é seu | **do pedido ao sistema**: linhas de texto → tela com módulos |
 | 4 | **O que eu construo** | Concretude: sete tipos de sistema de back-office, com o que cada um faz na segunda de manhã | o **aro** de uma roda, com o trecho aceso apontando o item aceso |
+| 4b | **Rabisque** | Prova por experiência: a pessoa vive a tese ("do rascunho ao sistema") e sai com um esboço dela, pronto para mandar. Reduz a ansiedade do primeiro contato (Moesta): a conversa começa do desenho dela, não de uma apresentação | **o desenho de quem lê**, depois passado a limpo |
 | 5 | **Como começa** | A oferta em 3 etapas, cada uma com preço fechado e critério de pronto — reduz a ansiedade (Moesta) e oferece "choice of yeses" (Alan Weiss) | **mapa** da operação → **camadas** do sistema → **semanas** de acompanhamento |
 | 6 | **Método** | Prova por transparência: o processo escrito (Estaleiro), as etapas, as regras que não negocio | **agentes em paralelo** convergindo num tronco |
 | 7 | **Casos** | Prova por número, tirado dos repositórios, sem nome de cliente | um desenho por sistema: **rotas**, **casco**, **pagamento**, **voz**, **página** |
@@ -53,6 +55,14 @@ A ordem segue o StoryBrand (herói → o que está em jogo → guia → plano �
 - O motivo quase nunca é o modelo. O ChatGPT ajuda cada pessoa a escrever mais rápido, mas não muda o pedido, o pagamento nem o contrato. A IA que dá resultado é a que entra no fluxo de trabalho — com regra, com histórico e com alguém aprovando o que tem consequência.
 - **Legenda do desenho:** Vinte pilotos. Um chega à operação.
 
+### A conta
+- **Título:** Quanto custa ↪ o jeito manual?
+- Uma conta de guardanapo, com os seus números. A parte acesa é o que pode voltar para a empresa. O diagnóstico refaz a conta com os dados de verdade.
+- Controles: Pessoas nesse processo · Horas por semana, cada uma · Custo da hora (salário e encargos) · Quanto a IA assume.
+- Resultado: "O jeito manual custa R$ X por ano em N horas de gente. Se a IA assumir P% desse trabalho, voltam R$ Y e M horas por ano." — fórmula à vista: pessoas × horas por semana × 48 semanas × custo da hora.
+- Botão: Levar essa conta para a conversa (e-mail com os números).
+- Por quê: não é promessa de retorno — é a conta da própria pessoa, dita como estimativa; o número real é trabalho do diagnóstico (Blair Enns: diagnosticar antes de receitar).
+
 ### A virada
 - **Título:** Eu não instalo IA. ↪ Eu construo o sistema com ela.
 - Até pouco tempo, eu construía sistemas do jeito tradicional: AppSheet, integrações, Django, Next.js. Hoje a IA está no centro de como eu trabalho. Agentes de IA levantam as regras, escrevem o código e os testes, em paralelo. Eu decido o que construir, reviso o que eles fazem e respondo pelo que vai para produção.
@@ -62,6 +72,12 @@ A ordem segue o StoryBrand (herói → o que está em jogo → guia → plano �
 - **Título:** Trabalho de operação, ↪ não chatbot de vitrine.
 - A IA que paga a conta está no back-office: onde o trabalho é repetitivo, tem regra e custa horas de gente boa. É ali que eu construo. *(O MIT encontrou o maior retorno no back-office, embora a maior parte do orçamento vá para vendas e marketing.)*
 - Sistemas internos sob medida · Documentos que se preenchem · Pagamentos e aprovações · Operação e logística · Atendimento e triagem · Integrações · Assistentes por voz — cada um com uma frase do que faz.
+
+### Rabisque
+- **Título:** Rabisque o sistema ↪ que falta na sua empresa.
+- Uma caixa para cada parte do trabalho, uma seta para o caminho que ele faz. Não precisa ser bonito: é assim que todo sistema começa. Depois, passe a limpo.
+- Botões: Passar a limpo · Desfazer · Apagar tudo · Ver um exemplo · Adicionar módulo · Me mandar este esboço · Baixar a imagem.
+- Por quê: o que a pessoa faz ela lembra. E o e-mail que chega já traz módulos e fluxos — a primeira reunião começa um passo à frente.
 
 ### Como começa
 - **Título:** Três etapas. ↪ Você decide a cada uma.

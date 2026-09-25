@@ -22,7 +22,7 @@
 let THREE = null;
 let buscandoThree = null;
 function buscarThree() {
-  buscandoThree ||= import('three').then((m) => (THREE = m));
+  buscandoThree ||= import('./gpu.js').then((m) => (THREE = m));
   return buscandoThree;
 }
 import { FORMAS, esquecerFormas } from './formas.js';
@@ -278,6 +278,8 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
   let pulso = null; // o segredo: um pulso de voz
   let aberto = false; // só aparece quando o carregamento sai da frente
   let introInicio = null;
+  let morfe = null; // uma troca de forma dentro da mesma estação
+  const carregadas = { A: null, B: null };
   const t0 = performance.now();
   const mouse = { x: -9999, y: -9999, on: 0, alvoOn: 0, r: 140 };
   const inclina = { x: 0, y: 0 };
@@ -341,7 +343,9 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
     document.querySelectorAll('[data-forma]').forEach((el) => {
       const caixaEl = el.dataset.caixa ? document.querySelector(el.dataset.caixa) : el;
       if (!caixaEl || !caixaEl.offsetWidth) return;
-      const trilho = el.closest('.trilho');
+      // um trilho só vale enquanto está preso (no celular os casos empilham)
+      const trilhoEl = el.closest('.trilho');
+      const trilho = trilhoEl && trilhoEl.offsetHeight > H * 1.3 ? trilhoEl : null;
       let a;
       let b;
       if (trilho) {
@@ -358,6 +362,13 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
         const fim = document.documentElement.scrollHeight - H;
         a = fim - H * 0.25;
         b = fim;
+      } else if (el.dataset.estacao === 'larga') {
+        // uma caixa em que a pessoa mexe (o quadro de desenho, a conta): a
+        // forma fica inteira por quase toda a passagem dela pela tela
+        const r = caixaEl.getBoundingClientRect();
+        const c = r.top + window.scrollY + r.height / 2;
+        a = c - H * 0.85;
+        b = c - H * 0.2;
       } else if (el.dataset.ate) {
         // um desenho que fica preso ao lado de uma lista: está inteiro desde
         // que a lista entra até ela terminar (medido pelo pai, porque a
@@ -445,9 +456,23 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
       ga = { f: FORMAS.poeira(W, H, N), x: 0, y: 0 };
       onde.t = intro;
     }
-    if (chave !== par) {
+    // uma forma que mudou no lugar (o desenho de quem lê, o número da conta):
+    // a antiga vira o ponto de partida e a nova chega com a mesma onda
+    if (morfe && intro === null && onde.i === onde.j && A.el === morfe.el) {
+      const p = (agora - morfe.inicio) / morfe.dur;
+      if (p >= 1 || parado) morfe = null;
+      else {
+        ga = { f: morfe.de, x: gb.x, y: gb.y };
+        onde.t = p;
+      }
+    }
+    // os buffers só são trocados quando a forma de um dos lados muda (as
+    // formas vêm de um cache: a mesma forma é o mesmo objeto)
+    if (chave !== par || ga.f !== carregadas.A || gb.f !== carregadas.B) {
       desenhista.carregar('A', ga.f);
       desenhista.carregar('B', gb.f);
+      carregadas.A = ga.f;
+      carregadas.B = gb.f;
       par = chave;
     }
 
@@ -576,6 +601,18 @@ export function criarMateria({ rolagem, som, qualidade: qualidadeInicial }) {
       ligar();
     },
     // o carregamento saiu: a poeira se junta no visto
+    // a forma que uma caixa mostra agora (para servir de partida de um morfe)
+    formaAtual(el) {
+      const e = estacoes.find((x) => x.el === el || x.caixaEl === el);
+      return e && N ? formaDe(e).f : null;
+    },
+    // a forma de uma caixa mudou: anima da antiga (de) para a nova, no lugar
+    morfar(el, de, dur = 1500) {
+      const e = estacoes.find((x) => x.el === el || x.caixaEl === el);
+      if (!e || !de) return;
+      morfe = { el: e.el, de, inicio: performance.now(), dur };
+      ligar();
+    },
     abrir() {
       aberto = true;
       introInicio = performance.now();

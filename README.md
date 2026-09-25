@@ -27,12 +27,21 @@ O motivo central é **o visto** — o V de Vinícius desenhado como a marca de q
 
 ## A matéria
 
-Uma massa de 9 a 22 mil partículas (na GPU) acompanha a página inteira e muda de forma a cada capítulo, junto com o texto: **visto → pilotos → pedido → aro → mapa → camadas → semanas → agentes → rotas → casco → pagamento → voz → página → retrato → horizonte → visto**. O fim fecha o começo.
+Uma massa de 9 a 22 mil partículas (na GPU) acompanha a página inteira e muda de forma a cada capítulo, junto com o texto: **visto → pilotos → a conta → pedido → aro → o seu rabisco → mapa → camadas → semanas → agentes → rotas → casco → pagamento → voz → página → retrato → horizonte → visto**. O fim fecha o começo.
 
 - Cada forma é **desenhada** num canvas escondido e **amostrada** (`src/materia/formas.js`): texto, traço ou foto viram forma, e ela tem acabamento de desenho, não de nuvem sorteada.
 - A rolagem diz entre quais duas formas estamos; a GPU faz a mistura, o voo, o respiro, o cursor e o estiramento da rolagem (`src/materia/motor.js`). O processador só troca os buffers quando o par de formas muda.
 - Subir desfaz exatamente o que descer fez. O cursor abre caminho e acende; segurar o clique abre um raio maior; rolar rápido estica a massa.
 - Três qualidades no painel: **Completa** (WebGL), **Leve** (canvas 2D, ~2 mil partículas), **Parado** (sem voo; a forma seguinte aparece num esmaecer). Na primeira visita a qualidade é escolhida pelo aparelho; movimento reduzido cai em Parado; o three.js só é baixado para a Completa, e a Leve desenha enquanto ele chega.
+
+## O que a pessoa pode fazer (não só assistir)
+
+- **A conta** (`src/site/conta.js`): pessoas × horas por semana × 48 semanas × custo da hora. A matéria escreve o custo anual e acende a fração que a IA pode assumir — o gráfico é o próprio número. "Levar essa conta para a conversa" abre um e-mail já com os números.
+- **Rabisque** (`src/site/esboco.js`): um quadro onde a pessoa desenha caixas (módulos) e setas (o caminho do trabalho). A cada traço a matéria ocupa o desenho. "Passar a limpo" reconhece caixas fechadas e setas, alinha tudo numa grade, liga cada seta às caixas certas e dá nome a cada módulo (editável). Sai por e-mail (módulos e fluxos escritos) ou como imagem. No toque, o quadro só captura o dedo depois de "Tocar para desenhar", para não virar armadilha de rolagem. Pelo teclado: "Adicionar módulo".
+- **Casos na horizontal** (`src/site/casos.js`): no computador a seção fica presa e as fichas passam de lado, parando em cada uma enquanto a matéria desenha o sistema dela. No celular, empilham.
+- **A foto por baixo** (`src/site/retrato.js`): o retrato em partículas é o rascunho; com o mouse, uma lanterna mostra a foto real onde a pessoa olha. No toque (ou pelo botão "Ver a foto"), a foto aparece inteira.
+
+O motor aceita formas **vivas** (`dinamicas` em `formas.js`): quando uma delas muda, `materia.morfar(caixa, formaAntiga)` anima da antiga para a nova no lugar.
 
 ## Estrutura
 
@@ -75,6 +84,6 @@ Com a fonte em "GitHub Actions", os `.md` da raiz deixam de virar páginas (ante
 
 ## Qualidade conferida (25/09/2026)
 
-- Detector do Impeccable: **48 → 1** achado no computador (1440×900) e **0** no celular (390×844 e 360×800). O que sobra no computador é oscilante: o detector às vezes mede uma frase do início no meio da entrada dela.
+- Detector do Impeccable: **0** achados no computador (1440×900) e no celular (390×844 e 360×800), nas duas paletas.
 - Sem erro de console no computador, no celular, nas qualidades Leve e Parado e no tema só claro.
 - Teclado: "Pular para o conteúdo", menu, painel de ajustes (abre, foca a opção marcada, fecha com Esc), perguntas abrindo com Enter.

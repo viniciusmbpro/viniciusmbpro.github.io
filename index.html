@@ -90,6 +90,7 @@
     <nav class="menu" id="menu" aria-label="Seções">
       <ul>
         <li><a href="#construo">O que construo</a></li>
+        <li><a href="#rabisque">Rabisque</a></li>
         <li><a href="#oferta">Como começa</a></li>
         <li><a href="#metodo">Método</a></li>
         <li><a href="#casos">Casos</a></li>
@@ -172,6 +173,46 @@
       </div>
     </section>
 
+    <!-- A CONTA -->
+    <section class="secao conta" id="conta" data-tema="claro" data-capitulo="A conta">
+      <div class="duas-colunas duas-colunas--topo">
+        <h2 class="titulo"><span class="linha">Quanto custa</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>o jeito <em class="grifo">manual</em>?</span></h2>
+        <p class="lide lide--menor">Uma conta de guardanapo, com os seus números. A parte acesa é o que pode voltar para a empresa. O diagnóstico refaz a conta com os dados de verdade.</p>
+      </div>
+      <div class="conta-grade">
+        <form class="conta-form" id="conta-form" onsubmit="return false">
+          <div class="campo">
+            <label for="c-pessoas">Pessoas nesse processo</label>
+            <output for="c-pessoas">4</output>
+            <input type="range" id="c-pessoas" name="pessoas" min="1" max="60" step="1" value="4" />
+          </div>
+          <div class="campo">
+            <label for="c-horas">Horas por semana, cada uma</label>
+            <output for="c-horas">10</output>
+            <input type="range" id="c-horas" name="horas" min="1" max="40" step="1" value="10" />
+          </div>
+          <div class="campo">
+            <label for="c-hora">Custo da hora (salário e encargos)</label>
+            <output for="c-hora">R$ 45</output>
+            <input type="range" id="c-hora" name="hora" min="15" max="250" step="5" value="45" />
+          </div>
+          <div class="campo">
+            <label for="c-parte">Quanto a IA assume</label>
+            <output for="c-parte">40%</output>
+            <input type="range" id="c-parte" name="parte" min="10" max="80" step="5" value="40" />
+          </div>
+        </form>
+        <div class="conta-saida">
+          <div class="figura figura--conta" id="conta-figura" data-forma="conta" data-estacao="larga" data-som="chegada" aria-hidden="true"></div>
+          <div class="conta-texto">
+            <p class="conta-resultado" id="conta-resultado" aria-live="polite"></p>
+            <p class="conta-formula">pessoas × horas por semana × 48 semanas × custo da hora</p>
+            <a class="botao botao--linha" id="conta-levar" href="mailto:viniciusmbpro@gmail.com">Levar essa conta para a conversa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- A VIRADA -->
     <section class="secao virada" id="virada" data-tema="claro" data-capitulo="A virada">
       <div class="coluna-larga">
@@ -204,6 +245,34 @@
           <li><h3>Assistentes por voz</h3><p>Do comando falado à tarefa feita, com registro do que foi pedido e do que foi executado.</p></li>
         </ol>
         <div class="figura figura--aro" data-forma="aro" data-ate="#roda" data-som="chegada" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- O ESBOÇO -->
+    <section class="secao esboco-secao" id="rabisque" data-tema="claro" data-capitulo="Rabisque">
+      <div class="duas-colunas duas-colunas--topo">
+        <h2 class="titulo"><span class="linha">Rabisque o sistema</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>que falta na sua <em class="grifo">empresa</em>.</span></h2>
+        <p class="lide lide--menor">Uma caixa para cada parte do trabalho, uma seta para o caminho que ele faz. Não precisa ser bonito: é assim que todo sistema começa. Depois, passe a limpo.</p>
+      </div>
+      <div class="esboco" id="esboco">
+        <div class="esboco-quadro figura" data-forma="esboco" data-estacao="larga" data-cursor="desenhar" role="group" aria-label="Quadro de desenho. Desenhe com o mouse ou o dedo; pelo teclado, use o botão Adicionar módulo.">
+          <canvas class="esboco-lapis" aria-hidden="true"></canvas>
+          <div class="esboco-rotulos"></div>
+          <p class="esboco-dica">Desenhe aqui: caixas para os módulos, setas entre elas.</p>
+          <button class="botao botao--cheio esboco-tocar" type="button" data-acao="desenhar">Tocar para desenhar</button>
+        </div>
+        <div class="esboco-controles">
+          <button class="botao botao--cheio" type="button" data-acao="limpo">Passar a limpo</button>
+          <button class="botao botao--linha" type="button" data-acao="desfazer">Desfazer</button>
+          <button class="botao botao--linha" type="button" data-acao="apagar">Apagar tudo</button>
+          <button class="botao botao--linha" type="button" data-acao="exemplo">Ver um exemplo</button>
+          <button class="botao botao--linha" type="button" data-acao="modulo">Adicionar módulo</button>
+        </div>
+        <p class="esboco-resumo" aria-live="polite"></p>
+        <div class="esboco-envio" hidden>
+          <a class="botao botao--cheio" data-acao="enviar" data-cursor="escrever" href="mailto:viniciusmbpro@gmail.com">Me mandar este esboço</a>
+          <button class="botao botao--linha" type="button" data-acao="baixar">Baixar a imagem</button>
+        </div>
       </div>
     </section>
 
@@ -275,6 +344,9 @@
         <p class="lide lide--menor">Sistemas que construí com esse método e que estão em uso. Os nomes ficam de fora; os números saem dos próprios repositórios, contados em 25 de setembro de 2026. <mark class="confirmar">[CONFIRMAR: posso publicar esses números de sistemas feitos para a empresa?]</mark></p>
       </div>
 
+      <div class="trilho trilho--h" id="trilho-casos" style="--passos: 5">
+        <div class="palco palco--h">
+          <div class="pista" id="pista-casos">
       <article class="ficha">
         <div class="figura figura--ficha" data-forma="rede" data-som="chegada" role="img" aria-label="Uma malha de pontos ligados por rotas, com uma rota acesa."></div>
         <div class="ficha-texto">
@@ -345,14 +417,23 @@
           </dl>
         </div>
       </article>
+          </div>
+          <div class="pista-rodape" aria-hidden="true">
+            <span class="pista-conta"><span id="pista-atual">1</span> de 5</span>
+            <span class="pista-barra"><span id="pista-enche"></span></span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- QUEM SOU -->
     <section class="secao quem" id="quem" data-tema="claro" data-capitulo="Quem sou">
       <div class="duas-colunas duas-colunas--retrato">
         <figure class="desenho">
-          <div class="figura figura--retrato" data-forma="retrato" data-som="chegada" role="img" aria-label="Retrato de Vinícius Marques em meio-tom, feito de partículas."></div>
-          <figcaption>Vinícius Marques, em partículas.</figcaption>
+          <div class="figura figura--retrato" id="retrato" data-forma="retrato" data-som="chegada">
+            <img class="retrato-real" src="/img/retrato-foto.webp" alt="Foto de Vinícius Marques, sorrindo, de camiseta escura." width="640" height="640" loading="lazy" decoding="async" />
+          </div>
+          <figcaption><span class="retrato-dica-mouse">Passe o mouse para ver a foto por baixo das partículas.</span> <button class="retrato-botao" type="button" aria-pressed="false">Ver a foto</button></figcaption>
         </figure>
         <div class="texto">
           <h2 class="titulo"><span class="linha">A mesma pessoa</span> <span class="linha linha--volta"><svg class="volta" viewBox="0 0 40 32" aria-hidden="true"><path d="M6 3v11a8 8 0 0 0 8 8h20M27 15l7 7-7 7" /></svg>do diagnóstico à <em class="grifo">produção</em>.</span></h2>

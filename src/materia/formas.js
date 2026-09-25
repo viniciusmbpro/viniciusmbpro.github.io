@@ -41,7 +41,7 @@ function sorteador(semente = 1) {
 const telaOculta = typeof document !== 'undefined' ? document.createElement('canvas') : null;
 
 // desenha e amostra. `desenhar(ctx, w, h)` pinta na escala da caixa.
-function amostrar(chave, w, h, n, desenhar, { resolucao = 360, semente = 7, oscilar = null, pesoPorTom = false } = {}) {
+export function amostrar(chave, w, h, n, desenhar, { resolucao = 360, semente = 7, oscilar = null, pesoPorTom = false } = {}) {
   const k = `${chave}|${Math.round(w)}|${Math.round(h)}|${n}`;
   if (cache.has(k)) return cache.get(k);
   // a forma é desenhada numa resolução fixa (rápido) e escalada de volta
@@ -126,8 +126,8 @@ function amostrar(chave, w, h, n, desenhar, { resolucao = 360, semente = 7, osci
   return forma;
 }
 
-const BRANCO = '#fff';
-const ACESO = '#f00';
+export const BRANCO = '#fff';
+export const ACESO = '#f00';
 
 // ---------------------------------------------------------------------------
 // O VISTO: o V de Vinícius desenhado como o visto de quem revisa — braço
@@ -715,6 +715,16 @@ export function formaAro(w, h, n) {
   }, { semente: 83 });
 }
 
+// formas que vêm de fora e mudam enquanto a página está aberta: o desenho de
+// quem lê (esboço) e o número da conta. Cada módulo registra aqui a sua
+// função; a versão entra na chave do cache, então uma mudança gera um objeto
+// novo e o motor recarrega sozinho.
+export const dinamicas = {};
+const vazia = (w, h, n) => amostrar('vazia', w, h, n, (ctx) => {
+  ctx.fillStyle = BRANCO;
+  ctx.fillRect(w / 2 - 2, h / 2 - 2, 4, 4);
+});
+
 export const FORMAS = {
   visto: (w, h, n) => formaVisto(w, h, n),
   'visto-ponta': (w, h, n) => formaVisto(w, h, n, { aceso: 'ponta' }),
@@ -734,4 +744,6 @@ export const FORMAS = {
   retrato: (w, h, n, esquema) => formaRetrato(w, h, n, { claro: esquema === 'claro' }),
   linha: formaLinha,
   aro: formaAro,
+  esboco: (w, h, n, esq) => (dinamicas.esboco || vazia)(w, h, n, esq),
+  conta: (w, h, n, esq) => (dinamicas.conta || vazia)(w, h, n, esq),
 };
